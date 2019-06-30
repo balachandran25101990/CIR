@@ -1,0 +1,281 @@
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\roslyn\csc.exe
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\roslyn\System.Collections.Immutable.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\roslyn\System.Reflection.Metadata.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\roslyn\vbc.exe
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\roslyn\VBCSCompiler.exe
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\roslyn\VBCSCompiler.exe.config
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\GamesaCIR.dll.config
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\GamesaCIR.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\GamesaCIR.pdb
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Antlr3.Runtime.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\CIR.DataAccess.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\CIR.DomainModel.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\log4net.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Microsoft.AspNet.SignalR.Client.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Microsoft.AspNet.SignalR.Core.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Microsoft.Owin.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Microsoft.Owin.Security.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Microsoft.Web.Infrastructure.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Newtonsoft.Json.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Owin.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Swashbuckle.Core.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Net.Http.Formatting.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Helpers.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Http.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Http.WebHost.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Mvc.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Optimization.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Razor.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Webpages.Deployment.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Webpages.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Webpages.Razor.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\WebGrease.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Dapper.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\CIR.DataAccess.pdb
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\CIR.DomainModel.pdb
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Antlr3.Runtime.pdb
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\log4net.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Microsoft.AspNet.SignalR.Client.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Microsoft.AspNet.SignalR.Core.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Microsoft.Owin.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Microsoft.Owin.Security.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Newtonsoft.Json.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Net.Http.Formatting.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Http.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Http.WebHost.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Optimization.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Razor.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Webpages.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Webpages.Deployment.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Webpages.Razor.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Helpers.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\System.Web.Mvc.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Dapper.pdb
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\bin\Dapper.xml
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\obj\Debug\GamesaCIR.csprojResolveAssemblyReference.cache
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\obj\Debug\GamesaCIR.dll
+E:\Senthil\Gamesa CIR Development Code\GamesaCIR\obj\Debug\GamesaCIR.pdb
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\roslyn\csc.exe
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\roslyn\System.Collections.Immutable.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\roslyn\System.Reflection.Metadata.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\roslyn\vbc.exe
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\roslyn\VBCSCompiler.exe
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\roslyn\VBCSCompiler.exe.config
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\GamesaCIR.dll.config
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\GamesaCIR.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\GamesaCIR.pdb
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Antlr3.Runtime.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\CIR.DataAccess.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\CIR.DomainModel.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\log4net.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Microsoft.AspNet.SignalR.Client.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Microsoft.AspNet.SignalR.Core.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Microsoft.Owin.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Microsoft.Owin.Security.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Microsoft.Web.Infrastructure.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Newtonsoft.Json.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Owin.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Swashbuckle.Core.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Net.Http.Formatting.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Helpers.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Http.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Http.WebHost.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Mvc.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Optimization.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Razor.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Webpages.Deployment.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Webpages.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Webpages.Razor.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\WebGrease.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Dapper.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\CIR.DataAccess.pdb
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\CIR.DomainModel.pdb
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Antlr3.Runtime.pdb
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\log4net.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Microsoft.AspNet.SignalR.Client.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Microsoft.AspNet.SignalR.Core.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Microsoft.Owin.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Microsoft.Owin.Security.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Newtonsoft.Json.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Net.Http.Formatting.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Http.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Http.WebHost.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Optimization.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Razor.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Webpages.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Webpages.Deployment.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Webpages.Razor.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Helpers.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\System.Web.Mvc.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Dapper.pdb
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\Dapper.xml
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\obj\Debug\GamesaCIR.csprojResolveAssemblyReference.cache
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\obj\Debug\GamesaCIR.dll
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\obj\Debug\GamesaCIR.pdb
+E:\Senthil\Gamesa CIR Development Code FS\GamesaCIR\bin\CIR.DataAccess.dll.config
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\roslyn\csc.exe
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\roslyn\System.Collections.Immutable.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\roslyn\System.Reflection.Metadata.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\roslyn\vbc.exe
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\roslyn\VBCSCompiler.exe
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\roslyn\VBCSCompiler.exe.config
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\GamesaCIR.dll.config
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\GamesaCIR.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\GamesaCIR.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Antlr3.Runtime.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\CIR.DataAccess.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\CIR.DomainModel.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\log4net.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Microsoft.AspNet.SignalR.Client.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Microsoft.AspNet.SignalR.Core.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Microsoft.Owin.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Microsoft.Owin.Security.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Microsoft.Web.Infrastructure.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Newtonsoft.Json.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Owin.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Swashbuckle.Core.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Net.Http.Formatting.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Helpers.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Http.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Http.WebHost.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Mvc.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Optimization.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Razor.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Webpages.Deployment.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Webpages.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Webpages.Razor.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\WebGrease.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Dapper.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\CIR.DataAccess.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\CIR.DataAccess.dll.config
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\CIR.DomainModel.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Antlr3.Runtime.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\log4net.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Microsoft.AspNet.SignalR.Client.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Microsoft.AspNet.SignalR.Core.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Microsoft.Owin.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Microsoft.Owin.Security.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Newtonsoft.Json.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Net.Http.Formatting.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Http.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Http.WebHost.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Optimization.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Razor.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Webpages.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Webpages.Deployment.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Webpages.Razor.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Helpers.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\System.Web.Mvc.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Dapper.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\bin\Dapper.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\obj\Debug\GamesaCIR.csprojResolveAssemblyReference.cache
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\obj\Debug\GamesaCIR.csproj.CoreCompileInputs.cache
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\obj\Debug\GamesaCIR.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\GamesaCIR\obj\Debug\GamesaCIR.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\roslyn\csc.exe
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\roslyn\System.Collections.Immutable.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\roslyn\System.Reflection.Metadata.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\roslyn\vbc.exe
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\roslyn\VBCSCompiler.exe
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\roslyn\VBCSCompiler.exe.config
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\GamesaCIR.dll.config
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\GamesaCIR.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\GamesaCIR.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Antlr3.Runtime.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\CIR.DataAccess.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\CIR.DomainModel.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\log4net.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Microsoft.AspNet.SignalR.Client.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Microsoft.AspNet.SignalR.Core.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Microsoft.Owin.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Microsoft.Owin.Host.SystemWeb.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Microsoft.Owin.Security.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Microsoft.Web.Infrastructure.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Newtonsoft.Json.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Owin.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Swashbuckle.Core.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Net.Http.Formatting.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Helpers.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Http.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Http.WebHost.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Mvc.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Optimization.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Razor.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Webpages.Deployment.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Webpages.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Webpages.Razor.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\WebGrease.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Dapper.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\CIR.DataAccess.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\CIR.DataAccess.dll.config
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\CIR.DomainModel.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Antlr3.Runtime.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\log4net.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Microsoft.AspNet.SignalR.Client.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Microsoft.AspNet.SignalR.Core.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Microsoft.Owin.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Microsoft.Owin.Host.SystemWeb.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Microsoft.Owin.Security.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Newtonsoft.Json.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Net.Http.Formatting.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Http.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Http.WebHost.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Optimization.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Razor.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Webpages.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Webpages.Deployment.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Webpages.Razor.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Helpers.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\System.Web.Mvc.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Dapper.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\bin\Dapper.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\obj\Debug\GamesaCIR.csprojResolveAssemblyReference.cache
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\obj\Debug\GamesaCIR.csproj.CoreCompileInputs.cache
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\obj\Debug\GamesaCIR.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\GamesaCIR\obj\Debug\GamesaCIR.pdb

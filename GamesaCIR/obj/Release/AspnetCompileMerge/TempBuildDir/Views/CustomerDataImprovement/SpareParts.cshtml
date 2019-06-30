@@ -1,0 +1,161 @@
+﻿
+@{
+    ViewBag.Title = "SpareParts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var GetMasterCollectionSpareUrl = "@Url.Action("GetMasterCollection", "Master")";
+    var GetDMMasterUrl = "@Url.Action("GetDMMaster", "CustomerDataImprovement")";
+    var GetSparePartsUrl = "@Url.Action("GetSpareParts", "CustomerDataImprovement")";
+    var SetSparePartsUrl = "@Url.Action("SetSpareParts", "CustomerDataImprovement")";
+    var FileUpload = "@Url.Action("FileUploadSpareParts", "CustomerDataImprovement")";
+    var GetDMExcelUrl = "@Url.Action("GetDMExcelUrl", "CustomerDataImprovement")";
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+    var GetLogFileUrl = "@Url.Action("LogFile", "Admin")";
+
+</script>
+
+<div class="col-lg-12 pad-0" ng-controller="SpareParts_OperController" ng-init="Initializtion()">
+    <div class="content-part">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5 class="heading-h">Spare Parts / Special Tools / Material Requirement</h5>
+            </div>
+            <div class="row mar-0 fomr-div">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <span>DM Title</span><span style="color:red;padding:5px;">*</span>
+                    <select id="ddlDMTitle" ng-model="ddlDMTitle" ng-change="ddlDMTitleChange()">
+                        <option value="0">-- Select One --</option>
+                        <option ng-repeat="option in DMTitleDropdownArray" value="{{option.DMId}}">{{option.DM}}</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <span>Type</span><br>
+                    <select id="ddlType" ng-model="ddlType" ng-change="ddlTypeChange()">
+                        <option value="0">-- Spare Special --</option>
+                        <option ng-repeat="option in SparePartsDropdownArray" value="{{option.MCId}}">{{option.Name}}</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <span>Name</span><span style="color:red;padding:5px;">*</span>
+                    <input type="text" ng-model="txtName" id="txtName" />
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <input type="file" ng-model="FileName" id="FileName" style="margin-top: 20px">
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 20px; padding-left: 0px;">
+                        <button type="button" ng-click="SaveData()" id="btnsave" class="btn btn-default SaveButton" ng-show="Add || UpdateOnly">Save</button>
+                        <button type="button" ng-click="Clear()" class="btn btn-default" style="margin-left:20px;">Clear</button>
+                </div>
+            </div>
+            <br />
+            <div class="col-lg-12">
+                <div class="input-group col-xs-6 col-sm-6 col-lg-6 col-md-6" style="margin-bottom: 15px;">
+                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                    <input type="text" class="form-control" placeholder="Search the Spare Parts / Special Tools / Material Name" ng-model="SearchDMTools" style="height: 35px;">
+                </div>
+                <div class="grid-div">
+                    <table cellpadding="0" cellspacing="0" class="table table-hover table-responsive">
+                        <thead style="border-top: 1px solid #dddddd;border-bottom: 2px solid #dddddd;">
+                            <tr>
+                                <th style="color:#6b6b6b;font-weight:bold;cursor:pointer;text-align:center;" ng-click="sortType = 'Slno'; sortReverse = !sortReverse">
+                                    SlNo
+                                    <span ng-show="sortType == 'Slno' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'Slno' && sortReverse" class="fa fa-caret-up"></span>
+                                </th>
+                                <th style="color:#6b6b6b;font-weight:bold;cursor:pointer;" ng-click="sortType = 'DM'; sortReverse = !sortReverse">
+                                    DM Title
+                                    <span ng-show="sortType == 'DM' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'DM' && sortReverse" class="fa fa-caret-up"></span>
+                                </th>
+                                <th style="color:#6b6b6b;font-weight:bold;cursor:pointer;" ng-click="sortType = 'Type'; sortReverse = !sortReverse">
+                                    Type
+                                    <span ng-show="sortType == 'Type' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'Type' && sortReverse" class="fa fa-caret-up"></span>
+                                </th>
+                                <th style="color:#6b6b6b;font-weight:bold;cursor:pointer;" ng-click="sortType = 'Tool'; sortReverse = !sortReverse">
+                                    Name
+                                    <span ng-show="sortType == 'Tool' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'Tool' && sortReverse" class="fa fa-caret-up"></span>
+                                </th>
+                                <th style="color:#6b6b6b;font-weight:bold;cursor:pointer;" ng-click="sortType = 'Filename'; sortReverse = !sortReverse">
+                                    File Name
+                                    <span ng-show="sortType == 'Filename' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'Filename' && sortReverse" class="fa fa-caret-up"></span>
+                                </th>
+                                <th style="color:#6b6b6b;font-weight:bold;text-align:center; cursor:pointer;" ng-show="Update || Delete">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody style="border-bottom: 1px solid #dddddd;">
+                            <tr ng-repeat="item in SparePartsArray | orderBy:sortType:sortReverse | filter:SearchDMTools   | pagination: curPage * pageSize | limitTo: pageSize">
+                                <td style="text-align:center;"><span ng-bind="item.Slno"></span></td>
+                                <td><span ng-bind="item.DM"></span></td>
+                                <td><span ng-bind="item.Type"></span></td>
+                                <td><span ng-bind="item.Tool"></span></td>
+                                <td><a href="~/SpareUploadImage/{{item.Filename}}" target="_blank"  ng-show="Download"><span ng-bind="item.Filename"></span></a>
+                                    <span ng-bind="item.Filename" ng-show="!Download"></span>
+                                </td>
+                                <td style="text-align:center;" ng-show="Update || Delete">
+                                    <a style="cursor: pointer;" ng-click="DeleteDMMaster(item)" data-toggle="tooltip" ng-show="Delete" data-placement="top" title="Delete" onmouseover="$(this).tooltip('show')">
+                                        <img style="height: 20px;" src="~/Content/img/delete.png" />
+                                    </a>
+                                    <a style="cursor: pointer;" ng-click="EditDMMaster(item)" data-toggle="tooltip" ng-show="Update" data-placement="top" title="Edit" onmouseover="$(this).tooltip('show')">
+                                        <img style="height: 20px;" src="~/Content/img/edit.png">
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-show="SparePartsArray.length > pageSize">
+                        <div class="col-lg-8 col-sm-12 col-xs-12 col-md-8" style="padding-left:0px;">
+                            <ul class="pagination-controle pagination">
+                                <li>
+                                    <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                            ng-click="curPage=0" style="border-radius  : 0px;">
+                                        &lt;&lt; First
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                            ng-click="curPage=curPage-1" style="border-radius  : 0px;">
+                                        &lt; Prev
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                            ng-disabled="curPage >= SparePartsArray.length/pageSize - 1"
+                                            ng-click="curPage = curPage+1">
+                                        Next &gt;
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                            ng-disabled="curPage >= SparePartsArray.length/pageSize - 1"
+                                            ng-click="LastPage()">
+                                        Last &gt;&gt;
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4" style="padding:20px;padding-right:0px;">
+                            <span style="color: black;padding: 8px;background-color: #bbbbbb;" class="pull-right">Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+<script src="~/CIRScripts/CustomerDataImprovementController.js"></script>

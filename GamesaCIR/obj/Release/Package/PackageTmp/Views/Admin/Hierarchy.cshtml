@@ -1,0 +1,261 @@
+﻿
+@{
+    ViewBag.Title = "Hierarchy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var GetDesignationUrl = "@Url.Action("GetDesignationDetails", "Admin")";
+    var SetHierarchyDetailsUrl = "@Url.Action("SetHierarchyDetails", "Admin")";
+    var GetHierarchyDetailsUrl = "@Url.Action("GetHierarchyDetails", "Admin")";
+    var GetStatusUrl = "@Url.Action("GetStatus", "Admin")";
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+    var GetLogFileUrl = "@Url.Action("LogFile", "Admin")";
+</script>
+<div class="col-lg-12 pad-0" ng-controller="Hierarchy_OperController">
+    <div class="content-part" style="min-height:90vh;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5 class="heading-h">Hierarchy</h5>
+            </div>
+            <div class="row mar-0 fomr-div">
+                <div class="row mar-0 fomr-div">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>From Designation</span><span style="color:red;padding:5px;">*</span>
+                        <select id="ddlFromDesignation" ng-model="FromDesignationId">
+                            <option value="0">-- Select one --</option>
+                            <option ng-repeat="option in FromDesignationArray" value="{{option.DsgId}}">{{option.Designation}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Status</span><span style="color:red;padding:5px;">*</span>
+                        <select id="ddlStatus" ng-model="Status">
+                            <option value="0">-- Select one --</option>
+                            <option ng-repeat="option in StatusArray" value="{{option.StsId}}">{{option.Status}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>To Designation</span><span style="color:red;padding:5px;">*</span>
+                        <select id="ddlToDesignation" ng-model="ToDesignationId">
+                            <option value="0">-- Select one --</option>
+                            <option ng-repeat="option in ToDesignationArray" value="{{option.DsgId}}">{{option.Designation}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 15px;">
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" ng-model="AutoAssigned" ng-true-value="'1'" ng-false-value="'0'" checked="checked" id="chkAutoAssign" style="font-size: 12px; color: #808080; padding: 3px; width: auto; margin-bottom: 5px; height: 24px;" />
+                                </td>
+                                <td>
+                                    <span style="margin-left: 10px;">Auto Assign</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div style="margin-top: 8px;" class="row mar-0 fomr-div">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="margin-top: 10px; font-size: 12px;">
+                        <a href="#" class="btn btn-default SaveButton" ng-click="Save()" style="margin-left: 0px;" id="aSave" ng-show="Add">Save</a>
+                        <a href="#" class="btn btn-default SaveButton" ng-click="UpdateHierarchy()" id="aUpdate" style="display: none;" ng-show="Update">Update</a>
+                        <a href="#" class="btn btn-default ClearButton" ng-click="Clear()" >Clear</a>
+                    </div>
+                </div>  
+                <br />
+            </div>
+            <div class="row mar-0 fomr-div" style="margin: 0px 0px 0px 0px;">
+                <div class="row mar-0 fomr-div" style="margin-bottom: 15px;">
+                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                        <div class="input-group col-lg-6 col-sm-12 col-md-6 col-xs-12" style="margin-bottom: 15px;">
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                            <input type="text" class="form-control" placeholder="Search" ng-model="searchHierachy"  style="height: 35px;">
+                        </div>
+                        <div>
+                            <table cellpadding="0" cellspacing="0" class="table table-hover table-responsive">
+                                <thead style="border-top: 1px solid #dddddd;border-bottom: 2px solid #dddddd;">
+                                    <tr>
+                                        <th ng-click="sortType = 'Slno'; sortReverse = !sortReverse" style="text-align:center; cursor:pointer;">
+                                            <a style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                SlNo
+                                                <span ng-show="sortType == 'Slno' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'Slno' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </th>
+                                        <th ng-click="sortType = 'Frmdesig'; sortReverse = !sortReverse" style="cursor:pointer;">
+                                            <a style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                From Designation
+                                                <span ng-show="sortType == 'Frmdesig' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'Frmdesig' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </th>
+                                        <th ng-click="sortType = 'Todesig'; sortReverse = !sortReverse" style="cursor:pointer;">
+                                            <a style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                To Designation
+                                                <span ng-show="sortType == 'Todesig' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'Todesig' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </th>
+                                        <th ng-click="sortType = 'CSts'; sortReverse = !sortReverse" style="cursor:pointer;">
+                                            <a style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                Status
+                                                <span ng-show="sortType == 'CSts' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'CSts' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </th>
+                                        <th style="text-align:center;">
+                                            <span style="font-weight: bold; color: #6b6b6b;">Auto Assign</span>
+                                        </th>
+                                        <th style="text-align:center;" ng-show="Update || Delete">
+                                            <span style="font-weight: bold; color: #6b6b6b;">Action</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody style="border-bottom: 1px solid #dddddd;">
+                                    <tr ng-repeat="row in HierarchyArray  | orderBy:sortType:sortReverse | filter:searchHierachy  | pagination: curPage * pageSize | limitTo: pageSize">
+                                        <td style="text-align:center;">{{row.SlNo}}</td>
+                                        <td>{{row.Frmdesig}}</td>
+                                        <td>{{row.Todesig}}</td>
+                                        <td>{{row.CSts}}</td>
+                                        <td style="text-align: center;">
+                                            <input type="checkbox" disabled="disabled" ng-model="row.AutoAssign" ng-true-value="'True'" ng-false-value="'False'" style="height: 15px;">
+                                        </td>
+                                        <td style="text-align: center;" ng-show="Update || Delete">
+                                            <a style="cursor: pointer;" ng-click="DeleteHierarchy(row.CHId)" ng-show="Delete" data-toggle="tooltip" data-placement="top" title="Delete" onmouseover="$(this).tooltip('show')">
+                                                <img style="height: 20px;" src="~/Content/img/delete.png">
+                                            </a>
+                                            <a style="cursor: pointer;" ng-click="Edit(row)" data-toggle="tooltip" ng-show="Update" data-placement="top" title="Edit" onmouseover="$(this).tooltip('show')">
+                                                <img style="height: 20px;" src="~/Content/img/edit.png">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div ng-show="HierarchyArray.length > pageSize">
+                                <div class="col-lg-8 col-sm-12 col-xs-12 col-md-8" style="padding-left:0px;">
+                                    <ul class="pagination-controle pagination">
+                                        <li>
+                                            <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                    ng-click="curPage=0" style="border-radius  : 0px;">
+                                                &lt;&lt; First
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                    ng-click="curPage=curPage-1" style="border-radius  : 0px;">
+                                                &lt; Prev
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                                    ng-disabled="curPage >= HierarchyArray.length/pageSize - 1"
+                                                    ng-click="curPage = curPage+1">
+                                                Next &gt;
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                                    ng-disabled="curPage >= HierarchyArray.length/pageSize - 1"
+                                                    ng-click="LastPage()">
+                                                Last &gt;&gt;
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4" style="padding:20px;padding-right:0px;">
+                                    <span style="color: black;padding: 8px;background-color: #bbbbbb;" class="pull-right">Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+
+    (function () {
+        angular
+            .module('anguFixedHeaderTable', [])
+            .directive('fixedHeader', fixedHeader);
+
+        fixedHeader.$inject = ['$timeout'];
+
+        function fixedHeader($timeout) {
+            return {
+                restrict: 'A',
+                link: link
+            };
+
+            function link($scope, $elem, $attrs, $ctrl) {
+                var elem = $elem[0];
+
+                // wait for data to load and then transform the table
+                $scope.$watch(tableDataLoaded, function (isTableDataLoaded) {
+                    if (isTableDataLoaded) {
+                        transformTable();
+                    }
+                });
+
+                function tableDataLoaded() {
+                    // first cell in the tbody exists when data is loaded but doesn't have a width
+                    // until after the table is transformed
+                    var firstCell = elem.querySelector('tbody tr:first-child td:first-child');
+                    return firstCell && !firstCell.style.width;
+                }
+
+                function transformTable() {
+                    // reset display styles so column widths are correct when measured below
+                    angular.element(elem.querySelectorAll('thead, tbody, tfoot')).css('display', '');
+
+                    // wrap in $timeout to give table a chance to finish rendering
+                    $timeout(function () {
+                        // set widths of columns
+                        angular.forEach(elem.querySelectorAll('tr:first-child th'), function (thElem, i) {
+
+                            var tdElems = elem.querySelector('tbody tr:first-child td:nth-child(' + (i + 1) + ')');
+                            var tfElems = elem.querySelector('tfoot tr:first-child td:nth-child(' + (i + 1) + ')');
+
+                            var columnWidth = tdElems ? tdElems.offsetWidth : thElem.offsetWidth;
+                            if (tdElems) {
+                                tdElems.style.width = columnWidth + 'px';
+                            }
+                            if (thElem) {
+                                thElem.style.width = columnWidth + 'px';
+                            }
+                            if (tfElems) {
+                                tfElems.style.width = columnWidth + 'px';
+                            }
+                        });
+
+                        // set css styles on thead and tbody
+                        angular.element(elem.querySelectorAll('thead, tfoot')).css('display', 'block');
+
+                        angular.element(elem.querySelectorAll('tbody')).css({
+                            'display': 'block',
+                            'height': $attrs.tableHeight || 'inherit',
+                            'overflow': 'auto'
+                        });
+
+                        // reduce width of last column by width of scrollbar
+                        var tbody = elem.querySelector('tbody');
+                        var scrollBarWidth = tbody.offsetWidth - tbody.clientWidth;
+                        if (scrollBarWidth > 0) {
+                            // for some reason trimming the width by 2px lines everything up better
+                            scrollBarWidth -= 2;
+                            var lastColumn = elem.querySelector('tbody tr:first-child td:last-child');
+                            lastColumn.style.width = (lastColumn.offsetWidth - scrollBarWidth) + 'px';
+                        }
+                    });
+                }
+            }
+        }
+    })();
+</script>
+<script src="~/CIRScripts/AdminController.js" type="text/javascript"></script>
+

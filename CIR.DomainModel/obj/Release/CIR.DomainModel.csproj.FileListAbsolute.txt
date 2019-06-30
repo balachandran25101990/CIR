@@ -1,0 +1,40 @@
+E:\Balachandran\Gamesa CIR Final Source\Version 1.0001\GamesaCIR\CIR.DomainModel\bin\Release\CIR.DomainModel.dll
+E:\Balachandran\Gamesa CIR Final Source\Version 1.0001\GamesaCIR\CIR.DomainModel\bin\Release\CIR.DomainModel.pdb
+E:\Balachandran\Gamesa CIR Final Source\Version 1.0001\GamesaCIR\CIR.DomainModel\obj\Release\CIR.DomainModel.dll
+E:\Balachandran\Gamesa CIR Final Source\Version 1.0001\GamesaCIR\CIR.DomainModel\obj\Release\CIR.DomainModel.pdb
+E:\Balachandran\Gamesa CIR Final Source\Version 1.0001\GamesaCIR\CIR.DomainModel\obj\Release\CIR.DomainModel.csprojResolveAssemblyReference.cache
+D:\Gamesa CIR Latest\GamesaCIR\CIR.DomainModel\bin\Release\CIR.DomainModel.dll
+D:\Gamesa CIR Latest\GamesaCIR\CIR.DomainModel\bin\Release\CIR.DomainModel.pdb
+D:\Gamesa CIR Latest\GamesaCIR\CIR.DomainModel\obj\Release\CIR.DomainModel.csprojResolveAssemblyReference.cache
+D:\Gamesa CIR Latest\GamesaCIR\CIR.DomainModel\obj\Release\CIR.DomainModel.dll
+D:\Gamesa CIR Latest\GamesaCIR\CIR.DomainModel\obj\Release\CIR.DomainModel.pdb
+D:\Gamesa CIR -Senthil\GamesaCIR\CIR.DomainModel\bin\Release\CIR.DomainModel.dll
+D:\Gamesa CIR -Senthil\GamesaCIR\CIR.DomainModel\bin\Release\CIR.DomainModel.pdb
+D:\Gamesa CIR -Senthil\GamesaCIR\CIR.DomainModel\obj\Release\CIR.DomainModel.csprojResolveAssemblyReference.cache
+D:\Gamesa CIR -Senthil\GamesaCIR\CIR.DomainModel\obj\Release\CIR.DomainModel.dll
+D:\Gamesa CIR -Senthil\GamesaCIR\CIR.DomainModel\obj\Release\CIR.DomainModel.pdb
+D:\GamesaCIR-Senthil\GamesaCIR\CIR.DomainModel\bin\Release\CIR.DomainModel.dll
+D:\GamesaCIR-Senthil\GamesaCIR\CIR.DomainModel\bin\Release\CIR.DomainModel.pdb
+D:\GamesaCIR-Senthil\GamesaCIR\CIR.DomainModel\obj\Release\CIR.DomainModel.csprojResolveAssemblyReference.cache
+D:\GamesaCIR-Senthil\GamesaCIR\CIR.DomainModel\obj\Release\CIR.DomainModel.dll
+D:\GamesaCIR-Senthil\GamesaCIR\CIR.DomainModel\obj\Release\CIR.DomainModel.pdb
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DomainModel\bin\Release\CIR.DomainModel.dll
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DomainModel\bin\Release\CIR.DomainModel.pdb
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DomainModel\obj\Release\CIR.DomainModel.csprojResolveAssemblyReference.cache
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DomainModel\obj\Release\CIR.DomainModel.dll
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DomainModel\obj\Release\CIR.DomainModel.pdb
+E:\Gamesa CIR Development Code\CIR.DomainModel\bin\Release\CIR.DomainModel.dll
+E:\Gamesa CIR Development Code\CIR.DomainModel\bin\Release\CIR.DomainModel.pdb
+E:\Gamesa CIR Development Code\CIR.DomainModel\obj\Release\CIR.DomainModel.csprojResolveAssemblyReference.cache
+E:\Gamesa CIR Development Code\CIR.DomainModel\obj\Release\CIR.DomainModel.dll
+E:\Gamesa CIR Development Code\CIR.DomainModel\obj\Release\CIR.DomainModel.pdb
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DomainModel\bin\Release\CIR.DomainModel.dll
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DomainModel\bin\Release\CIR.DomainModel.pdb
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DomainModel\obj\Release\CIR.DomainModel.csprojResolveAssemblyReference.cache
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DomainModel\obj\Release\CIR.DomainModel.dll
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DomainModel\obj\Release\CIR.DomainModel.pdb
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DomainModel\bin\Release\CIR.DomainModel.dll
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DomainModel\bin\Release\CIR.DomainModel.pdb
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DomainModel\obj\Release\CIR.DomainModel.csprojResolveAssemblyReference.cache
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DomainModel\obj\Release\CIR.DomainModel.dll
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DomainModel\obj\Release\CIR.DomainModel.pdb

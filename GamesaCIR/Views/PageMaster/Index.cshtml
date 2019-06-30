@@ -1,0 +1,149 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    var SetPageUrl = "@Url.Action("SetPage", "PageMaster")";
+    var GetPageUrl = "@Url.Action("GetPage", "PageMaster")";
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+    var GetLogFileUrl = "@Url.Action("LogFile", "Admin")";
+</script>
+<div class="col-lg-12 pad-0" ng-controller="Page_OperController">
+    <div class="content-part" style="min-height:90vh;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5 class="heading-h">Page Master</h5>
+            </div>
+
+            <div style="margin-bottom:15px;" class="row mar-0 fomr-div">
+                <div class="col-lg-3 col-md-3">
+                    <span>Masters</span><br>
+                    <select id="ddlMaster"  ng-model="RefId" ng-change="GetPage()" >
+                        <option value="0">-- Add New --</option>
+                        <option ng-repeat="option in MasterSelect" value="{{option.MdlId}}">{{option.Module}}</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                </div>
+                <div class="col-lg-3 col-md-3">
+                </div>
+                <div class="col-lg-3 col-md-3">
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="input-group col-xs-6 col-sm-6 col-lg-6 col-md-6" style="margin-bottom: 15px;">
+                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                    <input type="text" class="form-control" placeholder="Search the Page" ng-model="searchPage" style="height: 35px;">
+                </div>
+                <div>
+                    <table cellpadding="0" cellspacing="0" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th ng-click="sortType = 'SlNo'; sortReverse = !sortReverse" style="width:8%;color:#6b6b6b;text-align:center;cursor:pointer;">SlNo
+                                    <span ng-show="sortType == 'SlNo' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'SlNo' && sortReverse" class="fa fa-caret-up"></span></th>
+                                <th ng-click="sortType = 'Module'; sortReverse = !sortReverse" style="width:30%;color:#6b6b6b;cursor:pointer;">Page Name
+                                    <span ng-show="sortType == 'Module' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'Module' && sortReverse" class="fa fa-caret-up"></span></th>
+                                <th ng-click="sortType = 'Action'; sortReverse = !sortReverse" style="width:30%;color:#6b6b6b;cursor:pointer;">Action
+                                    <span ng-show="sortType == 'Action' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'Action' && sortReverse" class="fa fa-caret-up"></span></th>
+                                <th ng-click="sortType = 'Controller'; sortReverse = !sortReverse" style="width:30%;color:#6b6b6b;cursor:pointer;">Contoller
+                                    <span ng-show="sortType == 'Controller' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'Controller' && sortReverse" class="fa fa-caret-up"></span></th>
+                                <th style="width:5%; text-align:center;color:#6b6b6b;">Menu</th>
+                                <th style="width:5%; text-align:center;color:#6b6b6b;">Active</th>
+                                <th style="width:5%;color:#6b6b6b;text-align:center;">Action</th>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center;">
+                                   {{PageGridArray.length + 1}}
+                                    <input id="hfPgeId" ng-model="PgeId" type="hidden">
+                                </td>
+                                <td><input id="txtPageName" ng-model="Name" style="width:100%;" type="text"></td>
+                                <td><input id="txtPageAction" ng-model="Action" style="width:100%;" type="text"></td>
+                                <td><input id="txtPageController" ng-model="Controller" style="width:100%;" type="text"></td>
+                                <td style="text-align:center;"><input ng-model="Menu" ng-true-value="'1'" ng-false-value="'0'" type="checkbox" checked="checked" id="chkMenu"></td>
+                                <td style="text-align:center;"><input ng-model="Active" ng-true-value="'1'" ng-false-value="'0'" type="checkbox" checked="checked" id="chkActive"></td>
+                                <td style="text-align:center;"><a style="cursor:pointer;" ng-click="SetPage()" ng-show="Add || UpdateOnly"><img src="~/Content/img/add-btn.png"></a></td>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr ng-repeat="row in PageGridArray  | orderBy:sortType:sortReverse | filter:searchPage   | pagination: curPage * pageSize | limitTo: pageSize">
+                                <td scope="row" style="text-align:center;">{{row.SlNo}}</td>
+                                <td>{{row.Module}}</td>
+                                <td>{{row.Action}}</td>
+                                <td>{{row.Controller}}</td>
+                                <td style="text-align:center;"><input type="checkbox" disabled="disabled" ng-model="row.Menu" ng-true-value="'True'" ng-false-value="'False'"></td>
+                                <td style="text-align:center;"><input type="checkbox" disabled="disabled" ng-model="row.Active" ng-true-value="'True'" ng-false-value="'False'"></td>
+                                <td style="text-align:center;"><a style="cursor:pointer;" ng-click="EditPage(row)" ng-show="Update"><img style="height:20px;" src="~/Content/img/edit.png"></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination pagination-centered" ng-show="PageGridArray.length > pageSize">
+                        <ul class="pagination-controle pagination">
+                            <li>
+                                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                        ng-click="curPage=curPage-1" style="border-radius  : 0px;">
+                                    &lt; Prev
+                                </button>
+                            </li>
+                            <li>
+                                <span style="color:black;">Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+                            </li>
+                            <li>
+                                <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                        ng-disabled="curPage >= PageGridArray.length/pageSize - 1"
+                                        ng-click="curPage = curPage+1">
+                                    Next &gt;
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row mar-0">
+                <div class="col-lg-12">
+                    <div class="line"></div>
+                </div>
+            </div>
+            @*<div class="row mar-0">
+                <div class="col-lg-12">
+                    <nav>
+                        <ul class="pagination">
+                            <li>
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">«</span>
+                                </a>
+                            </li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li>
+                                <a href="#" aria-label="Next">
+                                    <span aria-hidden="true">»</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="row mar-0">
+                <div class="col-lg-12">
+                    <div class="line"></div>
+                </div>
+            </div>
+            <div class="row mar-0">
+                <div class="col-lg-12">
+                    <p><strong>Note :</strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                </div>
+            </div>*@
+        </div>
+    </div>
+</div>
+<script src="~/CIRScripts/jsPageMasterController.js" type="text/javascript"></script>
+

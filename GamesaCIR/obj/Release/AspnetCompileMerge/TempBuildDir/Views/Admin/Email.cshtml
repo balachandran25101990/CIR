@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewBag.Title = "Email";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script type="text/javascript">
+    var GetdepartmentUrl = "@Url.Action("GetDepartment", "Master")";
+    var GetRoleAccessUrl = "@Url.Action("GetRole", "Master")";
+    var GetEmailDetailsUrl = "@Url.Action("GetEmail", "Admin")";
+    var SetEmailDetailsUrl = "@Url.Action("SetEmail", "Admin")";
+    var GetStatusUrl = "@Url.Action("GetStatus", "Admin")";
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+    var GetMasterCollectionUrl = "@Url.Action("GetMasterCollection", "Master")";
+    var GetLogFileUrl = "@Url.Action("LogFile", "Admin")";
+</script>
+
+
+<div class="col-lg-12 pad-0" ng-controller="Email_OperController">
+    <div class="content-part" style="min-height:90vh;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5 class="heading-h">Email Configuration</h5>
+            </div>
+            <div class="row mar-0 fomr-div">
+                <div class="row mar-0 fomr-div">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Department</span>
+                        <select id="ddlDepartment" ng-model="DptId" ng-change="ClearSearchDetails()">
+                            <option value="0" selected="selected">--Select one--</option>
+                            <option ng-repeat="option in DepartmentArray" value="{{option.DeptId}}">{{option.Dept}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Role</span>
+                        <br>
+                        <select id="ddlRole" ng-model="RleId" ng-change="ClearSearchDetails()">
+                            <option value="0" selected="selected">--Select one--</option>
+                            <option ng-repeat="option in RoleArray" value="{{option.RoleId}}">{{option.Role}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Functional System</span>
+                        <br>
+                        <select id="ddlFunctionSystem" ng-model="FunctionalSystem" ng-change="ClearSearchDetails()">
+                            <option value="0" selected="selected">--Select one--</option>
+                            <option ng-repeat="option in FunctionalSystemArray" value="{{option.MCId}}">{{option.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Status</span>
+                        <select id="ddlStatus" ng-model="Status">
+                            <option value="0" selected="selected">--Select one--</option>
+                            <option ng-repeat="option in StatusArray" value="{{option.StsId}}">{{option.Status}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top: 20px;" class="row mar-0 fomr-div">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <a href="#" class="btn btn-default SearchButton" style="margin-left: 0px;" ng-click="Search()">Search</a>
+                        <a href="#" class="btn btn-default ClearButton" ng-click="ClearSearch()">Clear</a>
+                    </div>
+                </div>
+                <br />
+                <div class="col-lg-12">
+                    <div class="input-group col-xs-6 col-sm-6 col-lg-6 col-md-6" style="margin-bottom: 15px;">
+                        <div class="input-group-addon">
+                            <i class="fa fa-search"></i>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Search" ng-model="searchEmail"  style="height: 35px;" />
+                    </div>
+                    <div>
+                        <table class="table table-hover table-responsive">
+                            <thead style="border-top: 1px solid #dddddd;border-bottom: 2px solid #dddddd;">
+                                <tr>
+                                    <th ng-click="sortType = 'Slno'; sortReverse = !sortReverse" style="text-align:center; cursor:pointer;">
+                                        SlNo
+                                        <span ng-show="sortType == 'Slno' && !sortReverse" class="fa fa-caret-down"></span>
+                                        <span ng-show="sortType == 'Slno' && sortReverse" class="fa fa-caret-up"></span>
+                                    </th>
+                                    <th ng-click="sortType = 'Employee'; sortReverse = !sortReverse" style="cursor:pointer;">
+                                        Employee Name
+                                        <span ng-show="sortType == 'Employee' && !sortReverse" class="fa fa-caret-down"></span>
+                                        <span ng-show="sortType == 'Employee' && sortReverse" class="fa fa-caret-up"></span>
+                                    </th>
+                                    <th ng-click="sortType = 'CStatus'; sortReverse = !sortReverse" style="cursor:pointer;">
+                                        Status
+                                        <span ng-show="sortType == 'CStatus' && !sortReverse" class="fa fa-caret-down"></span>
+                                        <span ng-show="sortType == 'CStatus' && sortReverse" class="fa fa-caret-up"></span>
+                                    </th>
+                                    <th style="cursor:pointer;text-align:center;">
+                                        Email To
+                                    </th>
+                                    <th style="cursor:pointer;text-align:center;">
+                                        CC
+                                    </th>
+                                    <th style="cursor:pointer;text-align:center;">
+                                        BCC
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody style="border-bottom: 1px solid #dddddd;">
+                                <tr ng-repeat="row in EmailDetailsArray   | orderBy:sortType:sortReverse | filter:searchEmail  | pagination: curPage * pageSize | limitTo: pageSize">
+                                    <td style="text-align:center;">
+                                        {{row.Slno}}
+                                    </td>
+                                    <td>
+                                        {{row.Employee}}
+                                    </td>
+                                    <td>
+                                        {{row.CStatus}}
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <input type="checkbox" ng-model="row.Emailto" ng-true-value="'True'" ng-false-value="'False'" style="height: 15px;" ng-change="Check(row)">
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <input type="checkbox" ng-model="row.CC" ng-true-value="'True'" ng-false-value="'False'" style="height: 15px;" ng-change="Check(row)">
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <input type="checkbox" ng-model="row.BCC" ng-true-value="'True'" ng-false-value="'False'" style="height: 15px;" ng-change="Check(row)">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-show="EmailDetailsArray.length > pageSize">
+                            <div class="col-lg-8 col-sm-12 col-xs-12 col-md-8" style="padding-left:0px;">
+                                <ul class="pagination-controle pagination" >
+                                    <li>
+                                        <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                ng-click="curPage=0" style="border-radius  : 0px;">
+                                            &lt;&lt; First
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                ng-click="curPage=curPage-1" style="border-radius  : 0px;">
+                                            &lt; Prev
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                                ng-disabled="curPage >= EmailDetailsArray.length/pageSize - 1"
+                                                ng-click="curPage = curPage+1">
+                                            Next &gt;
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                                ng-disabled="curPage >= EmailDetailsArray.length/pageSize - 1"
+                                                ng-click="LastPage()">
+                                            Last &gt;&gt;
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4" style="padding:20px;padding-right:0px;">
+                                <span style="color: black;padding: 8px;background-color: #bbbbbb;" class="pull-right">Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mar-0 fomr-div">
+            <div class="row mar-0 fomr-div">
+                <a href="#" class="btn btn-default SaveButton" style="margin-left: 0px;" ng-click="Save()" ng-show="(Add || Update) && EmailDetailsArray.length > 0">Save</a>
+                @*<a href="#" class="btn btn-default" ng-click="ClearSearch()">Clear</a>*@
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    angular.module('angularDatatableModule', ['datatables']);
+</script>
+<script src="~/CIRScripts/AdminController.js" type="text/javascript"></script>

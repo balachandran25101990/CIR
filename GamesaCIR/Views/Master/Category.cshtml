@@ -1,0 +1,185 @@
+﻿
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+    var GetMasterCollectionUrl = "@Url.Action("GetMasterCollection", "Master")";
+    var GetCategoryDetailsUrl = "@Url.Action("GetCategory", "Master")";
+    var SetCategoryDetailsUrl = "@Url.Action("SetCategory", "Master")";
+    var GetLogFileUrl = "@Url.Action("LogFile", "Admin")";
+</script>
+
+<div class="col-lg-12 pad-0" ng-controller="Category_OperController">
+    <div class="content-part" style="min-height:90vh;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5 class="heading-h">Category Master</h5>
+            </div>
+            <div class="row mar-0 fomr-div">
+                <div class="row mar-0 fomr-div">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Turbine Type</span><span style="color:red;padding:5px;">*</span>
+                        <select id="ddlTurbineType" ng-model="TurbineType" ng-change="GetMasterCategory()">
+                            <option value="0">-- Select one --</option>
+                            <option ng-repeat="option in TurbineTypeArray" value="{{option.MCId}}">{{option.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-show="TurbineType == 0 ? false: true">
+                        <span>Master Category</span><span style="color:red;padding:5px;">*</span>
+                        <select id="ddlMasterCategory" ng-model="MasterCategory" ng-change="GetCategory()">
+                            <option value="0">-- Select one --</option>
+                            <option ng-repeat="option in MasterCategoryArray" value="{{option.MCId}}">{{option.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mar-0 fomr-div" ng-show="TurbineType == 0 ? false: true">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Category</span>
+                        <select id="ddlCategory" ng-model="Category" ng-change="GetSubCategory()">
+                            <option value="0">-- Add new --</option>
+                            <option ng-repeat="option in CategoryArray" value="{{option.Id}}">{{option.Category}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-show="Category == 0 ? true : false">
+                        <span>Category</span><span style="color:red;padding:5px;">*</span>
+                        <input type="text" ng-model="CategoryName" id="txtCategoryName" />
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-show="Category == 0 ? true : false">
+                        <table style="margin-top: 15px;">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" ng-model="ActiveCategory" ng-true-value="'1'" ng-false-value="'0'" checked="checked" id="chkActiveCategory" style="width: auto;" />
+                                </td>
+                                <td>
+                                    <span style="margin-left: 10px;">Active</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mar-0 fomr-div" ng-show="TurbineType == 0 || Category == 0 ? false: true">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Sub Category</span>
+                        <select id="ddlSubCategory" ng-model="SubCategory" ng-change="GetSubSubCategory()">
+                            <option value="0">-- Add new --</option>
+                            <option ng-repeat="option in SubCategoryArray" value="{{option.Id}}">{{option.Category}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-show="SubCategory == 0 ? true : false">
+                        <span>Sub Category</span><span style="color:red;padding:5px;">*</span>
+                        <input type="text" ng-model="SubCategoryName" id="txtSubCategoryName" />
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-show="SubCategory == 0 ? true : false">
+                        <table style="margin-top: 15px;">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" ng-model="ActiveSubCategory" ng-true-value="'1'" ng-false-value="'0'" checked="checked" id="chkActiveSubCategory" style="width: auto;" />
+                                </td>
+                                <td>
+                                    <span style="margin-left: 10px;">Active</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mar-0 fomr-div">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px; font-size: 12px;">
+                        <a href="#" class="btn btn-default SaveButton" ng-click="SetCategory()" style="margin-left:0px;" id="aSave" ng-show="(Add || UpdateOnly) && TurbineType != 0 && (Category == 0  || SubCategory == 0) ? true : false">Save</a>
+                        <a href="#" class="btn btn-default ClearButton" ng-click="Clear()">Clear</a>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="col-lg-12">
+                <div class="input-group col-xs-6 col-sm-6 col-lg-6 col-md-6" style="margin-bottom: 15px;">
+                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                    <input type="text" class="form-control" placeholder="Search the Category/ SubCategory" ng-model="searchCategory" style="height: 35px;">
+                </div>
+                <div class="table-responsive">
+                    <table cellpadding="0" cellspacing="0" class="table table-hover table-responsive">
+                        <thead style="border-top: 1px solid #dddddd;border-bottom: 2px solid #dddddd;">
+                            <tr>
+                                <td ng-click="sortType = 'Slno'; sortReverse = !sortReverse" style="cursor:pointer;text-align:center;">
+                                    <a style="text-decoration: none; color:  #6b6b6b; font-weight: bold;">
+                                        SlNo
+                                        <span ng-show="sortType == 'Slno' && !sortReverse" class="fa fa-caret-down"></span>
+                                        <span ng-show="sortType == 'Slno' && sortReverse" class="fa fa-caret-up"></span>
+                                    </a>
+                                </td>
+                                <td ng-click="sortType = 'Category'; sortReverse = !sortReverse" style="cursor:pointer;">
+                                    <a style="text-decoration: none; color:  #6b6b6b; font-weight: bold;">
+                                        Category
+                                        <span ng-show="sortType == 'Category' && !sortReverse" class="fa fa-caret-down"></span>
+                                        <span ng-show="sortType == 'Category' && sortReverse" class="fa fa-caret-up"></span>
+                                    </a>
+                                </td>
+                                <td style="text-align:center;">
+                                    <span style="font-weight: bold; color:  #6b6b6b; width: 10%; text-align: center; min-width: 80px;">Active</span>
+                                </td>
+                                <td style="text-align:center;" ng-show="Update || Delete">
+                                    <span style="font-weight: bold; color:  #6b6b6b;">Action</span>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody style="border-bottom: 1px solid #dddddd;">
+                            <tr ng-repeat="row in CategoryGridArray | orderBy:sortType:sortReverse | filter:searchCategory  | pagination: curPage * pageSize | limitTo: pageSize">
+                                <td scope="row" style="text-align:center;">{{row.Slno}}</td>
+                                <td>{{row.Category}}</td>
+                                <td align="center">
+                                    <input type="checkbox" disabled="disabled" ng-model="row.Active" ng-true-value="'True'" ng-false-value="'False'" style="height: 15px;">
+                                </td>
+                                <td style="text-align:center;" ng-show="Update || Delete">
+                                    <a style="cursor: pointer;" ng-click="DeleteCategory(row.Id)" data-toggle="tooltip" data-placement="top" title="Delete" ng-show="Delete" onmouseover="$(this).tooltip('show')">
+                                        <img style="height: 20px;" src="~/Content/img/delete.png">
+                                    </a>
+                                    <a style="cursor: pointer;" ng-click="EditCategory(row)" data-toggle="tooltip" data-placement="top" title="Edit" ng-show="Update" onmouseover="$(this).tooltip('show')">
+                                        <img style="height: 20px;" src="~/Content/img/edit.png">
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-show="CategoryGridArray.length > pageSize">
+                        <div class="col-lg-8 col-sm-12 col-xs-12 col-md-8" style="padding-left:0px;">
+                            <ul class="pagination-controle pagination">
+                                <li>
+                                    <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                            ng-click="curPage=0" style="border-radius  : 0px;">
+                                        &lt;&lt; First
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                            ng-click="curPage=curPage-1" style="border-radius  : 0px;">
+                                        &lt; Prev
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                            ng-disabled="curPage >= CategoryGridArray.length/pageSize - 1"
+                                            ng-click="curPage = curPage+1">
+                                        Next &gt;
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                            ng-disabled="curPage >= CategoryGridArray.length/pageSize - 1"
+                                            ng-click="LastPage()">
+                                        Last &gt;&gt;
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4" style="padding:20px;padding-right:0px;">
+                            <span style="color: black;padding: 8px;background-color: #bbbbbb;" class="pull-right">Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/CIRScripts/MasterController.js" type="text/javascript"></script>

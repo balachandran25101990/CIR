@@ -1,0 +1,1837 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    /*#hCIrDash, #HideCIR, #HideFSR, #hAnal,#tabCirPending {
+        display: none;
+    }*/
+</style>
+<script type="text/javascript">
+    var GetDashBoardDetailsFroFEUrl = "@Url.Action("GetDashBoardDetailsForFE", "Dashboard")";
+    var GetDashBoardDetailsForSMPDataUrl = "@Url.Action("GetSMPDataDashboard", "Dashboard")";
+    var GetSMPDataDashboardDetailsUrl = "@Url.Action("GetSMPDataDashboardDetails", "Dashboard")";
+    var GetPendingDetailsFoVersionUpdtEUrl = "@Url.Action("GetPendingDetailsForVersionUpdt", "DashBoard")";
+    var GetRedirectToCIRUrl = "@Url.Action("GetRedirectToCIR", "DashBoard")";
+    var GetRedirectToCIMUrl = "@Url.Action("GetRedirectToCIM", "DashBoard")";
+    var GetPendingDetailsForFEUrl = "@Url.Action("GetPendingDetailsForFE", "DashBoard")";
+    var CIRDetailsUrl = "@Url.Action("Index", "CIR")";
+    var SMPDataUrl = "@Url.Action("SMPData", "Master")";
+    var CIMDetailsUrl = "@Url.Action("Index", "CIM")";
+    var GetDashBoardDetailsForFSRUrl = "@Url.Action("GetDashBoardDetailsForFSR", "DashBoard")";
+    var GetPendingDetailsForFSRUrl = "@Url.Action("GetPendingDetailsForFSR", "DashBoard")";
+    var GetPendingDetailsForFEOthersUrl = "@Url.Action("GetPendingdetailsForFEExceptMyPending", "DashBoard")";
+    var GetPendingDetailsForFSROthersUrl = "@Url.Action("GetPendingdetailsForFSRExceptMyPending", "DashBoard")";
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+    var GetReportDetailUrl = "@Url.Action("GetCIRStackedAnalyticsDetails", "Report")";
+</script>
+<div class="col-lg-12 pad-0">
+    <div class="content-part" style="min-height: 150px;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5 class="heading-h">DashBoard</h5>    
+            </div>
+            <div id="Maincontent" style="display:none" class="col-lg-12 col-md-12 fomr-div" >
+                <div class="responsive-tabs" ng-controller="DashBoard_OperController">
+                    <h2 >DashBoard</h2>
+                    <div class="tab-cnt"  ng-show="Add==1" >
+                        <div class="col-lg-6 col-md-6" style="margin-top:10px;">
+                            <div class="d-div">
+                                <table class="d-tble" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="width: 100%; height: 50px; border-bottom: 1px #ccc dotted;">
+                                            <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="width: 50%; height: 50px; padding-left: 10px;">CIR DashBoard
+                                                    </td>
+                                                    <td style="width: 30%; height: 50px;"></td>
+                                                    <td style="width: 25%; height: 50px;">
+                                                        <select class="select-h" id="ddlTypeForCollection" ng-model="TypeOfCollection" onchange="fnGetBind()" ng-change="GetDetailsForFE()">
+                                                            <option>Yearly</option>
+                                                            <option selected>Monthly</option>
+                                                            @*<option>Weekly</option>*@
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 100%; height: 50px; border-bottom: 1px #ccc dotted;">
+                                            <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td align="left" style="width: 20%; height: 50px;">
+                                                        <a href="#" onclick="fnClickPrevious()" ng-model="PreviousButton" ng-click="GetDetailsForFE()">
+                                                            <img style="margin-left: 10px;" src="~/Content/img/left-arrow.png" />
+                                                        </a>
+                                                    </td>
+                                                    <td align="center" style="width: 20%; height: 50px;">
+                                                        <a style="text-decoration: none; cursor: pointer; color: black;" ng-model="PreviousButton" onclick="fnClickPrevious()" ng-click="GetDetailsForFE()"><span id="spnPrevious" ng-model="Previous">Jul 2015</span></a>
+                                                    </td>
+                                                    <td align="center" style="width: 20%; height: 50px;">
+                                                        <span id="spnCurrent" style="background: #ececec; padding: 8px 15px 8px 15px;" ng-model="Current">Aug 2015</span>
+                                                    </td>
+                                                    <td align="center" style="width: 20%; height: 50px;">
+                                                        <a style="text-decoration: none; cursor: pointer; color: black;" onclick="fnClickNext()" ng-model="PreviousButton" ng-click="GetDetailsForFE()"><span id="spnNext" ng-model="Next">Sep 2015</span></a>
+                                                    </td>
+                                                    <td align="right" style="width: 20%; height: 50px;">
+                                                        <a href="#" onclick="fnClickNext()" ng-click="GetDetailsForFE()">
+                                                            <img style="margin-right: 10px;" src="~/Content/img/right-arrow.png" />
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6" ng-repeat="row in DashBoardArray">
+                                                    <table class="val-tbl" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td align="center" style="width: 30%;">
+                                                                <span ng-show="{{row.Link }}" style="cursor: pointer; font-size: 30px;" onclick="fnShowModal(this)" ng-click="GetDetailsForPending(row.Desig)">{{row.Value}}</span>
+                                                            </td>
+                                                            <td align="left" style="width: 70%;">
+                                                                <p>
+                                                                    {{row.Title}}
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6" style="margin-top:10px;">
+                            <div class="d-div">
+                                <table class="d-tble" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="width: 100%; height: 50px; border-bottom: 1px #ccc dotted;">
+                                            <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="width: 50%; height: 50px; padding-left: 10px;">FSR DashBoard
+                                                    </td>
+                                                    <td style="width: 30%; height: 50px;">
+                                                        @*<select class="select-h" id="ddlDashBoardType" ng-model="DashBoardType" ng-change="GetDetailsForFE()">
+                                                                <option value="1" selected="selected">CIR Dashboard</option>
+                                                                <option value="2">FSR Dashboard</option>
+                                                            </select>*@
+                                                    </td>
+                                                    <td style="width: 25%; height: 50px;">
+                                                        <select class="select-h" id="ddlTypeForCollectionFORFSR" onchange="fnGetBindFORFSR()">
+                                                            <option>Yearly</option>
+                                                            <option selected>Monthly</option>
+                                                            @*<option>Weekly</option>*@
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 100%; height: 50px; border-bottom: 1px #ccc dotted;">
+                                            <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td align="left" style="width: 20%; height: 50px;">
+                                                        <a href="#" onclick="fnClickPreviousFORFSR()" ng-model="PreviousButtonFSR" ng-click="GetDetailsForFSR()">
+                                                            <img style="margin-left: 10px;" src="~/Content/img/left-arrow.png" />
+                                                        </a>
+                                                    </td>
+                                                    <td align="center" style="width: 20%; height: 50px;">
+                                                        <a style="text-decoration: none; cursor: pointer; color: black;" ng-model="PreviousButtonFSR" onclick="fnClickPreviousFORFSR()" ng-click="GetDetailsForFSR()">
+                                                            <span id="spnPreviousFORFSR" ng-model="Previous">Jul 2015</span>
+                                                        </a>
+                                                    </td>
+                                                    <td align="center" style="width: 20%; height: 50px;">
+                                                        <span id="spnCurrentFORFSR" style="background: #ececec; padding: 8px 15px 8px 15px;" ng-model="CurrentFSR">Aug 2015</span>
+                                                    </td>
+                                                    <td align="center" style="width: 20%; height: 50px;">
+                                                        <a style="text-decoration: none; cursor: pointer; color: black;" onclick="fnClickNextFORFSR()" ng-model="PreviousButtonFSR" ng-click="GetDetailsForFSR()">
+                                                            <span id="spnNextFORFSR" ng-model="Next">Sep 2015</span>
+                                                        </a>
+                                                    </td>
+                                                    <td align="right" style="width: 20%; height: 50px;">
+                                                        <a href="#" onclick="fnClickNextFORFSR()" ng-click="GetDetailsForFSR()">
+                                                            <img style="margin-right: 10px;" src="~/Content/img/right-arrow.png" />
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6" ng-repeat="row in DashBoardArrayFORFSR">
+                                                    <table class="val-tbl" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td align="center" style="width: 30%;">
+                                                                <span ng-show="{{!row.Link}}">{{row.Value}}</span>
+                                                                <span ng-show="{{row.Link }}" style="cursor: pointer; font-size: 30px;" onclick="fnShowModalForFSR(this)" ng-click="GetDetailsForPendingFORFSR(row.Desig)">{{row.Value}}</span>
+                                                            </td>
+                                                            <td align="left" style="width: 70%;">
+                                                                <p>
+                                                                    {{row.Title}}
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="fnHideLoadingGif()"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Pending Details</h4>
+                                    </div>
+                                    <div class="modal-body" style="overflow:auto;height:600px;">
+                                        <table class="table table-hover table-bordered table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th>CIR Number
+                                                    </th>
+                                                    <th>Assigned by
+                                                    </th>
+                                                    <th>Rejected By
+                                                    </th>
+                                                    <th>Assigned Date
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="row in PendingDetailsArray">
+                                                    <td>
+                                                        <a href="#" ng-click="LoadCIR(row.CIRID)">{{row.CIRNumber}}</a>
+                                                    </td>
+                                                    <td>{{row.AssignedBy}}
+                                                    </td>
+                                                    <td>{{row.RejectedBy}}
+                                                    </td>
+                                                    <td>{{row.AssignedDate}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer" style="border: none;">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="fnHideLoadingGif()">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade bs-example-modal-lg" id="myModalFSR" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="fnHideLoadingGif()"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Pending Details</h4>
+                                    </div>
+                                    <div class="modal-body" style="overflow:auto;height:600px;">
+                                        <table class="table table-hover table-bordered table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        FSR Number
+                                                    </th>
+                                                    <th>
+                                                        Assigned by
+                                                    </th>
+                                                    <th>
+                                                        Rejected By
+                                                    </th>
+                                                    <th>
+                                                        Assigned Date
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="row in PendingDetailsArray">
+                                                    <td>
+                                                        <a href="#" ng-click="LoadCIM(row.CIMID)">{{row.CIMNumber}}</a>
+                                                    </td>
+                                                    <td>
+                                                        {{row.AssignedBy}}
+                                                    </td>
+                                                    <td>
+                                                        {{row.RejectedBy}}
+                                                    </td>
+                                                    <td>
+                                                        {{row.AssignedDate}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="modal-footer" style="border: none;">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="fnHideLoadingGif()">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Analytic Dashboard</h2>
+                    <div class="tab-cnt" ng-show="Update==1" ng-controller="CIRPendingAnalyticsReport_OperController">
+                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-6 fomr-div" style="margin-top:10px;">
+                            <div class="col-xs-12 col-sm-6 co-md-3 col-lg-3">
+                                <span>Date From</span>
+                                <input type="text" id="txtDateFrom" class="datepickerFormat" ng-model="DateFrom" onkeypress="return Enabled(event)" />
+                            </div>
+                            <div class="col-xs-12 col-sm-6 co-md-3 col-lg-3">
+                                <span>Date To</span>
+                                <input type="text" id="txtDateTo" class="datepickerFormat" ng-model="DateTo" onkeypress="return Enabled(event)" />
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-lg-3 col-xs-3" style="margin-top: 5px;">
+                                <ul class="nav nav-pills">
+                                    <li role="presentation" id="aMonth" class="active" ng-click="ChangeActive($event)"><a>Month</a></li>
+                                    @*<li role="presentation" id="aWeek" ng-click="ChangeActive($event)"><a>Week</a></li>*@
+                                    <li role="presentation" id="aDate" ng-click="ChangeActive($event)"><a>Date</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 co-md-3 col-lg-3" style="margin-top: 12px; text-align: right;">
+                                <a href="#" class="btn btn-default SaveButton" ng-click="PrepareAnalyticsRpt(False)">Search</a>
+                                <a href="#" class="btn btn-default" ng-click="Clear()">Clear</a>
+                            </div>
+                        </div>
+                        <div id="content" style="display: none">
+                            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-6 fomr-div">
+                                <div class="col-xs-12 col-sm-12 co-md-12 col-lg-12">
+                                    <div id="container">
+                                        <canvas id="canvas"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-6 fomr-div" ng-show="DetailsArray.length>0">
+                                <br />
+                                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-6">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" cellpadding="0" cellspacing="0">
+                                            <thead style="border-bottom-color: #ddd; border-bottom-width: 1px; border-bottom-style: solid; border-top-color: #ddd; border-top-width: 1px; border-top-style: solid;">
+                                                <tr class="tableHead">
+                                                    <th></th>
+                                                    <th>QualityPending</th>
+                                                    <th>FEPending</th>
+                                                    <th>FOMPending</th>
+                                                    <th>PTSPending</th>
+                                                    <th>FSLPending</th>
+                                                    <th>FSSPending</th>
+                                                    <th>DMPending</th>
+                                                    <th>RCPending</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="tabletd">
+                                                <tr ng-repeat="row in DetailsArray | offset: currentPage*itemsPerPage  | limitTo: itemsPerPage">
+                                                    <td><span style="white-space: pre-line; width: 250px; word-break: break-word;">{{row.IText}}</span></td>
+                                                    <td><span>{{row.QualityPending}}</span></td>
+                                                    <td><span>{{row.FEPending}}</span></td>
+                                                    <td><span>{{row.FOMPending}}</span></td>
+                                                    <td><span>{{row.PTSPending}}</span></td>
+                                                    <td><span>{{row.FSLPending}}</span></td>
+                                                    <td><span>{{row.FSSPending}}</span></td>
+                                                    <td><span>{{row.DMPending}}</span></td>
+                                                    <td><span>{{row.RCPending}}</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div ng-show="DetailsArray.length!=0">
+                                        <nav>
+                                            <ul class="pagination">
+                                                <li ng-class="prevPageDisabled()">
+                                                    <a href="#" aria-label="Previous" ng-click="prevPage()">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                <li ng-repeat="n in range()" ng-class="{'active':n == currentPage}" ng-click="setPage(n)">
+                                                    <a ng-if="n>=0 && (DetailsArray |filter:search).length>0" ng-bind="n+1"></a>
+                                                </li>
+                                                <li ng-class="nextPageDisabled()">
+                                                    <a href="#" aria-label="Next" ng-click="nextPage()">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Version Update Dashboard</h2>
+                    <div class="tab-cnt" ng-show="Download==1">
+                        <div class="col-lg-12 col-md-12" style="margin-top:10px;">
+                            <div class="d-div">
+                                <table class="d-tble" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="width: 100%; height: 50px; border-bottom: 1px #ccc dotted;">
+                                            <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="width: 50%; height: 50px; padding-left: 10px;">
+                                                        Turbine Version Update DashBoard
+                                                    </td>
+                                                    <td style="width: 30%; height: 50px;"></td>
+                                                    <td style="width: 25%; height: 50px;">
+                                                        <select class="select-h" id="ddlTypeForCollectionFORVersionUpdt" ng-model="TypeOfCollection" onchange="fnGetBindFORVersionUpdt()" ng-change="GetDetailsForFE()">
+                                                            <option>Yearly</option>
+                                                            <option selected>Monthly</option>
+                                                            @*<option>Weekly</option>*@
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 100%; height: 50px; border-bottom: 1px #ccc dotted;">
+                                            <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td align="left" style="width: 20%; height: 50px;">
+                                                        <a href="#" onclick="fnClickPreviousFORVersionUpdt()" ng-model="PreviousButtonFORVersionUpdt" ng-click="GetDetailsForFE()">
+                                                            <img style="margin-left: 10px;" src="~/Content/img/left-arrow.png" />
+                                                        </a>
+                                                    </td>
+                                                    <td align="center" style="width: 20%; height: 50px;">
+                                                        <a style="text-decoration: none; cursor: pointer; color: black;" ng-model="PreviousButtonFORVersionUpdt" onclick="fnClickPreviousFORVersionUpdt()" ng-click="GetDetailsForFE()">
+                                                        <span id="spnPreviousFORVersionUpdt" ng-model="PreviousFORVersionUpdt">Jul 2015</span></a>
+                                                    </td>
+                                                    <td align="center" style="width: 20%; height: 50px;">
+                                                        <span id="spnCurrentFORVersionUpdt" style="background: #ececec; padding: 8px 15px 8px 15px;" ng-model="CurrentFORVersionUpdt">Aug 2015</span>
+                                                    </td>
+                                                    <td align="center" style="width: 20%; height: 50px;">
+                                                        <a style="text-decoration: none; cursor: pointer; color: black;" onclick="fnClickNextFORVersionUpdt()" ng-model="PreviousButtonFORVersionUpdt" ng-click="GetDetailsForFE()">
+                                                        <span id="spnNextFORVersionUpdt" ng-model="NextFORVersionUpdt">Sep 2015</span></a>
+                                                    </td>
+                                                    <td align="right" style="width: 20%; height: 50px;">
+                                                        <a href="#" onclick="fnClickNextFORVersionUpdt()" ng-click="GetDetailsForFE()">
+                                                            <img style="margin-right: 10px;" src="~/Content/img/right-arrow.png" />
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6" ng-repeat="row in DashBoardArrayFORVersionUpdt">
+                                                    <table class="val-tbl" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td align="center" style="width: 30%;">
+                                                                <span ng-show="{{row.Link }}" style="cursor: pointer; font-size: 30px;" onclick="fnShowModalFORVersionUpdt(this)" >{{row.Value}}</span>
+                                                            </td>
+                                                            <td align="left" style="width: 70%;">
+                                                                <p>
+                                                                    {{row.Title}}
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>SMP Data Dashboard</h2>
+                    <div class="tab-cnt" ng-show="Delete==1">
+                        <div class="col-lg-6 col-md-6" style="margin-top:10px;">
+                            <div class="d-div">
+                                <table class="d-tble" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="width: 100%; height: 50px; border-bottom: 1px #ccc dotted;">
+                                            <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="width: 50%; height: 50px; padding-left: 10px;">
+                                                        SMP Data DashBoard
+                                                    </td>
+                                                    <td style="width: 30%; height: 50px;"></td>
+                                                    <td style="width: 25%; height: 50px;">
+                                                        <select class="select-h" id="ddlTypeForSMPData" ng-model="TypeOfCollectionSMPData" onchange="fnGetBindFORSMPData()" ng-change="GetDetailsForSMPData()">
+                                                            <option>Yearly</option>
+                                                            <option selected>Monthly</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 100%; height: 50px; border-bottom: 1px #ccc dotted;">
+                                            <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td align="left" style="width: 20%; height: 50px;">
+                                                        <a href="#" onclick="fnClickPreviousFORSMPData()" ng-model="PreviousButtonFORSMPData" ng-click="GetDetailsForSMPData()">
+                                                            <img style="margin-left: 10px;" src="~/Content/img/left-arrow.png" />
+                                                        </a>
+                                                    </td>
+                                                    <td align="center" style="width: 20%; height: 50px;">
+                                                        <a style="text-decoration: none; cursor: pointer; color: black;" ng-model="PreviousButtonFORSMPData" onclick="fnClickPreviousFORSMPData()" ng-click="GetDetailsForSMPData()">
+                                                            <span id="spnPreviousFORSMPData" ng-model="PreviousFORSMPData">Jul 2015</span>
+                                                        </a>
+                                                    </td>
+                                                    <td align="center" style="width: 20%; height: 50px;">
+                                                        <span id="spnCurrentFORSMPData" style="background: #ececec; padding: 8px 15px 8px 15px;" ng-model="CurrentFORSMPData">Aug 2015</span>
+                                                    </td>
+                                                    <td align="center" style="width: 20%; height: 50px;">
+                                                        <a style="text-decoration: none; cursor: pointer; color: black;" onclick="fnClickNextFORVersionUpdt()" ng-model="PreviousButtonFORSMPData" ng-click="GetDetailsForSMPData()">
+                                                            <span id="spnNextFORSMPData" ng-model="NextFORSMPData">Sep 2015</span>
+                                                        </a>
+                                                    </td>
+                                                    <td align="right" style="width: 20%; height: 50px;">
+                                                        <a href="#" onclick="fnClickNextFORSMPData()" ng-click="GetDetailsForSMPData()">
+                                                            <img style="margin-right: 10px;" src="~/Content/img/right-arrow.png" />
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6" ng-repeat="row in DashBoardArrayFORSMPData">
+                                                    <table class="val-tbl" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td align="center" style="width: 30%;">
+                                                                <span ng-show="{{row.Link }}" style="cursor: pointer; font-size: 30px;" onclick="fnShowModalFORSMPData(this)" ng-click="GetSMPDetailsData(row.Title)">{{row.Value}}</span>
+                                                            </td>
+                                                            <td align="left" style="width: 70%;">
+                                                                <p>
+                                                                    {{row.Title}}
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade bs-example-modal-lg" id="SMPDataModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="fnHideLoadingGif()"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">SMP Data Details</h4>
+                                </div>
+                                <div class="modal-body" style="overflow:auto;height:600px;">
+                                    <table class="table table-hover table-bordered table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    SMP Upload Number
+                                                </th>
+                                                <th>
+                                                    Assigned by
+                                                </th>
+                                                <th>
+                                                    Rejected By
+                                                </th>
+                                                <th>
+                                                    Assigned Date
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="row in DashBoardArrayFORSMPDataDetails">
+                                                <td>
+                                                    <a href="#" ng-click="LoadSMPData(row)">{{row.SMPUploadNo}}</a>
+                                                </td>
+                                                <td>
+                                                    {{row.AssignedBy}}
+                                                </td>
+                                                <td>
+                                                    {{row.RejectedBy}}
+                                                </td>
+                                                <td>
+                                                    {{row.AssignedDate}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer" style="border: none;">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="fnHideLoadingGif()">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function fnHideLoadingGif() {
+        fnRemoveGif();
+    }
+
+    function fnShowModal(obj) {
+        if (obj.innerText != "0")
+            $("#myModal").modal("show");
+        else {
+            fnRemoveGif();
+        }
+    }
+
+    function fnShowModalForFSR(obj) {
+        if (obj.innerText != "0") {
+            $("#myModalFSR").modal("show");
+        }
+        else {
+            fnRemoveGif();
+        }
+    }
+
+    function fnShowModalFORVersionUpdt(obj) {
+        if (obj.innerText != "0")
+            window.location.href = '@Url.Action("TurbineVersionUpdate", "Master")';
+        else {
+            fnRemoveGif();
+        }
+    }
+
+    function fnShowModalFORSMPData(obj) {
+       if (obj.innerText != "0")
+            $("#SMPDataModal").modal("show");
+        else {
+            fnRemoveGif();
+        }
+    }
+
+    fnClickPrevious(true);
+    fnClickPreviousFORFSR(true);
+    fnClickPreviousFORVersionUpdt(true);
+    fnClickPreviousFORSMPData(true);
+    var DateValue = new Date();
+    var monthValue;
+    var yearValue;
+    var monthCenterValue;
+    var yearCenterValue;
+
+    function fnClickPrevious(isPageLoad) {
+        var monthNames = ["Sam", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        DateValue = new Date();
+
+        if (isPageLoad) {
+            monthValue = DateValue.getMonth();
+            yearValue = DateValue.getFullYear();
+            if (monthNames[(DateValue.getMonth() + 1)] == "Jan" || monthNames[(DateValue.getMonth() + 1)] == "Sam") {
+                $("#spnPrevious").text(monthNames[12] + " " + (DateValue.getFullYear() - 1));
+                monthValue = 12;
+                yearValue = DateValue.getFullYear() - 1;
+            }
+            else {
+                $("#spnPrevious").text(monthNames[DateValue.getMonth()] + " " + DateValue.getFullYear());
+                monthValue = monthValue;
+                yearValue = yearValue;
+            }
+
+            if (monthValue == 12 || monthValue == 0) {
+                $("#spnCurrent").text(monthNames[1] + " " + (yearValue + 1));
+                monthValue = 1;
+                yearValue = yearValue + 1;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+            else {
+                $("#spnCurrent").text(monthNames[monthValue + 1] + " " + yearValue);
+                monthValue = monthValue + 1;
+                yearValue = yearValue;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+            if (monthNames[DateValue.getMonth() + 1] == "Dec")
+                $("#spnNext").text(monthNames[1] + " " + (DateValue.getFullYear() + 1));
+            else
+                $("#spnNext").text(monthNames[monthValue + 1] + " " + DateValue.getFullYear());
+        }
+        else {
+            var ddlValue = $("#ddlTypeForCollection").val();
+            if (ddlValue == "Monthly") {
+                var previousValue = $("#spnPrevious").text();
+                MonthBindPrevious(previousValue, "spnPrevious");
+
+                var currentValue = $("#spnCurrent").text();
+                MonthBindPrevious(currentValue, "spnCurrent");
+
+                var nextValue = $("#spnNext").text();
+                MonthBindPrevious(nextValue, "spnNext");
+            }
+            else if (ddlValue == "Yearly") {
+
+                var previousValue = $("#spnPrevious").text();
+                YearBindPrevious(previousValue, "spnPrevious");
+
+                var currentValue = $("#spnCurrent").text();
+                YearBindPrevious(currentValue, "spnCurrent");
+
+                var nextValue = $("#spnNext").text();
+                YearBindPrevious(nextValue, "spnNext");
+            }
+            else if (ddlValue == "Weekly") {
+                //previous value.
+
+                var previousValue = $("#spnPrevious").text();
+                fnWeekPrevious("spnPrevious", previousValue);
+
+                var currentValue = $("#spnCurrent").text();
+                fnWeekPrevious("spnCurrent", currentValue);
+
+                var nextValue = $("#spnNext").text();
+                fnWeekPrevious("spnNext", nextValue);
+
+            }
+        }
+    }
+
+    function fnClickPreviousFORFSR(isPageLoad) {
+
+        var monthNames = ["Sam", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        DateValue = new Date();
+
+        if (isPageLoad) {
+            monthValue = DateValue.getMonth();
+            yearValue = DateValue.getFullYear();
+            if (monthNames[(DateValue.getMonth() + 1)] == "Jan" || monthNames[(DateValue.getMonth() + 1)] == "Sam") {
+                $("#spnPreviousFORFSR").text(monthNames[12] + " " + (DateValue.getFullYear() - 1));
+                monthValue = 12;
+                yearValue = DateValue.getFullYear() - 1;
+            }
+            else {
+                $("#spnPreviousFORFSR").text(monthNames[DateValue.getMonth()] + " " + DateValue.getFullYear());
+                monthValue = monthValue;
+                yearValue = yearValue;
+            }
+            if (monthValue == 12 || monthValue == 0) {
+                $("#spnCurrentFORFSR").text(monthNames[1] + " " + (yearValue + 1));
+                monthValue = 1;
+                yearValue = yearValue + 1;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+            else {
+                $("#spnCurrentFORFSR").text(monthNames[monthValue + 1] + " " + yearValue);
+                monthValue = monthValue + 1;
+                yearValue = yearValue;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+            if (monthNames[DateValue.getMonth() + 1] == "Dec")
+                $("#spnNextFORFSR").text(monthNames[1] + " " + (DateValue.getFullYear() + 1));
+            else
+                $("#spnNextFORFSR").text(monthNames[monthValue + 1] + " " + DateValue.getFullYear());
+        }
+        else {
+            var ddlValue = $("#ddlTypeForCollection").val();
+            if (ddlValue == "Monthly") {
+                var previousValue = $("#spnPreviousFORFSR").text();
+                MonthBindPrevious(previousValue, "spnPreviousFORFSR");
+
+                var currentValue = $("#spnCurrentFORFSR").text();
+                MonthBindPrevious(currentValue, "spnCurrentFORFSR");
+
+                var nextValue = $("#spnNextFORFSR").text();
+                MonthBindPrevious(nextValue, "spnNextFORFSR");
+            }
+            else if (ddlValue == "Yearly") {
+
+                var previousValue = $("#spnPreviousFORFSR").text();
+                YearBindPrevious(previousValue, "spnPreviousFORFSR");
+
+                var currentValue = $("#spnCurrentFORFSR").text();
+                YearBindPrevious(currentValue, "spnCurrentFORFSR");
+
+                var nextValue = $("#spnNextFORFSR").text();
+                YearBindPrevious(nextValue, "spnNextFORFSR");
+            }
+            else if (ddlValue == "Weekly") {
+                //previous value.
+
+                var previousValue = $("#spnPreviousFORFSR").text();
+                fnWeekPrevious("spnPreviousFORFSR", previousValue);
+
+                var currentValue = $("#spnCurrentFORFSR").text();
+                fnWeekPrevious("spnCurrentFORFSR", currentValue);
+
+                var nextValue = $("#spnNextFORFSR").text();
+                fnWeekPrevious("spnNextFORFSR", nextValue);
+
+            }
+        }
+    }
+
+    function fnClickPreviousFORVersionUpdt(isPageLoad) {
+        var monthNames = ["Sam", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        DateValue = new Date();
+
+        if (isPageLoad) {
+            monthValue = DateValue.getMonth();
+            yearValue = DateValue.getFullYear();
+            if (monthNames[(DateValue.getMonth() + 1)] == "Jan" || monthNames[(DateValue.getMonth() + 1)] == "Sam") {
+                $("#spnPreviousFORVersionUpdt").text(monthNames[12] + " " + (DateValue.getFullYear() - 1));
+                monthValue = 12;
+                yearValue = DateValue.getFullYear() - 1;
+            }
+            else {
+                $("#spnPreviousFORVersionUpdt").text(monthNames[DateValue.getMonth()] + " " + DateValue.getFullYear());
+                monthValue = monthValue;
+                yearValue = yearValue;
+            }
+
+            if (monthValue == 12 || monthValue == 0) {
+                $("#spnCurrentFORVersionUpdt").text(monthNames[1] + " " + (yearValue + 1));
+                monthValue = 1;
+                yearValue = yearValue + 1;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+            else {
+                $("#spnCurrentFORVersionUpdt").text(monthNames[monthValue + 1] + " " + yearValue);
+                monthValue = monthValue + 1;
+                yearValue = yearValue;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+            if (monthNames[DateValue.getMonth() + 1] == "Dec")
+                $("#spnNextFORVersionUpdt").text(monthNames[1] + " " + (DateValue.getFullYear() + 1));
+            else
+                $("#spnNextFORVersionUpdt").text(monthNames[monthValue + 1] + " " + DateValue.getFullYear());
+        }
+        else {
+            var ddlValue = $("#ddlTypeForCollectionFORVersionUpdt").val();
+            if (ddlValue == "Monthly") {
+                var previousValue = $("#spnPreviousFORVersionUpdt").text();
+                MonthBindPrevious(previousValue, "spnPreviousFORVersionUpdt");
+
+                var currentValue = $("#spnCurrentFORVersionUpdt").text();
+                MonthBindPrevious(currentValue, "spnCurrentFORVersionUpdt");
+
+                var nextValue = $("#spnNextFORVersionUpdt").text();
+                MonthBindPrevious(nextValue, "spnNextFORVersionUpdt");
+            }
+            else if (ddlValue == "Yearly") {
+
+                var previousValue = $("#spnPreviousFORVersionUpdt").text();
+                YearBindPrevious(previousValue, "spnPreviousFORVersionUpdt");
+
+                var currentValue = $("#spnCurrentFORVersionUpdt").text();
+                YearBindPrevious(currentValue, "spnCurrentFORVersionUpdt");
+
+                var nextValue = $("#spnNextFORVersionUpdt").text();
+                YearBindPrevious(nextValue, "spnNextFORVersionUpdt");
+            }
+            else if (ddlValue == "Weekly") {
+                //previous value.
+
+                var previousValue = $("#spnPreviousFORVersionUpdt").text();
+                fnWeekPrevious("spnPreviousFORVersionUpdt", previousValue);
+
+                var currentValue = $("#spnCurrentFORVersionUpdt").text();
+                fnWeekPrevious("spnCurrentFORVersionUpdt", currentValue);
+
+                var nextValue = $("#spnNextFORVersionUpdt").text();
+                fnWeekPrevious("spnNextFORVersionUpdt", nextValue);
+
+            }
+        }
+    }
+
+    function fnClickPreviousFORSMPData(isPageLoad) {
+        var monthNames = ["Sam", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        DateValue = new Date();
+
+        if (isPageLoad) {
+            monthValue = DateValue.getMonth();
+            yearValue = DateValue.getFullYear();
+            if (monthNames[(DateValue.getMonth() + 1)] == "Jan" || monthNames[(DateValue.getMonth() + 1)] == "Sam") {
+                $("#spnPreviousFORSMPData").text(monthNames[12] + " " + (DateValue.getFullYear() - 1));
+                monthValue = 12;
+                yearValue = DateValue.getFullYear() - 1;
+            }
+            else {
+                $("#spnPreviousFORSMPData").text(monthNames[DateValue.getMonth()] + " " + DateValue.getFullYear());
+                monthValue = monthValue;
+                yearValue = yearValue;
+            }
+
+            if (monthValue == 12 || monthValue == 0) {
+                $("#spnCurrentFORSMPData").text(monthNames[1] + " " + (yearValue + 1));
+                monthValue = 1;
+                yearValue = yearValue + 1;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+            else {
+                $("#spnCurrentFORSMPData").text(monthNames[monthValue + 1] + " " + yearValue);
+                monthValue = monthValue + 1;
+                yearValue = yearValue;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+            if (monthNames[DateValue.getMonth() + 1] == "Dec")
+                $("#spnNextFORSMPData").text(monthNames[1] + " " + (DateValue.getFullYear() + 1));
+            else
+                $("#spnNextFORSMPData").text(monthNames[monthValue + 1] + " " + DateValue.getFullYear());
+        }
+        else {
+            var ddlValue = $("#ddlTypeForSMPData").val();
+            if (ddlValue == "Monthly") {
+                var previousValue = $("#spnPreviousFORSMPData").text();
+                MonthBindPrevious(previousValue, "spnPreviousFORSMPData");
+
+                var currentValue = $("#spnCurrentFORSMPData").text();
+                MonthBindPrevious(currentValue, "spnCurrentFORSMPData");
+
+                var nextValue = $("#spnNextFORSMPData").text();
+                MonthBindPrevious(nextValue, "spnNextFORSMPData");
+            }
+            else if (ddlValue == "Yearly") {
+
+                var previousValue = $("#spnPreviousFORSMPData").text();
+                YearBindPrevious(previousValue, "spnPreviousFORSMPData");
+
+                var currentValue = $("#spnCurrentFORSMPData").text();
+                YearBindPrevious(currentValue, "spnCurrentFORSMPData");
+
+                var nextValue = $("#spnNextFORSMPData").text();
+                YearBindPrevious(nextValue, "spnNextFORSMPData");
+            }
+            else if (ddlValue == "Weekly") {
+                //previous value.
+
+                var previousValue = $("#spnPreviousFORSMPData").text();
+                fnWeekPrevious("spnPreviousFORSMPData", previousValue);
+
+                var currentValue = $("#spnCurrentFORSMPData").text();
+                fnWeekPrevious("spnCurrentFORSMPData", currentValue);
+
+                var nextValue = $("#spnNextFORSMPData").text();
+                fnWeekPrevious("spnNextFORSMPData", nextValue);
+
+            }
+        }
+    }
+
+    function fnWeekPrevious(spanId, Value) {
+
+        var value = Value.split("-");
+        var twoDigitMonth = ((parseInt(value[1])).toString().length != 1) ? (parseInt(value[1])) : '0' + (parseInt(value[1]));
+
+        var TotalDaysInMonth = new Date(parseInt(value[2]), (parseInt(value[1])), 0).getDate();
+
+        if (TotalDaysInMonth > parseInt(value[0])) {
+            if (parseInt(value[0]) < 7) {
+                var TotalDaysInPreviousMonth = new Date((parseInt(value[2]) - 1), (parseInt(value[1]) - 1), 0).getDate();
+                var twoDigitMonthPrevious = ((parseInt(value[1]) - 1).toString().length != 1) ? (parseInt(value[1]) - 1) : '0' + (parseInt(value[1]) - 1);
+
+                var datePrevious = (parseInt(value[0]) - 7);
+                if (twoDigitMonthPrevious == 12) {
+                    $("#" + spanId).text(TotalDaysInPreviousMonth + (datePrevious) + "-" + twoDigitMonthPrevious + "-" + parseInt(value[2]) - 1);
+                }
+                else {
+                    if (twoDigitMonthPrevious == 0) {
+                        $("#" + spanId).text(TotalDaysInPreviousMonth + (datePrevious) + "-" + (parseInt(twoDigitMonthPrevious) + 12) + "-" + (parseInt(value[2]) - 1));
+                    }
+                    else {
+                        $("#" + spanId).text(TotalDaysInPreviousMonth + (datePrevious) + "-" + twoDigitMonthPrevious + "-" + parseInt(value[2]));
+                    }
+                }
+            }
+            else {
+                if (parseInt(value[0]) == 7) {
+                    var TotalDaysInPreviousMonth = new Date((parseInt(value[2]) - 1), (parseInt(value[1]) - 1), 0).getDate();
+                    var twoDigitMonthPrevious = ((parseInt(value[1]) - 1).toString().length != 1) ? (parseInt(value[1]) - 1) : '0' + (parseInt(value[1]) - 1);
+                    $("#" + spanId).text((parseInt(TotalDaysInPreviousMonth)) + "-" + (twoDigitMonth - 1) + "-" + parseInt(value[2]));
+                }
+                else {
+                    $("#" + spanId).text((parseInt(value[0])) - 7 + "-" + twoDigitMonth + "-" + parseInt(value[2]));
+                }
+            }
+        }
+        else
+            $("#" + spanId).text((parseInt(value[0])) - 7 + "-" + twoDigitMonth + "-" + parseInt(value[2]));
+    }
+
+    function fnWeekPreviousFORFSR(spanId, Value) {
+
+        var value = Value.split("-");
+        var twoDigitMonth = ((parseInt(value[1])).toString().length != 1) ? (parseInt(value[1])) : '0' + (parseInt(value[1]));
+
+        var TotalDaysInMonth = new Date(parseInt(value[2]), (parseInt(value[1])), 0).getDate();
+
+        if (TotalDaysInMonth > parseInt(value[0])) {
+            if (parseInt(value[0]) < 7) {
+                var TotalDaysInPreviousMonth = new Date((parseInt(value[2]) - 1), (parseInt(value[1]) - 1), 0).getDate();
+                var twoDigitMonthPrevious = ((parseInt(value[1]) - 1).toString().length != 1) ? (parseInt(value[1]) - 1) : '0' + (parseInt(value[1]) - 1);
+
+                var datePrevious = (parseInt(value[0]) - 7);
+                if (twoDigitMonthPrevious == 12) {
+                    $("#" + spanId).text(TotalDaysInPreviousMonth + (datePrevious) + "-" + twoDigitMonthPrevious + "-" + parseInt(value[2]) - 1);
+                }
+                else {
+                    if (twoDigitMonthPrevious == 0) {
+                        $("#" + spanId).text(TotalDaysInPreviousMonth + (datePrevious) + "-" + (parseInt(twoDigitMonthPrevious) + 12) + "-" + (parseInt(value[2]) - 1));
+                    }
+                    else {
+                        $("#" + spanId).text(TotalDaysInPreviousMonth + (datePrevious) + "-" + twoDigitMonthPrevious + "-" + parseInt(value[2]));
+                    }
+                }
+            }
+            else {
+                if (parseInt(value[0]) == 7) {
+                    var TotalDaysInPreviousMonth = new Date((parseInt(value[2]) - 1), (parseInt(value[1]) - 1), 0).getDate();
+                    var twoDigitMonthPrevious = ((parseInt(value[1]) - 1).toString().length != 1) ? (parseInt(value[1]) - 1) : '0' + (parseInt(value[1]) - 1);
+                    $("#" + spanId).text((parseInt(TotalDaysInPreviousMonth)) + "-" + (twoDigitMonth - 1) + "-" + parseInt(value[2]));
+                }
+                else {
+                    $("#" + spanId).text((parseInt(value[0])) - 7 + "-" + twoDigitMonth + "-" + parseInt(value[2]));
+                }
+            }
+        }
+        else
+            $("#" + spanId).text((parseInt(value[0])) - 7 + "-" + twoDigitMonth + "-" + parseInt(value[2]));
+    }
+
+    function fnWeekNext(spanId, Value) {
+
+        var value = Value.split("-");
+        var twoDigitMonth = ((parseInt(value[1])).toString().length != 1) ? (parseInt(value[1])) : '0' + (parseInt(value[1]));
+
+        var TotalDaysInMonth = new Date(parseInt(value[2]), (parseInt(value[1])), 0).getDate();
+
+        if (TotalDaysInMonth > parseInt(value[0])) {
+            if (TotalDaysInMonth < parseInt(value[0]) + 7) {
+                var DiffDays = (parseInt(value[0]) + 7) - TotalDaysInMonth;
+                var twoDigitMonthNext = ((parseInt(value[1]) + 1).toString().length != 1) ? (parseInt(value[1]) + 1) : '0' + (parseInt(value[1]) + 1);
+                if (twoDigitMonthNext > 12) {
+                    $("#" + spanId).text(parseInt((DiffDays)) + "-" + (twoDigitMonthNext - 12) + "-" + (parseInt(value[2]) + 1));
+                }
+                else {
+                    $("#" + spanId).text(parseInt((DiffDays)) + "-" + twoDigitMonthNext + "-" + parseInt(value[2]));
+                }
+            }
+            else {
+                $("#" + spanId).text((parseInt(value[0]) + 7) + "-" + twoDigitMonth + "-" + parseInt(value[2]));
+            }
+
+        }
+        else {
+            if (TotalDaysInMonth < parseInt(value[0]) + 7) {
+                var DiffDays = (parseInt(value[0]) + 7) - TotalDaysInMonth;
+                var twoDigitMonthNext = ((parseInt(value[1]) + 1).toString().length != 1) ? (parseInt(value[1]) + 1) : '0' + (parseInt(value[1]) + 1);
+                if (twoDigitMonthNext > 12) {
+                    $("#" + spanId).text(parseInt((DiffDays)) + "-" + (twoDigitMonthNext - 12) + "-" + (parseInt(value[2]) + 1));
+                }
+                else {
+                    $("#" + spanId).text(parseInt((DiffDays)) + "-" + twoDigitMonthNext + "-" + parseInt(value[2]));
+                }
+            }
+            else {
+                $("#" + spanId).text((parseInt(value[0]) + 7) + "-" + twoDigitMonth + "-" + parseInt(value[2]));
+            }
+        }
+    }
+
+    function fnClickNext() {
+        var ddlValue = $("#ddlTypeForCollection").val();
+        if (ddlValue == "Monthly") {
+            var previousValue = $("#spnPrevious").text();
+            MonthBindNext(previousValue, "spnPrevious");
+
+            var currentValue = $("#spnCurrent").text();
+            MonthBindNext(currentValue, "spnCurrent");
+
+            var nextValue = $("#spnNext").text();
+            MonthBindNext(nextValue, "spnNext");
+        }
+        else if (ddlValue == "Yearly") {
+            var previousValue = $("#spnPrevious").text();
+            YearBindNext(previousValue, "spnPrevious");
+
+            var currentValue = $("#spnCurrent").text();
+            YearBindNext(currentValue, "spnCurrent");
+
+            var nextValue = $("#spnNext").text();
+            YearBindNext(nextValue, "spnNext");
+        }
+        else if (ddlValue == "Weekly") {
+            var previousValue = $("#spnPrevious").text();
+            fnWeekNext("spnPrevious", previousValue);
+
+            var currentValue = $("#spnCurrent").text();
+            fnWeekNext("spnCurrent", currentValue);
+
+            var nextValue = $("#spnNext").text();
+            fnWeekNext("spnNext", nextValue);
+        }
+    }
+
+    function fnClickNextFORFSR() {
+        var ddlValue = $("#ddlTypeForCollectionFORFSR").val();
+        if (ddlValue == "Monthly") {
+            var previousValue = $("#spnPreviousFORFSR").text();
+            MonthBindNext(previousValue, "spnPreviousFORFSR");
+
+            var currentValue = $("#spnCurrentFORFSR").text();
+            MonthBindNext(currentValue, "spnCurrentFORFSR");
+
+            var nextValue = $("#spnNextFORFSR").text();
+            MonthBindNext(nextValue, "spnNextFORFSR");
+        }
+        else if (ddlValue == "Yearly") {
+            var previousValue = $("#spnPreviousFORFSR").text();
+            YearBindNext(previousValue, "spnPreviousFORFSR");
+
+            var currentValue = $("#spnCurrentFORFSR").text();
+            YearBindNext(currentValue, "spnCurrentFORFSR");
+
+            var nextValue = $("#spnNextFORFSR").text();
+            YearBindNext(nextValue, "spnNextFORFSR");
+        }
+        else if (ddlValue == "Weekly") {
+            var previousValue = $("#spnPrevious").text();
+            fnWeekNext("spnPrevious", previousValue);
+
+            var currentValue = $("#spnCurrent").text();
+            fnWeekNext("spnCurrent", currentValue);
+
+            var nextValue = $("#spnNext").text();
+            fnWeekNext("spnNext", nextValue);
+        }
+    }
+
+    function fnClickNextFORVersionUpdt() {
+        var ddlValue = $("#ddlTypeForCollectionFORVersionUpdt").val();
+        if (ddlValue == "Monthly") {
+            var previousValue = $("#spnPreviousFORVersionUpdt").text();
+            MonthBindNext(previousValue, "spnPreviousFORVersionUpdt");
+
+            var currentValue = $("#spnCurrentFORVersionUpdt").text();
+            MonthBindNext(currentValue, "spnCurrentFORVersionUpdt");
+
+            var nextValue = $("#spnNextFORVersionUpdt").text();
+            MonthBindNext(nextValue, "spnNextFORVersionUpdt");
+        }
+        else if (ddlValue == "Yearly") {
+            var previousValue = $("#spnPreviousFORVersionUpdt").text();
+            YearBindNext(previousValue, "spnPreviousFORVersionUpdt");
+
+            var currentValue = $("#spnCurrentFORVersionUpdt").text();
+            YearBindNext(currentValue, "spnCurrentFORVersionUpdt");
+
+            var nextValue = $("#spnNextFORVersionUpdt").text();
+            YearBindNext(nextValue, "spnNextFORVersionUpdt");
+        }
+        else if (ddlValue == "Weekly") {
+            var previousValue = $("#spnPreviousFORVersionUpdt").text();
+            fnWeekNext("spnPreviousFORVersionUpdt", previousValue);
+
+            var currentValue = $("#spnCurrentFORVersionUpdt").text();
+            fnWeekNext("spnCurrentFORVersionUpdt", currentValue);
+
+            var nextValue = $("#spnNextFORVersionUpdt").text();
+            fnWeekNext("spnNextFORVersionUpdt", nextValue);
+        }
+    }
+
+    function fnClickNextFORSMPData() {
+        var ddlValue = $("#ddlTypeForCollectionFORVersionUpdt").val();
+        if (ddlValue == "Monthly") {
+            var previousValue = $("#spnPreviousFORSMPData").text();
+            MonthBindNext(previousValue, "spnPreviousFORSMPData");
+
+            var currentValue = $("#spnCurrentFORSMPData").text();
+            MonthBindNext(currentValue, "spnCurrentFORSMPData");
+
+            var nextValue = $("#spnNextFORSMPData").text();
+            MonthBindNext(nextValue, "spnNextFORSMPData");
+        }
+        else if (ddlValue == "Yearly") {
+            var previousValue = $("#spnPreviousFORSMPData").text();
+            YearBindNext(previousValue, "spnPreviousFORSMPData");
+
+            var currentValue = $("#spnCurrentFORSMPData").text();
+            YearBindNext(currentValue, "spnCurrentFORSMPData");
+
+            var nextValue = $("#spnNextFORSMPData").text();
+            YearBindNext(nextValue, "spnNextFORSMPData");
+        }
+        else if (ddlValue == "Weekly") {
+            var previousValue = $("#spnPreviousFORSMPData").text();
+            fnWeekNext("spnPreviousFORSMPData", previousValue);
+
+            var currentValue = $("#spnCurrentFORSMPData").text();
+            fnWeekNext("spnCurrentFORSMPData", currentValue);
+
+            var nextValue = $("#spnNextFORSMPData").text();
+            fnWeekNext("spnNextFORSMPData", nextValue);
+        }
+    }
+
+    function MonthBindPrevious(fullValue, spanId) {
+        var value = fullValue.split(" ");
+        switch (value[0]) {
+            case "Jan":
+                $("#" + spanId).text("Dec " + (parseInt(value[1]) - 1))
+                break;
+            case "Feb":
+                $("#" + spanId).text("Jan " + (value[1]));
+                break;
+            case "Mar":
+                $("#" + spanId).text("Feb " + (value[1]));
+                break;
+            case "Apr":
+                $("#" + spanId).text("Mar " + (value[1]));
+                break;
+            case "May":
+                $("#" + spanId).text("Apr " + (value[1]));
+                break;
+            case "Jun":
+                $("#" + spanId).text("May " + (value[1]));
+                break;
+            case "Jul":
+                $("#" + spanId).text("Jun " + (value[1]));
+                break;
+            case "Aug":
+                $("#" + spanId).text("Jul " + (value[1]));
+                break;
+            case "Sep":
+                $("#" + spanId).text("Aug " + (value[1]));
+                break;
+            case "Oct":
+                $("#" + spanId).text("Sep " + (value[1]));
+                break;
+            case "Nov":
+                $("#" + spanId).text("Oct " + (value[1]));
+                break;
+            case "Dec":
+                $("#" + spanId).text("Nov " + (value[1]));
+                break;
+        }
+
+    }
+
+    function MonthBindNext(fullValue, spanId) {
+        var value = fullValue.split(" ");
+        switch (value[0]) {
+            case "Jan":
+                $("#" + spanId).text("Feb " + ((value[1])))
+                break;
+            case "Feb":
+                $("#" + spanId).text("Mar " + (value[1]));
+                break;
+            case "Mar":
+                $("#" + spanId).text("Apr " + (value[1]));
+                break;
+            case "Apr":
+                $("#" + spanId).text("May " + (value[1]));
+                break;
+            case "May":
+                $("#" + spanId).text("Jun " + (value[1]));
+                break;
+            case "Jun":
+                $("#" + spanId).text("Jul " + (value[1]));
+                break;
+            case "Jul":
+                $("#" + spanId).text("Aug " + (value[1]));
+                break;
+            case "Aug":
+                $("#" + spanId).text("Sep " + (value[1]));
+                break;
+            case "Sep":
+                $("#" + spanId).text("Oct " + (value[1]));
+                break;
+            case "Oct":
+                $("#" + spanId).text("Nov " + (value[1]));
+                break;
+            case "Nov":
+                $("#" + spanId).text("Dec " + (value[1]));
+                break;
+            case "Dec":
+                $("#" + spanId).text("Jan " + (parseInt(value[1]) + 1));
+                break;
+        }
+
+    }
+
+    function YearBindPrevious(Value, spanId) {
+        $("#" + spanId).text(parseInt(Value) - 1);
+    }
+
+    function YearBindNext(Value, spanId) {
+        $("#" + spanId).text(parseInt(Value) + 1);
+    }
+
+    function fnGetBind() {
+        var ddlValue = $("#ddlTypeForCollection").val();
+        if (ddlValue == "Monthly") {
+            var monthNames = ["Sam", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            DateValue = new Date();
+
+            monthValue = DateValue.getMonth();
+            yearValue = DateValue.getFullYear();
+            if (monthNames[DateValue.getMonth()] == "Jan" || monthNames[DateValue.getMonth()] == "Sam") {
+                $("#spnPrevious").text(monthNames[12] + " " + (DateValue.getFullYear() - 1));
+                monthValue = 12;
+                yearValue = DateValue.getFullYear() - 1;
+            }
+            else {
+                $("#spnPrevious").text(monthNames[DateValue.getMonth()] + " " + DateValue.getFullYear());
+                monthValue = monthValue;
+                yearValue = yearValue;
+            }
+            if (monthValue == 12 || monthValue == 0) {
+                $("#spnCurrent").text(monthNames[1] + " " + (yearValue + 1));
+                monthValue = 1;
+                yearValue = yearValue + 1;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+            else {
+                $("#spnCurrent").text(monthNames[monthValue + 1] + " " + yearValue);
+                monthValue = monthValue + 1;
+                yearValue = yearValue;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+
+            if (monthNames[DateValue.getMonth() + 1] == "Dec")
+                $("#spnNext").text(monthNames[1] + " " + (DateValue.getFullYear() + 1));
+            else
+                $("#spnNext").text(monthNames[monthValue + 1] + " " + DateValue.getFullYear());
+
+
+        }
+        else if (ddlValue == "Yearly") {
+            var DateValue = new Date();
+            $("#spnPrevious").text(parseInt(DateValue.getFullYear()) - 1);
+            $("#spnCurrent").text(DateValue.getFullYear());
+            $("#spnNext").text(parseInt(DateValue.getFullYear()) + 1);
+        }
+        else if (ddlValue == "Weekly") {
+            d = new Date(new Date());
+            var day = d.getDate(),
+                diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+
+            var ActualStartDate = new Date(d.setDate(diff));
+            var twoDigitMonth = ((ActualStartDate.getMonth() + 1).toString().length != 1) ? (ActualStartDate.getMonth() + 1) : '0' + (ActualStartDate.getMonth() + 1);
+
+            var currentDate = ActualStartDate.getDate() + "-" + twoDigitMonth + "-" + ActualStartDate.getFullYear();
+            $("#spnCurrent").text(currentDate);
+
+            currentDateSplit = currentDate.split("-");
+            var TotalDaysInMonth = new Date(ActualStartDate.getFullYear(), ActualStartDate.getMonth() + 1, 0).getDate();
+
+            if (TotalDaysInMonth > parseInt(currentDateSplit[0])) {
+                if (parseInt(currentDateSplit[0]) < 7) {
+                    var TotalDaysInPreviousMonth = new Date(ActualStartDate.getFullYear(), ActualStartDate.getMonth(), 0).getDate();
+                    if (ActualStartDate.getMonth() != 0) {
+
+                        var twoDigitMonthPrevious = ((ActualStartDate.getMonth()).toString().length != 1) ? (ActualStartDate.getMonth()) : '0' + (ActualStartDate.getMonth());
+                    }
+
+                    else {
+                        var twoDigitMonthPrevious = 12;
+                    }
+
+                    var datePrevious = ActualStartDate.getDate() - 7;
+                    if (twoDigitMonthPrevious == 12) {
+                        $("#spnPrevious").text(TotalDaysInPreviousMonth + (datePrevious) + "-" + twoDigitMonthPrevious + "-" + (ActualStartDate.getFullYear() - 1));
+                    }
+                    else {
+                        $("#spnPrevious").text(TotalDaysInPreviousMonth + (datePrevious) + "-" + twoDigitMonthPrevious + "-" + ActualStartDate.getFullYear());
+                    }
+                }
+                else {
+                    if (TotalDaysInMonth - 7 < parseInt(currentDateSplit[0])) {
+                        var DiffDays = (parseInt(currentDateSplit[0]) + 7) - TotalDaysInMonth;
+                        var twoDigitMonthNext = ((ActualStartDate.getMonth() + 2).toString().length != 1) ? (ActualStartDate.getMonth() + 2) : '0' + (ActualStartDate.getMonth() + 2);
+                        if (twoDigitMonthNext == 12) {
+                            $("#spnPrevious").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear() - 1);
+                        }
+                        else {
+                            $("#spnPrevious").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear());
+                        }
+                    }
+                    else {
+                        var lastDate = new Date(ActualStartDate.getFullYear(), ActualStartDate.getMonth(), 0);
+                        if (((parseInt(currentDateSplit[0]) - 7)) == "0") {
+                            $("#spnPrevious").text((parseInt(lastDate.getDate())) + "-" + (twoDigitMonth - 1) + "-" + ActualStartDate.getFullYear());
+                        }
+                        else {
+                            $("#spnPrevious").text((parseInt(currentDateSplit[0]) - 7) + "-" + twoDigitMonth + "-" + ActualStartDate.getFullYear());
+                        }
+                    }
+                }
+            }
+            if (TotalDaysInMonth > parseInt(currentDateSplit[0])) {
+                if (TotalDaysInMonth < parseInt(currentDateSplit[0]) + 7) {
+                    var DiffDays = (parseInt(currentDateSplit[0]) + 7) - TotalDaysInMonth;
+                    var twoDigitMonthNext = ((ActualStartDate.getMonth() + 2).toString().length != 1) ? (ActualStartDate.getMonth() + 2) : '0' + (ActualStartDate.getMonth() + 2);
+                    if (twoDigitMonthNext == 12) {
+                        $("#spnNext").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear() + 1);
+                    }
+                    else {
+                        $("#spnNext").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear());
+                    }
+                }
+                else {
+                    $("#spnNext").text((parseInt(currentDateSplit[0]) + 7) + "-" + twoDigitMonth + "-" + ActualStartDate.getFullYear());
+                }
+
+            }
+        }
+    }
+
+    function fnGetBindFORFSR() {
+        var ddlValue = $("#ddlTypeForCollectionFORFSR").val();
+        if (ddlValue == "Monthly") {
+            var monthNames = ["Sam", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            DateValue = new Date();
+
+            monthValue = DateValue.getMonth();
+            yearValue = DateValue.getFullYear();
+            if (monthNames[DateValue.getMonth()] == "Jan" || monthNames[DateValue.getMonth()] == "Sam") {
+                $("#spnPreviousFORFSR").text(monthNames[12] + " " + (DateValue.getFullYear() - 1));
+                monthValue = 12;
+                yearValue = DateValue.getFullYear() - 1;
+            }
+            else {
+                $("#spnPreviousFORFSR").text(monthNames[DateValue.getMonth()] + " " + DateValue.getFullYear());
+                monthValue = monthValue;
+                yearValue = yearValue;
+            }
+            if (monthValue == 12 || monthValue == 0) {
+                $("#spnCurrentFORFSR").text(monthNames[1] + " " + (yearValue + 1));
+                monthValue = 1;
+                yearValue = yearValue + 1;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+            else {
+                $("#spnCurrentFORFSR").text(monthNames[monthValue + 1] + " " + yearValue);
+                monthValue = monthValue + 1;
+                yearValue = yearValue;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+
+            if (monthNames[DateValue.getMonth() + 1] == "Dec")
+                $("#spnNextFORFSR").text(monthNames[1] + " " + (DateValue.getFullYear() + 1));
+            else
+                $("#spnNextFORFSR").text(monthNames[monthValue + 1] + " " + DateValue.getFullYear());
+
+
+        }
+        else if (ddlValue == "Yearly") {
+            var DateValue = new Date();
+            $("#spnPreviousFORFSR").text(parseInt(DateValue.getFullYear()) - 1);
+            $("#spnCurrentFORFSR").text(DateValue.getFullYear());
+            $("#spnNextFORFSR").text(parseInt(DateValue.getFullYear()) + 1);
+        }
+        else if (ddlValue == "Weekly") {
+            d = new Date(new Date());
+            var day = d.getDate(),
+                diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+
+            var ActualStartDate = new Date(d.setDate(diff));
+            var twoDigitMonth = ((ActualStartDate.getMonth() + 1).toString().length != 1) ? (ActualStartDate.getMonth() + 1) : '0' + (ActualStartDate.getMonth() + 1);
+
+            var currentDate = ActualStartDate.getDate() + "-" + twoDigitMonth + "-" + ActualStartDate.getFullYear();
+            $("#spnCurrentFORFSR").text(currentDate);
+
+            currentDateSplit = currentDate.split("-");
+            var TotalDaysInMonth = new Date(ActualStartDate.getFullYear(), ActualStartDate.getMonth() + 1, 0).getDate();
+
+            if (TotalDaysInMonth > parseInt(currentDateSplit[0])) {
+                if (parseInt(currentDateSplit[0]) < 7) {
+                    var TotalDaysInPreviousMonth = new Date(ActualStartDate.getFullYear(), ActualStartDate.getMonth(), 0).getDate();
+                    if (ActualStartDate.getMonth() != 0) {
+
+                        var twoDigitMonthPrevious = ((ActualStartDate.getMonth()).toString().length != 1) ? (ActualStartDate.getMonth()) : '0' + (ActualStartDate.getMonth());
+                    }
+
+                    else {
+                        var twoDigitMonthPrevious = 12;
+                    }
+
+                    var datePrevious = ActualStartDate.getDate() - 7;
+                    if (twoDigitMonthPrevious == 12) {
+                        $("#spnPreviousFORFSR").text(TotalDaysInPreviousMonth + (datePrevious) + "-" + twoDigitMonthPrevious + "-" + (ActualStartDate.getFullYear() - 1));
+                    }
+                    else {
+                        $("#spnPreviousFORFSR").text(TotalDaysInPreviousMonth + (datePrevious) + "-" + twoDigitMonthPrevious + "-" + ActualStartDate.getFullYear());
+                    }
+                }
+                else {
+                    if (TotalDaysInMonth - 7 < parseInt(currentDateSplit[0])) {
+                        var DiffDays = (parseInt(currentDateSplit[0]) + 7) - TotalDaysInMonth;
+                        var twoDigitMonthNext = ((ActualStartDate.getMonth() + 2).toString().length != 1) ? (ActualStartDate.getMonth() + 2) : '0' + (ActualStartDate.getMonth() + 2);
+                        if (twoDigitMonthNext == 12) {
+                            $("#spnPreviousFORFSR").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear() - 1);
+                        }
+                        else {
+                            $("#spnPreviousFORFSR").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear());
+                        }
+                    }
+                    else {
+                        var lastDate = new Date(ActualStartDate.getFullYear(), ActualStartDate.getMonth(), 0);
+                        if (((parseInt(currentDateSplit[0]) - 7)) == "0") {
+                            $("#spnPreviousFORFSR").text((parseInt(lastDate.getDate())) + "-" + (twoDigitMonth - 1) + "-" + ActualStartDate.getFullYear());
+                        }
+                        else {
+                            $("#spnPreviousFORFSR").text((parseInt(currentDateSplit[0]) - 7) + "-" + twoDigitMonth + "-" + ActualStartDate.getFullYear());
+                        }
+                    }
+                }
+            }
+            if (TotalDaysInMonth > parseInt(currentDateSplit[0])) {
+                if (TotalDaysInMonth < parseInt(currentDateSplit[0]) + 7) {
+                    var DiffDays = (parseInt(currentDateSplit[0]) + 7) - TotalDaysInMonth;
+                    var twoDigitMonthNext = ((ActualStartDate.getMonth() + 2).toString().length != 1) ? (ActualStartDate.getMonth() + 2) : '0' + (ActualStartDate.getMonth() + 2);
+                    if (twoDigitMonthNext == 12) {
+                        $("#spnNextFORFSR").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear() + 1);
+                    }
+                    else {
+                        $("#spnNextFORFSR").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear());
+                    }
+                }
+                else {
+                    $("#spnNextFORFSR").text((parseInt(currentDateSplit[0]) + 7) + "-" + twoDigitMonth + "-" + ActualStartDate.getFullYear());
+                }
+
+            }
+        }
+    }
+
+    function fnGetBindFORVersionUpdt() {
+        var ddlValue = $("#ddlTypeForCollectionFORVersionUpdt").val();
+        if (ddlValue == "Monthly") {
+            var monthNames = ["Sam", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            DateValue = new Date();
+
+            monthValue = DateValue.getMonth();
+            yearValue = DateValue.getFullYear();
+            if (monthNames[DateValue.getMonth()] == "Jan" || monthNames[DateValue.getMonth()] == "Sam") {
+                $("#spnPreviousFORVersionUpdt").text(monthNames[12] + " " + (DateValue.getFullYear() - 1));
+                monthValue = 12;
+                yearValue = DateValue.getFullYear() - 1;
+            }
+            else {
+                $("#spnPreviousFORVersionUpdt").text(monthNames[DateValue.getMonth()] + " " + DateValue.getFullYear());
+                monthValue = monthValue;
+                yearValue = yearValue;
+            }
+            if (monthValue == 12 || monthValue == 0) {
+                $("#spnCurrentFORVersionUpdt").text(monthNames[1] + " " + (yearValue + 1));
+                monthValue = 1;
+                yearValue = yearValue + 1;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+            else {
+                $("#spnCurrentFORVersionUpdt").text(monthNames[monthValue + 1] + " " + yearValue);
+                monthValue = monthValue + 1;
+                yearValue = yearValue;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+
+            if (monthNames[DateValue.getMonth() + 1] == "Dec")
+                $("#spnNextFORVersionUpdt").text(monthNames[1] + " " + (DateValue.getFullYear() + 1));
+            else
+                $("#spnNextFORVersionUpdt").text(monthNames[monthValue + 1] + " " + DateValue.getFullYear());
+
+
+        }
+        else if (ddlValue == "Yearly") {
+            var DateValue = new Date();
+            $("#spnPreviousFORVersionUpdt").text(parseInt(DateValue.getFullYear()) - 1);
+            $("#spnCurrentFORVersionUpdt").text(DateValue.getFullYear());
+            $("#spnNextFORVersionUpdt").text(parseInt(DateValue.getFullYear()) + 1);
+        }
+        else if (ddlValue == "Weekly") {
+            d = new Date(new Date());
+            var day = d.getDate(),
+                diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+
+            var ActualStartDate = new Date(d.setDate(diff));
+            var twoDigitMonth = ((ActualStartDate.getMonth() + 1).toString().length != 1) ? (ActualStartDate.getMonth() + 1) : '0' + (ActualStartDate.getMonth() + 1);
+
+            var currentDate = ActualStartDate.getDate() + "-" + twoDigitMonth + "-" + ActualStartDate.getFullYear();
+            $("#spnCurrentFORVersionUpdt").text(currentDate);
+
+            currentDateSplit = currentDate.split("-");
+            var TotalDaysInMonth = new Date(ActualStartDate.getFullYear(), ActualStartDate.getMonth() + 1, 0).getDate();
+
+            if (TotalDaysInMonth > parseInt(currentDateSplit[0])) {
+                if (parseInt(currentDateSplit[0]) < 7) {
+                    var TotalDaysInPreviousMonth = new Date(ActualStartDate.getFullYear(), ActualStartDate.getMonth(), 0).getDate();
+                    if (ActualStartDate.getMonth() != 0) {
+
+                        var twoDigitMonthPrevious = ((ActualStartDate.getMonth()).toString().length != 1) ? (ActualStartDate.getMonth()) : '0' + (ActualStartDate.getMonth());
+                    }
+
+                    else {
+                        var twoDigitMonthPrevious = 12;
+                    }
+
+                    var datePrevious = ActualStartDate.getDate() - 7;
+                    if (twoDigitMonthPrevious == 12) {
+                        $("#spnPreviousFORVersionUpdt").text(TotalDaysInPreviousMonth + (datePrevious) + "-" + twoDigitMonthPrevious + "-" + (ActualStartDate.getFullYear() - 1));
+                    }
+                    else {
+                        $("#spnPreviousFORVersionUpdt").text(TotalDaysInPreviousMonth + (datePrevious) + "-" + twoDigitMonthPrevious + "-" + ActualStartDate.getFullYear());
+                    }
+                }
+                else {
+                    if (TotalDaysInMonth - 7 < parseInt(currentDateSplit[0])) {
+                        var DiffDays = (parseInt(currentDateSplit[0]) + 7) - TotalDaysInMonth;
+                        var twoDigitMonthNext = ((ActualStartDate.getMonth() + 2).toString().length != 1) ? (ActualStartDate.getMonth() + 2) : '0' + (ActualStartDate.getMonth() + 2);
+                        if (twoDigitMonthNext == 12) {
+                            $("#spnPreviousFORVersionUpdt").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear() - 1);
+                        }
+                        else {
+                            $("#spnPreviousFORVersionUpdt").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear());
+                        }
+                    }
+                    else {
+                        var lastDate = new Date(ActualStartDate.getFullYear(), ActualStartDate.getMonth(), 0);
+                        if (((parseInt(currentDateSplit[0]) - 7)) == "0") {
+                            $("#spnPreviousFORVersionUpdt").text((parseInt(lastDate.getDate())) + "-" + (twoDigitMonth - 1) + "-" + ActualStartDate.getFullYear());
+                        }
+                        else {
+                            $("#spnPreviousFORVersionUpdt").text((parseInt(currentDateSplit[0]) - 7) + "-" + twoDigitMonth + "-" + ActualStartDate.getFullYear());
+                        }
+                    }
+                }
+            }
+            if (TotalDaysInMonth > parseInt(currentDateSplit[0])) {
+                if (TotalDaysInMonth < parseInt(currentDateSplit[0]) + 7) {
+                    var DiffDays = (parseInt(currentDateSplit[0]) + 7) - TotalDaysInMonth;
+                    var twoDigitMonthNext = ((ActualStartDate.getMonth() + 2).toString().length != 1) ? (ActualStartDate.getMonth() + 2) : '0' + (ActualStartDate.getMonth() + 2);
+                    if (twoDigitMonthNext == 12) {
+                        $("#spnNextFORVersionUpdt").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear() + 1);
+                    }
+                    else {
+                        $("#spnNextFORVersionUpdt").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear());
+                    }
+                }
+                else {
+                    $("#spnNextFORVersionUpdt").text((parseInt(currentDateSplit[0]) + 7) + "-" + twoDigitMonth + "-" + ActualStartDate.getFullYear());
+                }
+
+            }
+        }
+    }
+
+    function fnGetBindFORSMPData() {
+        var ddlValue = $("#ddlTypeForSMPData").val();
+        if (ddlValue == "Monthly") {
+            var monthNames = ["Sam", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            DateValue = new Date();
+
+            monthValue = DateValue.getMonth();
+            yearValue = DateValue.getFullYear();
+            if (monthNames[DateValue.getMonth()] == "Jan" || monthNames[DateValue.getMonth()] == "Sam") {
+                $("#spnPreviousFORSMPData").text(monthNames[12] + " " + (DateValue.getFullYear() - 1));
+                monthValue = 12;
+                yearValue = DateValue.getFullYear() - 1;
+            }
+            else {
+                $("#spnPreviousFORSMPData").text(monthNames[DateValue.getMonth()] + " " + DateValue.getFullYear());
+                monthValue = monthValue;
+                yearValue = yearValue;
+            }
+            if (monthValue == 12 || monthValue == 0) {
+                $("#spnCurrentFORSMPData").text(monthNames[1] + " " + (yearValue + 1));
+                monthValue = 1;
+                yearValue = yearValue + 1;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+            else {
+                $("#spnCurrentFORSMPData").text(monthNames[monthValue + 1] + " " + yearValue);
+                monthValue = monthValue + 1;
+                yearValue = yearValue;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+
+            if (monthNames[DateValue.getMonth() + 1] == "Dec")
+                $("#spnNextFORSMPData").text(monthNames[1] + " " + (DateValue.getFullYear() + 1));
+            else
+                $("#spnNextFORSMPData").text(monthNames[monthValue + 1] + " " + DateValue.getFullYear());
+
+
+        }
+        else if (ddlValue == "Yearly") {
+            var DateValue = new Date();
+            $("#spnPreviousFORSMPData").text(parseInt(DateValue.getFullYear()) - 1);
+            $("#spnCurrentFORSMPData").text(DateValue.getFullYear());
+            $("#spnNextFORSMPData").text(parseInt(DateValue.getFullYear()) + 1);
+        }
+        else if (ddlValue == "Weekly") {
+            d = new Date(new Date());
+            var day = d.getDate(),
+                diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+
+            var ActualStartDate = new Date(d.setDate(diff));
+            var twoDigitMonth = ((ActualStartDate.getMonth() + 1).toString().length != 1) ? (ActualStartDate.getMonth() + 1) : '0' + (ActualStartDate.getMonth() + 1);
+
+            var currentDate = ActualStartDate.getDate() + "-" + twoDigitMonth + "-" + ActualStartDate.getFullYear();
+            $("#spnCurrentFORSMPData").text(currentDate);
+
+            currentDateSplit = currentDate.split("-");
+            var TotalDaysInMonth = new Date(ActualStartDate.getFullYear(), ActualStartDate.getMonth() + 1, 0).getDate();
+
+            if (TotalDaysInMonth > parseInt(currentDateSplit[0])) {
+                if (parseInt(currentDateSplit[0]) < 7) {
+                    var TotalDaysInPreviousMonth = new Date(ActualStartDate.getFullYear(), ActualStartDate.getMonth(), 0).getDate();
+                    if (ActualStartDate.getMonth() != 0) {
+
+                        var twoDigitMonthPrevious = ((ActualStartDate.getMonth()).toString().length != 1) ? (ActualStartDate.getMonth()) : '0' + (ActualStartDate.getMonth());
+                    }
+
+                    else {
+                        var twoDigitMonthPrevious = 12;
+                    }
+
+                    var datePrevious = ActualStartDate.getDate() - 7;
+                    if (twoDigitMonthPrevious == 12) {
+                        $("#spnPreviousFORSMPData").text(TotalDaysInPreviousMonth + (datePrevious) + "-" + twoDigitMonthPrevious + "-" + (ActualStartDate.getFullYear() - 1));
+                    }
+                    else {
+                        $("#spnPreviousFORSMPData").text(TotalDaysInPreviousMonth + (datePrevious) + "-" + twoDigitMonthPrevious + "-" + ActualStartDate.getFullYear());
+                    }
+                }
+                else {
+                    if (TotalDaysInMonth - 7 < parseInt(currentDateSplit[0])) {
+                        var DiffDays = (parseInt(currentDateSplit[0]) + 7) - TotalDaysInMonth;
+                        var twoDigitMonthNext = ((ActualStartDate.getMonth() + 2).toString().length != 1) ? (ActualStartDate.getMonth() + 2) : '0' + (ActualStartDate.getMonth() + 2);
+                        if (twoDigitMonthNext == 12) {
+                            $("#spnPreviousFORSMPData").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear() - 1);
+                        }
+                        else {
+                            $("#spnPreviousFORSMPData").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear());
+                        }
+                    }
+                    else {
+                        var lastDate = new Date(ActualStartDate.getFullYear(), ActualStartDate.getMonth(), 0);
+                        if (((parseInt(currentDateSplit[0]) - 7)) == "0") {
+                            $("#spnPreviousFORSMPData").text((parseInt(lastDate.getDate())) + "-" + (twoDigitMonth - 1) + "-" + ActualStartDate.getFullYear());
+                        }
+                        else {
+                            $("#spnPreviousFORSMPData").text((parseInt(currentDateSplit[0]) - 7) + "-" + twoDigitMonth + "-" + ActualStartDate.getFullYear());
+                        }
+                    }
+                }
+            }
+            if (TotalDaysInMonth > parseInt(currentDateSplit[0])) {
+                if (TotalDaysInMonth < parseInt(currentDateSplit[0]) + 7) {
+                    var DiffDays = (parseInt(currentDateSplit[0]) + 7) - TotalDaysInMonth;
+                    var twoDigitMonthNext = ((ActualStartDate.getMonth() + 2).toString().length != 1) ? (ActualStartDate.getMonth() + 2) : '0' + (ActualStartDate.getMonth() + 2);
+                    if (twoDigitMonthNext == 12) {
+                        $("#spnNextFORSMPData").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear() + 1);
+                    }
+                    else {
+                        $("#spnNextFORSMPData").text(parseInt(-(DiffDays)) + "-" + twoDigitMonthNext + "-" + ActualStartDate.getFullYear());
+                    }
+                }
+                else {
+                    $("#spnNextFORSMPData").text((parseInt(currentDateSplit[0]) + 7) + "-" + twoDigitMonth + "-" + ActualStartDate.getFullYear());
+                }
+
+            }
+        }
+    }
+
+    fnClickPreviousUser(true);
+    function fnClickPreviousUser(isPageLoad) {
+        var monthNames = ["Sam", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        DateValue = new Date();
+
+        if (isPageLoad) {
+            monthValue = DateValue.getMonth();
+            yearValue = DateValue.getFullYear();
+            if (monthNames[DateValue.getMonth()] == "Jan" || monthNames[DateValue.getMonth()] == "Sam") {
+                $("#spnPreviousUser").text(monthNames[12] + " " + (DateValue.getFullYear() - 1));
+                monthValue = 12;
+                yearValue = (DateValue.getFullYear() - 1);
+            }
+            else {
+                $("#spnPreviousUser").text(monthNames[DateValue.getMonth()] + " " + DateValue.getFullYear());
+                monthValue = monthValue;
+                yearValue = yearValue;
+            }
+            if (monthValue == 12 || monthValue == 0) {
+                $("#spnCurrentUser").text(monthNames[1] + " " + (yearValue + 1));
+                monthValue = 1;
+                yearValue = yearValue + 1;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+            else {
+                $("#spnCurrentUser").text(monthNames[monthValue + 1] + " " + yearValue);
+                monthValue = monthValue + 1;
+                yearValue = yearValue;
+                monthCenterValue = monthValue;
+                yearCenterValue = yearValue;
+            }
+            if (monthNames[DateValue.getMonth() + 1] == "Dec")
+                $("#spnNextUser").text(monthNames[1] + " " + (DateValue.getFullYear() + 1));
+            else
+                $("#spnNextUser").text(monthNames[monthValue + 1] + " " + DateValue.getFullYear());
+        }
+        else {
+            var previousValue = $("#spnPreviousUser").text();
+            MonthBindPrevious(previousValue, "spnPreviousUser");
+
+            var currentValue = $("#spnCurrentUser").text();
+            MonthBindPrevious(currentValue, "spnCurrentUser");
+
+            var nextValue = $("#spnNextUser").text();
+            MonthBindPrevious(nextValue, "spnNextUser");
+        }
+    }
+
+    function fnClickNextUser() {
+        var previousValue = $("#spnPreviousUser").text();
+        MonthBindNext(previousValue, "spnPreviousUser");
+
+        var currentValue = $("#spnCurrentUser").text();
+        MonthBindNext(currentValue, "spnCurrentUser");
+
+        var nextValue = $("#spnNextUser").text();
+        MonthBindNext(nextValue, "spnNextUser");
+    }
+</script>
+<script src="@Url.Content("~/Scripts/Chart.bundle.js")"></script>
+<script src="@Url.Content("~/Scripts/Chart.js")"></script>
+<script src="~/CIRScripts/jsDashBoardController.js" type="text/javascript"></script>
+

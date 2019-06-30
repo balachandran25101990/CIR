@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "CIRStackedAnalytics";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    var GetReportDetailUrl = "@Url.Action("GetCIRStackedAnalyticsDetails", "Report")";
+    var GetLogFileUrl = "@Url.Action("LogFile", "Admin")";
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+</script>
+<div class="col-lg-12 pad-0" ng-controller="CIRStackedReport_OperController">
+    <div class="content-part" style="min-height:90vh;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5 class="heading-h">State Wise Analytics Report</h5>
+            </div>
+            <div class="row mar-0 fomr-div">
+                <div class="col-xs-12 col-sm-6 co-md-3 col-lg-3">
+                    <span>Date From</span>
+                    <input type="text" id="txtDateFrom" class="datepickerFormat" ng-model="DateFrom" onkeypress="return Enabled(event)" />
+                </div>
+                <div class="col-xs-12 col-sm-6 co-md-3 col-lg-3">
+                    <span>Date To</span>
+                    <input type="text" id="txtDateTo" class="datepickerFormat" ng-model="DateTo" onkeypress="return Enabled(event)" />
+                </div>
+                <div class="col-xs-12 col-sm-6 col-lg-3 col-xs-3" style="margin-top: 5px;">
+                    <ul class="nav nav-pills">
+                        <li role="presentation" id="aMonth" class="active" ng-click="ChangeActive($event)"><a href="#">Month</a></li>
+                        @*<li role="presentation" id="aWeek" ng-click="ChangeActive($event)"><a>Week</a></li>*@
+                        <li role="presentation" id="aDate" ng-click="ChangeActive($event)"><a href="#">Date</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 co-md-3 col-lg-3" style="margin-top: 12px;">
+                    <a href="#" class="btn btn-default" ng-click="PrepareAnalyticsRpt(False)">Search</a>
+                    <a href="#" class="btn btn-default" ng-click="Clear()">Clear</a>
+                </div>
+            </div>
+            <br />
+            <div id="content" style="display: none">
+                <div class="row mar-0 fomr-div">
+                    <div class="col-xs-12 col-sm-12 co-md-12 col-lg-12">
+                        <div id="container">
+                            <canvas id="canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mar-0 fomr-div" ng-show="DetailsArray.length>0">
+                    <br />
+                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-6">
+                        <div class="input-group col-xs-6 col-sm-6 col-lg-6 col-md-6" style="margin-bottom: 15px;">
+                            <div class="input-group-addon">
+                                <i class="fa fa-search"></i>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Search" ng-model="search" style="height: 35px;" />
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover" cellpadding="0" cellspacing="0">
+                                <thead style="border-bottom-color: #ddd; border-bottom-width: 1px; border-bottom-style: solid; border-top-color: #ddd; border-top-width: 1px; border-top-style: solid;">
+                                    <tr>
+                                        <th style="color: #6b6b6b; font-weight: bold;cursor:pointer;text-align:center;" ng-click="sortType = 'IText'; sortReverse = !sortReverse">SlNo
+                                            <span ng-show="sortType == 'IText' && !sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'IText' && sortReverse" class="fa fa-caret-up"></span>
+                                        </th>
+                                        <th style="color: #6b6b6b; font-weight: bold;cursor:pointer;" ng-click="sortType = 'QualityPending'; sortReverse = !sortReverse">QualityPending
+                                            <span ng-show="sortType == 'QualityPending' && !sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'QualityPending' && sortReverse" class="fa fa-caret-up"></span></th>
+                                        <th style="color: #6b6b6b; font-weight: bold;cursor:pointer;">FEPending</th>
+                                        <th style="color: #6b6b6b; font-weight: bold;cursor:pointer;">FOMPending</th>
+                                        <th style="color: #6b6b6b; font-weight: bold;cursor:pointer;">PTSPending</th>
+                                        <th style="color: #6b6b6b; font-weight: bold;cursor:pointer;">FSLPending</th>
+                                        <th style="color: #6b6b6b; font-weight: bold;cursor:pointer;">FSSPending</th>
+                                        <th style="color: #6b6b6b; font-weight: bold;cursor:pointer;">DMPending</th>
+                                        <th style="color: #6b6b6b; font-weight: bold;cursor:pointer;">RCPending</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tabletd">
+                                    <tr ng-repeat="row in DetailsArray  | orderBy:sortType:sortReverse | filter:search  | pagination: curPage * pageSize | limitTo: pageSize">
+                                        <td><span style="white-space: pre-line; width: 250px; word-break: break-word; text-align:center;">{{row.IText}}</span></td>
+                                        <td><span>{{row.QualityPending}}</span></td>
+                                        <td><span>{{row.FEPending}}</span></td>
+                                        <td><span>{{row.FOMPending}}</span></td>
+                                        <td><span>{{row.PTSPending}}</span></td>
+                                        <td><span>{{row.FSLPending}}</span></td>
+                                        <td><span>{{row.FSSPending}}</span></td>
+                                        <td><span>{{row.DMPending}}</span></td>
+                                        <td><span>{{row.RCPending}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/Chart.bundle.js")"></script>
+<script src="@Url.Content("~/Scripts/Chart.js")"></script>
+<script src="~/CIRScripts/ReportController.js" type="text/javascript"></script>

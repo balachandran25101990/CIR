@@ -1,0 +1,474 @@
+﻿
+@{
+    ViewBag.Title = "Suggestion";
+    Layout = "~/Views/Shared/_Layout_chat.cshtml";
+}
+
+<style>
+    button.accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 10px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+        button.accordion.active, button.accordion:hover {
+            background-color: #ddd;
+        }
+
+    div.panel {
+        padding: 0 0px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.6s ease-in-out;
+        opacity: 0;
+    }
+
+        div.panel.show {
+            opacity: 1;
+            max-height: 500px;
+        }
+         div.panel.hide {  padding: 0 0px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.6s ease-in-out;
+        opacity: 0;
+        }
+</style>
+
+<div class="col-lg-12 pad-0">
+    <div class="content-part">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+
+                <table style="width:100%;padding-bottom:10px;">
+                    <tr>
+                        <td style="border-bottom: 1px #ccc dotted;">
+
+                            <h5>
+                                Suggestion
+                            </h5>
+                        </td>
+                        <td align="right" style="border-bottom: 1px #ccc dotted;">
+
+                            <img id="btnopenall" src="~/Content/img/plus.png" style="height:30px;width:30px;cursor:pointer;" />
+                            <img id="btncloseall" src="~/Content/img/minus.png" style="height:30px;width:30px;cursor:pointer;" />
+                        </td>
+                    </tr>
+                    <tr style="height:10px;">
+                        <td></td>
+
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-12">
+                @*<button id="btnopenall">openall</button>
+                    <button id="btncloseall">closeall</button>
+                    <br /><br />*@
+                @*style="display:none;"*@
+                <button class="accordion">Suggestion Head</button>
+                <div id="foo" class="panel" style="margin-bottom :0px;">
+                    <table style="width:100%; border:1px solid silver;">
+                        <tr>
+                            <td style="width:35%;padding-right:5px;padding-left:5px; ">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td align="right" style="width:100%;">
+                                            <table style="width:100%;">
+                                                <tr>
+                                                    <td style="height:30px;">
+                                                        <span>Name</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" style="width:99%;margin-top:3px;margin-bottom:3px;" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height:30px;">
+                                                        <span>Employee ID</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" style="width:99%;margin-top:3px;margin-bottom:3px;" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height:30px;">
+                                                        <span>Department</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" style="width:99%;margin-top:3px;margin-bottom:3px;" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width:35%;padding-right:5px;padding-left:5px;vertical-align:top; ">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td>
+
+                                            <span>Suggestion No:</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" style="width:90%; margin-top:3px;margin-bottom:3px;" placeholder="To be Filled by Champion" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>Date</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" style="width:90%;margin-top:3px;margin-bottom:3px;" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+
+                            <td style="width:30%;padding-right:5px;padding-left:5px; border-left:1px solid silver;vertical-align:top;  ">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td>
+
+                                            <span>Doc. No:</span>
+                                        </td>
+                                        <td>
+                                            <span> IND-TQM-MBE-002-R04</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>Edition: 4</span>
+                                        </td>
+                                        <td>
+                                            <span>  Date: 17/01/2016</span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:30px;">
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr>
+
+                                        <td style="width:100%;padding-right:5px;padding-left:5px; padding-right:20px; padding-bottom:3px; vertical-align:bottom;" align="right" colspan="2">
+                                            <a href="#" class="SaveButton btn btn-default" style="height:30px;">Save</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <button class="accordion">Suggestion Details</button>
+                <div id="foo1" class="panel" style="margin-bottom :0px;">
+                    <table style="width:100%; border:1px solid silver;">
+                        <tr>
+
+                                        <td style="width:33%;margin-left:5px; margin-right :5px;padding-top:10px;">
+                                            <span style="margin-left: 5px;">Current Practise / Situation:</span>
+                                            <br />
+                                            <textarea id="txtProblem" style="height: 100px; width:99%;margin-left:5px;margin-right:5px;" maxlength="1000"></textarea>
+
+                                        </td>
+                        
+                            <td style="width:33%;margin-left:5px;  margin-right :5px;padding-top:10px;">
+                                <span  style="margin-left: 5px;">Problem encountered :</span>
+                                <br />
+                                <textarea id="txtProblem" style="height: 100px; width:99%;margin-left:5px;margin-right:5px;" maxlength="1000"></textarea>
+
+                            </td>
+                            <td style="width:33%;margin-left:5px;  margin-right :5px;padding-top:10px;padding-right:5px;">
+                                <span style="margin-left: 5px;"> Suggestion details :</span>
+                                <br />
+                                <textarea id="txtProblem" style="height: 100px; width:99%;margin-left:5px;margin-right:5px;" maxlength="1000"></textarea>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="width:100%;margin-left:5px; margin-right :5px;padding-top:10px; padding-right:20px; padding-bottom:3px;" align="right">
+                                <a href="#" class="SaveButton btn btn-default" style="height:30px;">Save</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <button class="accordion"> Benefits</button>
+                <div id="foo2" class="panel" style="margin-bottom :0px;">
+
+                    <table style="width:100%; border:1px solid silver;">
+                        <tr>
+                            <td style="width:100%;margin-left:5px; margin-right :5px;padding-top:10px;">
+
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td style="width:15%;">
+                                            <span style="margin-left: 5px;">Area of Suggestion:</span>
+                                        </td>
+                                        <td style="width:15%;">
+                                            <input type="checkbox" />
+                                            <span>Productivity</span>
+                                        </td>
+                                        <td style="width:15%;">
+                                            <input type="checkbox" />
+                                            <span>Morale</span>
+                                        </td>
+                                        <td style="width:15%;">
+                                            <input type="checkbox" />
+                                            <span>Delivery</span>
+                                        </td>
+                                        
+                                        <td style="width:25%;">
+                                            <input type="checkbox" />
+                                            <span>Safety /Ergonomics/ Environment</span>
+                                        </td>
+
+                                        <td style="width:15%;">
+                                            </td>
+</tr>
+                                    <tr>
+                                        <td style="width:10%;"></td>
+                                        <td style="width:15%;">
+                                            <input type="checkbox" />
+                                            <span>Quality</span>
+                                        </td>
+                                        <td style="width:15%;">
+                                            <input type="checkbox" />
+                                            <span>Cost</span>
+                                        </td>
+                                        <td style="width:15%;">
+                                            <input type="checkbox" />
+                                            <span>Others</span>
+                                        </td>
+
+                                        <td style="width:25%;">
+                                        </td>
+                                        <td style="width:20%;"></td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                        @*<tr>
+                            <td style="width:100%;margin-left:5px;  margin-right :5px;padding-top:10px;">
+                        
+                            </td>
+                        </tr>*@
+                        <tr>
+                            <td style="width:100%;margin-left:5px;  margin-right :5px;padding-top:10px;">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td style="width:15%;">
+                                            <span style="margin-left: 5px;"> Review Status :</span>
+                                        </td>
+                                        <td style="width:15%;">
+                                            <input type="checkbox" />
+                                            <span>Accepted</span>
+                                        </td>
+                                        <td style="width:20%;">
+                                            <input type="checkbox" />
+                                            <span>Non-Accepted</span>
+                                        </td>
+                                        <td style="width:25%;">
+                                            <span>Date</span>
+                                            <input type="text" />
+                                        </td>
+
+                                        <td style="width:25%;">
+                                            </td>
+</tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:100%;margin-left:5px;  margin-right :5px;padding-top:10px;">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td style="width:50%;" >
+                                            <span style="margin-left: 5px;">Benefits of Suggestion :</span>
+                                            <br />
+                                            <textarea id="txtProblem" style="height: 70px; width:99%;margin-left:5px;margin-right:5px;" maxlength="1000"></textarea>
+
+                                        </td>
+                                        <td style="width:50%; padding-right:5px;">
+                                            <span style="margin-left: 5px;"> If rejected, reason for rejection :</span>
+                                            <br />
+                                            <textarea id="txtProblem" style="height: 70px; width:99%;margin-left:5px;margin-right:5px;" maxlength="1000"></textarea>
+
+                                        </td>
+                                    </tr>
+                                </table>
+                              
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td style="width:100%;margin-left:5px;  margin-right :5px;padding-top:10px;padding-right:20px;padding-bottom:3px;" align="right">
+                                <a href="#" class="SaveButton btn btn-default" style="height:30px;">Submit</a>
+                            </td>
+</tr>
+                    </table>
+                </div>
+                @*<button class="accordion">Employee Reference</button>
+                <div id="foo3" class="panel" style="margin-bottom :0px;">
+
+
+                    <table style="width:100%;border:1px solid silver;">
+                        <tr style="border-bottom:1px solid silver;">
+                            <td style="width:70%;padding-right:5px;padding-left:5px; ">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td style="width:30%;text-align:left;margin-left:10px;">
+                                            <span style="font-weight:bold;font-size: 14px;">Employee Details</span>
+                                        </td>
+                                        <td align="right" style="width:70%;">
+                                            <table style="width:100%;">
+                                                <tr>
+                                                    <td style="height:30px;">
+                                                        <span>Name</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" style="width:80%;margin-top:3px;margin-bottom:3px;"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height:30px;">
+                                                        <span>Department</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" style="width:80%;margin-top:3px;margin-bottom:3px;" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                            <td style="width:30%;padding-right:5px;padding-left:5px;border-left:1px solid silver;">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td>
+
+                                            <span>Employee ID:</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" style="width:80%;margin-top:3px;margin-bottom:3px;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>Suggestion No:</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" style="width:80%;margin-top:3px;margin-bottom:3px;" placeholder="To be Filled by Champion" />
+                                        </td>
+                                    </tr>
+                                
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td style="width:100%;padding-top:10px;" colspan="2">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td style="width:20%;">
+                                            <span style="margin-left: 5px;"> Suggestion Title :</span>
+                                        </td>
+                                        <td style="width:80%;">
+                                            <input type="text" style="width:98%;" />
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                </td>
+</tr>
+                        <tr>
+                            <td style="width:100%;padding-top:10px;" colspan="2" >
+                                <br />
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td style="width:15%;">
+                                            <span style="margin-left: 5px;"> Review Status :</span>
+                                        </td>
+                                        <td style="width:15%;">
+                                            <input type="checkbox" />
+                                            <span>Accepted</span>
+                                        </td>
+                                        <td style="width:20%;">
+                                            <input type="checkbox" />
+                                            <span>Non-Accepted</span>
+                                        </td>
+                                        <td style="width:25%;">
+                                            <span>Date</span>
+                                            <input type="text" />
+                                        </td>
+
+                                        <td style="width:25%;"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                            </tr>
+                        <tr>
+                            <td style="width:100%;padding-top:10px;" colspan="2">
+                                <span style="margin-left: 5px;"> Reason for Non-Accepted:</span>
+                                <br />
+                                <textarea id="txtProblem" style="height: 100px; width:99%;margin-left:5px;margin-right:5px;" maxlength="1000"></textarea>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>*@
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+
+    $(document).ready(function () {
+        document.getElementById("foo").className = "panel.show ";
+    });
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function () {
+
+        document.getElementById("foo").className = "panel";
+        document.getElementById("foo1").className = "panel";
+        document.getElementById("foo2").className = "panel";
+        this.classList.toggle("active");
+        this.nextElementSibling.classList.toggle("show");
+    }
+
+}
+
+$('#btnopenall').click(function () {
+    document.getElementById("foo").className = "panel.show ";
+    document.getElementById("foo1").className = "panel.show ";
+    document.getElementById("foo2").className = "panel.show ";
+});
+$('#btncloseall').click(function () {
+    document.getElementById("foo").className = "panel";
+    document.getElementById("foo1").className = "panel";
+    document.getElementById("foo2").className = "panel";
+});
+</script>
+

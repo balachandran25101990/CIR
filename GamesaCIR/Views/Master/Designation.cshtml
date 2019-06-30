@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "Designation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var SetDesignationUrl = "@Url.Action("SetDesignation", "Master")";
+    var GetDesignationUrl = "@Url.Action("GetDesignation", "Master")";
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+    var GetLogFileUrl = "@Url.Action("LogFile", "Admin")";
+</script>
+
+<div class="col-lg-12 pad-0" ng-controller="Designation_OperController">
+    <div class="content-part" style="min-height:90vh;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5 class="heading-h">Designation Master</h5>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="input-group col-lg-6 col-sm-6 col-md-6 col-xs-6" style="margin-bottom: 15px;">
+                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                    <input type="text" class="form-control" placeholder="Search the Designation" ng-model="searchDesignation" style="height: 35px;">
+                </div>
+                <div>
+                    <table cellpadding="0" cellspacing="0" class="table table-hover table-responsive">
+                        <thead style="border-top: 1px solid #dddddd;border-bottom: 2px solid #dddddd;">
+                            <tr>
+                                <th ng-click="sortType = 'SlNo'; sortReverse = !sortReverse" width="6%" style="cursor:pointer;text-align:center;">
+                                    <a style="text-decoration: none; color: #6b6b6b; font-weight: bold;text-align:center;cursor:pointer;">
+                                        SlNo
+                                        <span ng-show="sortType == 'SlNo' && !sortReverse" class="fa fa-caret-down"></span>
+                                        <span ng-show="sortType == 'SlNo' && sortReverse" class="fa fa-caret-up"></span>
+                                    </a>
+                                </th>
+                                <th ng-click="sortType = 'Designation'; sortReverse = !sortReverse" width="25%" style="cursor:pointer;">
+                                    <a style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                        Designation
+                                        <span ng-show="sortType == 'Designation' && !sortReverse" class="fa fa-caret-down"></span>
+                                        <span ng-show="sortType == 'Designation' && sortReverse" class="fa fa-caret-up"></span>
+                                    </a>
+                                </th>
+                                <th ng-click="sortType = 'Code'; sortReverse = !sortReverse" width="15%" style="cursor:pointer;">
+                                    <a style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                        Code
+                                        <span ng-show="sortType == 'Code' && !sortReverse" class="fa fa-caret-down"></span>
+                                        <span ng-show="sortType == 'Code' && sortReverse" class="fa fa-caret-up"></span>
+                                    </a>
+                                </th>
+                                <th ng-click="sortType = 'Desc'; sortReverse = !sortReverse" width="35%" style="cursor:pointer;">
+                                    <a style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                        Description
+                                        <span ng-show="sortType == 'Desc' && !sortReverse" class="fa fa-caret-down"></span>
+                                        <span ng-show="sortType == 'Desc' && sortReverse" class="fa fa-caret-up"></span>
+                                    </a>
+                                </th>
+                                <th style="text-align: center;" width="10%"><a style="text-decoration: none; color: #6b6b6b; font-weight: bold;text-align:center;">Active</a></th>
+                                <th width="9%" style="text-align:center;" ng-show="Add || Update || Delete"><a style="text-decoration: none; color: #6b6b6b; font-weight: bold;">Action</a></th>
+                            </tr>
+                            <tr>
+                                <td width="5%" style="text-align:center;">
+                                    {{SlNo}}
+                                    <input id="hfDsgId" ng-model="DsgId" type="hidden">
+                                </td>
+                                <td width="25%">
+                                    <input id="txtDsgnName" ng-model="Name" style="width: 100%;" type="text" maxlength="100" onkeypress="return isAlphaNumericOnlyhifen(event)" pattern=".{3,}" required title="Minimum 3 characters required">
+                                </td>
+                                <td width="15%">
+                                    <input id="txtDsgnCode" ng-model="Code" style="width: 100%;" type="text" maxlength="10" onkeypress="return isAlphaNumericOnlySpace(event)" pattern=".{3,}" required title="Minimum 3 characters required">
+                                </td>
+                                <td width="35%">
+                                    <input id="txtDsgnDesc" ng-model="Desc" style="width: 100%;" type="text" maxlength="200">
+                                </td>
+                                <td style="text-align: center;" width="10%">
+                                    <input ng-model="Active" ng-true-value="'1'" ng-false-value="'0'" type="checkbox" checked="checked" id="chkActive" style="font-size: 12px; color: #808080; padding: 3px; width: 100%; margin-bottom: 5px; height: 15px;">
+                                </td>
+                                <td width="10%" ng-show="Add || Update || Delete">
+                                    <a style="margin-right: 20px; margin-left: 5px; cursor: pointer;" ng-click="SetDesignation()" ng-show="Add || UpdateOnly" data-toggle="tooltip" data-placement="top" title="Save">
+                                        <img src="~/Content/img/add-btn.png">
+                                    </a>
+                                    <a style="cursor: pointer;" ng-click="GetDesignation()" data-toggle="tooltip" data-placement="top" title="Refresh">
+                                        <img style="height: 15px;" src="~/Content/img/refresh.png" title="Clear">
+                                    </a>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody style="border-bottom: 1px solid #dddddd;">
+                            <tr ng-repeat="row in DesignationGridArray | orderBy:sortType:sortReverse | filter:searchDesignation  | pagination: curPage * pageSize | limitTo: pageSize">
+                                <td width="5%"><span style="margin-left:15px; text-align:center;">{{row.SlNo}}</span></td>
+                                <td width="25%" style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word"><span style="margin-left:15px;">{{row.Designation}}</span></td>
+                                <td width="15%"><span style="margin-left:15px;">{{row.Code}}</span></td>
+                                <td width="35%" style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word"><span style="margin-left:15px;">{{row.Desc}}</span></td>
+                                <td align="center" width="10%">
+                                    <input type="checkbox" disabled="disabled" ng-model="row.Active" ng-true-value="'True'" ng-false-value="'False'" style="font-size: 12px; color: #808080; padding: 3px; width: 100%; margin-bottom: 5px; height: 15px;">
+                                </td>
+                                <td width="10%" ng-show="Add || Update || Delete">
+                                    <a style="cursor: pointer;" ng-click="DeleteDesignation(row.DsgId)" data-toggle="tooltip" data-placement="top" title="Delete" ng-show="Delete" onmouseover="$(this).tooltip('show')">
+                                        <img style="height: 20px;" src="~/Content/img/delete.png">
+                                    </a>
+                                    <a style="cursor: pointer;" ng-click="EditDesignation(row)" data-toggle="tooltip" data-placement="top" title="Edit" ng-show="Update" onmouseover="$(this).tooltip('show')">
+                                        <img style="height: 20px;" src="~/Content/img/edit.png">
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-show="DesignationGridArray.length > pageSize">
+                        <div class="col-lg-8 col-sm-12 col-xs-12 col-md-8" style="padding-left:0px;">
+                            <ul class="pagination-controle pagination">
+                                <li>
+                                    <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                            ng-click="curPage=0" style="border-radius  : 0px;">
+                                        &lt;&lt; First
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                            ng-click="curPage=curPage-1" style="border-radius  : 0px;">
+                                        &lt; Prev
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                            ng-disabled="curPage >= DesignationGridArray.length/pageSize - 1"
+                                            ng-click="curPage = curPage+1">
+                                        Next &gt;
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                            ng-disabled="curPage >= DesignationGridArray.length/pageSize - 1"
+                                            ng-click="LastPage()">
+                                        Last &gt;&gt;
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4" style="padding:20px;padding-right:0px;">
+                            <span style="color: black;padding: 8px;background-color: #bbbbbb;" class="pull-right">Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+<script src="~/CIRScripts/MasterController.js" type="text/javascript"></script>
+
+
+

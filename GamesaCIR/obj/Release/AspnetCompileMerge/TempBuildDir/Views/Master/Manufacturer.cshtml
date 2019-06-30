@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Manufacturer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var SetManufacturersUrl = "@Url.Action("SetManufacturers", "Master")";
+    var GetManufacturersUrl = "@Url.Action("GetManufacturers", "Master")";
+</script>
+
+<div class="col-lg-12 pad-0" ng-controller="Manufacturer_OperController">
+    <div class="content-part">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5 class="heading-h">Manufacturers Master</h5>
+            </div>
+
+            <div style="margin-bottom:15px;" class="row mar-0 fomr-div">
+                <div class="col-lg-3 col-md-3">
+                    <span>Manufacturers Type</span><br>
+                    <select id="ddlManufacturers" ng-model="MType" ng-change="GetManufacturers()">
+                        <option value="0">-- Add New --</option>
+                        <option ng-repeat="option in ManufacturersSelect" value="{{option.MCId}}">{{option.Name}}</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                </div>
+                <div class="col-lg-3 col-md-3">
+                </div>
+                <div class="col-lg-3 col-md-3">
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="grid-div">
+                    <table cellpadding="0" cellspacing="0" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width:10%;">#</th>
+                                <th style="width:30%;">Name</th>
+                                <th style="width:40%;">Description</th>
+                                <th style="width:10%; text-align:center;">Active</th>
+                                <th style="width:10%;">Action</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{SlNo}}
+                                    <input id="hfMfrId" ng-model="MfrId" type="hidden">
+                                </th>
+                                <th><input id="txtManufacturerName" ng-model="Name" style="width:100%;" type="text"></th>
+                                <th><input id="txtManufacturerDesc" ng-model="Desc" style="width:100%;" type="text"></th>
+                                <th style="text-align:center;"><input ng-model="Active" ng-true-value="'1'" ng-false-value="'0'" type="checkbox" checked="checked" id="chkActive"></th>
+                                <th>
+                                    <a style="margin-right:20px; margin-left:5px; cursor:pointer;" ng-click="SetManufacturers()"><img src="~/Content/img/add-btn.png"></a>
+                                    <a style="cursor:pointer;" ng-click="GetManufacturers()"><img style="height:15px;" src="~/Content/img/refresh.png"></a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in ManufacturersGridArray">
+                                <th scope="row">{{row.SlNo}}</th>
+                                <td>{{row.Manufacturer}}</td>
+                                <td>{{row.Desc}}</td>
+                                <td align="center"><input type="checkbox" disabled="disabled" ng-model="row.Active" ng-true-value="'True'" ng-false-value="'False'"></td>
+                                <td>
+                                    <a style="cursor:pointer;" ng-click="DeleteManufacturers(row.MfrId)"><img style="height:20px;" src="/Content/img/delete.png"></a>
+                                    <a style="cursor:pointer;" ng-click="EditManufacturers($index)"><img style="height:20px;" src="/Content/img/edit.png"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row mar-0">
+                <div class="col-lg-12">
+                    <div class="line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/CIRScripts/MasterController.js" type="text/javascript"></script>

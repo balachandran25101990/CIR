@@ -1,0 +1,388 @@
+﻿@import url(https://fonts.googleapis.com/css?family=Karla);
+@import url(https://fonts.googleapis.com/css?family=Oswald);
+
+body {
+    font-family: 'Open Sans', 'Droid Sans', Tahoma, Arial, sans-serif;
+    /*font-family: 'Karla', sans-serif;*/
+    background-image: url('img/m-bg.jpg');
+    background-size: cover;
+    outline: none;
+}
+
+img {
+    border: none;
+    outline: none;
+}
+
+.header-wrapper {
+    background: #fff;
+    position: absolute;
+    height: 50px;
+    -webkit-box-shadow: 2px 2px 3px 0px rgba(50, 50, 50, 0.24);
+    -moz-box-shadow: 2px 2px 3px 0px rgba(50, 50, 50, 0.24);
+    box-shadow: 2px 2px 3px 0px rgba(50, 50, 50, 0.24);
+}
+
+
+.m-header {
+    background: #fff;
+    padding: 0px 15px 0px 15px;
+    min-height: 50px;
+    margin: 0px;
+    -webkit-box-shadow: 2px 2px 3px 0px rgba(50, 50, 50, 0.24);
+    -moz-box-shadow: 2px 2px 3px 0px rgba(50, 50, 50, 0.24);
+    box-shadow: 2px 2px 3px 0px rgba(50, 50, 50, 0.24);
+}
+
+.pad-0 {
+    padding: 0px;
+}
+
+.mar-0 {
+    margin: 0px;
+}
+
+.h-rigt-div {
+    width: 700px;
+    /*width: 670px;*/
+    height: 50px;
+    float: right;
+    margin-right: -15px;
+    background-image: url('/Content/img/orange-strip.png');
+}
+
+.logo-bx {
+    width: 100%;
+    height: 50px;
+    background: #fff;
+}
+
+.user-box {
+    width: 100%;
+    height: 95px;
+    background-image: url('/Content/img/user-bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+    .user-box table {
+        width: 190px;
+    }
+
+        .user-box table td img {
+            margin-top: 10px;
+        }
+
+        .user-box table td span {
+            color: #fff;
+            text-align: center;
+        }
+
+.footr {
+    width: 190px;
+    height: 44px;
+    background-image: url('/Content/img/gamesa-footer.jpg');
+    position: absolute;
+    bottom: 0px;
+}
+
+.d-div {
+    background: #fff;
+    margin-bottom: 15px;
+}
+
+.select-h {
+    width: 90%;
+    padding: 5px;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+table.d-tble {
+    background: #fff;
+    width: 100%;
+    -webkit-box-shadow: 1px 1px 4px 0px rgba(50, 50, 50, 0.33);
+    -moz-box-shadow: 1px 1px 4px 0px rgba(50, 50, 50, 0.33);
+    box-shadow: 1px 1px 4px 0px rgba(50, 50, 50, 0.33);
+}
+
+    table.d-tble td i {
+        color: #1d7700;
+        font-style: normal;
+        margin-left: 10px;
+    }
+
+
+table.val-tbl {
+    width: 100%;
+    margin: 5px;
+    margin-bottom: 10px;
+}
+
+    table.val-tbl td span {
+        font-family: 'Oswald', sans-serif;
+        font-size: 45px;
+        color: #f18402;
+        text-align: center;
+    }
+
+    table.val-tbl td p {
+        font-size: 15px;
+        color: #808080;
+        line-height: 18px;
+        text-align: left;
+    }
+
+
+.log-div {
+    max-width: 464px;
+    height: 283px;
+    margin: auto;
+    background: #fff;
+    -webkit-box-shadow: 1px 1px 4px 0px rgba(50, 50, 50, 0.33);
+    -moz-box-shadow: 1px 1px 4px 0px rgba(50, 50, 50, 0.33);
+    box-shadow: 1px 1px 4px 0px rgba(50, 50, 50, 0.33);
+    margin-top: 5%;
+}
+
+table.log-tbl {
+    width: 100%;
+}
+
+    table.log-tbl td input {
+        border: none;
+        width: 100%;
+        outline: none;
+    }
+
+.content-part {
+    background: #fff;
+    border-radius: 3px;
+    padding: 18px;
+    -webkit-box-shadow: 1px 1px 4px 0px rgba(50, 50, 50, 0.33);
+    -moz-box-shadow: 1px 1px 4px 0px rgba(50, 50, 50, 0.33);
+    box-shadow: 1px 1px 4px 0px rgba(50, 50, 50, 0.33);
+    min-height: 92vh !important;
+}
+
+
+
+
+.fomr-div {
+}
+
+    .fomr-div span {
+        font-size: 13px;
+        color: #808080;
+    }
+
+    .fomr-div select {
+        font-size: 12px;
+        color: #808080;
+        padding: 3px;
+        width: 100%;
+        height: 24px;
+    }
+
+
+    .fomr-div input {
+        font-size: 12px;
+        color: #808080;
+        padding: 3px;
+        width: 100%;
+        margin-bottom: 5px;
+        height: 24px;
+    }
+
+    .fomr-div textarea {
+        font-size: 12px;
+        color: #808080;
+        padding: 3px;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+.btn {
+    outline: none;
+}
+
+.heading-h {
+    border-bottom: 1px #ccc dotted;
+    padding-bottom: 15px;
+    margin: 0px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.grid-div {
+    max-width: 100%;
+    max-height: 450px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+
+.line {
+    border-bottom: 1px #ccc dotted;
+    margin-bottom: 15px;
+}
+
+
+.gal-grid {
+}
+
+    .gal-grid p {
+        line-height: 10px;
+    }
+
+
+    .gal-grid img {
+        margin-bottom: 10px;
+    }
+
+table.cir-report-tbl {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    table.cir-report-tbl td {
+        padding: 5px 0px 5px 0px;
+    }
+
+    table.cir-report-tbl span {
+    }
+
+.table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 1px solid #ddd;
+}
+
+table > tbody > tr.Error > td {
+    color: red !important;
+}
+
+table > tbody > tr.Modify > td {
+    color: blue !important;
+}
+
+table > tbody > tr.New > td {
+    color: green !important;
+}
+
+table.table > tbody > tr > td {
+    white-space: nowrap;
+}
+
+
+.SaveButton {
+    background: #2c2c2c;
+    color: #fff;
+    margin-left: 15px;
+    margin-right: 10px;
+}
+
+.ClearButton {
+    background-color: rgba(182, 182, 182, 0.28) !important;
+}
+
+.SearchButton {
+    margin-right:10px;
+}
+
+.tableHead {
+    font-size: 13px;
+}
+
+.tabletd {
+    font-size: 12px;
+}
+
+.imgStyle img {
+    height: 160px;
+    padding-top: 15px;
+}
+
+
+.imgStyle label {
+    margin-top: 15px;
+    font-weight: 200;
+}
+
+.modal-body img {
+    max-height: 500px;
+}
+
+.submenuHoverStyle {
+    text-decoration: none;
+    color: #616161;
+    background-color: rgba(25,25,50,0.1);
+}
+
+.ui-autocomplete {
+    height: 239px;
+    overflow-y: auto;
+}
+
+
+/*
+Force table width to 100%
+*/
+table.table-fixedheader {
+    width: 100%;
+}
+    /*
+Set table elements to block mode.  (Normally they are inline).
+This allows a responsive table, such as one where columns can be stacked
+if the display is narrow.
+*/
+    table.table-fixedheader, table.table-fixedheader > thead, table.table-fixedheader > tbody, table.table-fixedheader > thead > tr, table.table-fixedheader > tbody > tr, table.table-fixedheader > thead > tr > th, table.table-fixedheader > tbody > td {
+        display: block;
+    }
+
+        table.table-fixedheader > thead > tr:after, table.table-fixedheader > tbody > tr:after {
+            content: ' ';
+            display: block;
+            visibility: hidden;
+            clear: both;
+        }
+        /*
+When scrolling the table, actually it is only the tbody portion of the
+table that scrolls (not the entire table: we want the thead to remain
+fixed).  We must specify an explicit height for the tbody.  We include
+100px as a default, but it can be overridden elsewhere.
+
+Also, we force the scrollbar to always be displayed so that the usable
+width for the table contents doesn't change (such as becoming narrower
+when a scrollbar is visible and wider when it is not).
+*/
+        table.table-fixedheader > tbody {
+            overflow-y: scroll;
+            height: 500px;
+        }
+        /*
+We really don't want to scroll the thead contents, but we want to force
+a scrollbar to be displayed anyway so that the usable width of the thead
+will exactly match the tbody.
+*/
+        table.table-fixedheader > thead {
+            overflow-y: scroll;
+        }
+
+            table.table-fixedheader > thead::-webkit-scrollbar {
+                background-color: inherit;
+            }
+
+
+            table.table-fixedheader > thead > tr > th:after, table.table-fixedheader > tbody > tr > td:after {
+                content: ' ';
+                display: table-cell;
+                visibility: hidden;
+                clear: both;
+            }
+
+            table.table-fixedheader > thead tr th, table.table-fixedheader > tbody tr td {
+                float: left;
+                word-wrap: break-word;
+                border-bottom: none;
+            }

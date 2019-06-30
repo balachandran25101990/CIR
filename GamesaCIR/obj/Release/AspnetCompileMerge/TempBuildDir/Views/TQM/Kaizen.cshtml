@@ -1,0 +1,452 @@
+﻿
+@{
+    ViewBag.Title = "Kaizen";
+    Layout = "~/Views/Shared/_Layout_chat.cshtml";
+}
+<style>
+    button.accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 10px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+        button.accordion.active, button.accordion:hover {
+            background-color: #ddd;
+        }
+
+    div.panel {
+        padding: 0 0px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.6s ease-in-out;
+        opacity: 0;
+    }
+
+        div.panel.show {
+            opacity: 1;
+            max-height: 500px;
+        }
+</style>
+
+<div class="col-lg-12 pad-0">
+    <div class="content-part">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                @*<div class="col-md-12 " >*@
+                <table style="width:100%;padding-bottom:10px;">
+                    <tr>
+                        <td>
+                            <h5 class="heading-h">
+                                Kaizen
+                            </h5>
+                        </td>
+                        <td align="right" style="border-bottom: 1px #ccc dotted;">
+
+                            <img id="btnopenall" src="~/Content/img/plus.png" style="height:30px;width:30px;cursor:pointer;" />
+                            <img id="btncloseall" src="~/Content/img/minus.png" style="height:30px;width:30px;cursor:pointer;" />
+                        </td>
+                    </tr>
+                    <tr style="height:10px;">
+                        <td></td>
+
+                    </tr>
+                </table>
+
+                @*</div>*@
+            </div>
+            <div class="col-lg-12">
+                @*<button id="btnopenall">openall</button>
+                    <button id="btncloseall">closeall</button>
+                    <br /><br />*@
+                @*style="display:none;"*@
+                <button class="accordion">Kaizen Head</button>
+                <div id="foo" class="panel" style="margin-bottom :0px;">
+                    <table style="width:100%; border:1px solid silver;">
+                        <tr>
+                            <td style="width:35%;padding-right:5px;padding-left:5px;vertical-align:top ; ">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td style="width:100%;">
+                                            <table style="width:100%;">
+                                                <tr>
+                                                    <td style="height:30px;">
+                                                        <span>Kaizen No.</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" style="width:99%;margin-top:3px;margin-bottom:3px;" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height:30px;">
+                                                        <span>Regd. Date</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" style="width:99%;margin-top:3px;margin-bottom:3px;" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </td>
+
+                            <td style="width:35%;padding-right:5px;padding-left:5px;vertical-align:top ; ">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td>
+
+                                            <span>Start date</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" style="width:90%; margin-top:3px;margin-bottom:3px;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>Finish date</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" style="width:90%;margin-top:3px;margin-bottom:3px;" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width:30%;padding-right:5px;padding-left:5px;  ">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td>
+
+                                            <span>Code:</span>
+                                        </td>
+                                        <td>
+                                            <span> IND-TQM-MBE-002-R04</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <span>Edition: 4</span>
+                                        </td>
+                                        <td>
+                                            <span>  Date: 17/01/2016</span>
+                                        </td>
+                                    </tr>
+                                    <tr style="height:10px;">
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr>
+
+                                        <td style="width:100%;padding-right:5px;padding-left:5px; padding-right:20px; padding-bottom:3px; vertical-align:bottom;" align="right" colspan="2">
+                                            <a href="#" class="SaveButton btn btn-default" style="height:30px;">Save</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <button class="accordion">Kaizen Details</button>
+                <div id="foo1" class="panel" style="margin-bottom :0px;">
+                    <table style="width:100%; border:1px solid silver;">
+                        <tr>
+                            <td style="width:54%;">
+                                <table style="width:100%; ">
+                                    <tr>
+                                        <td style="width:50%;margin-left:5px;text-align:center; ">
+                                            <span>Problem / Present Status</span>
+                                            <br />
+                                            <textarea id="txtProblem" style="height: 100px; width:100%;margin-left:5px;margin-right:5px;" maxlength="1000"></textarea>
+
+                                        </td>
+                                        <td rowspan="2" style="width:50%;  vertical-align:top ;text-align:center;">
+                                            <table style="width:100%">
+                                                <tr>
+                                                    <td>
+                                                        <span>Analysis</span>
+                                                        <br />
+                                                        <input type="text" placeholder="why1 " style="margin:5px; height:35px;" />
+                                                        <input type="text" placeholder="why2 " style="margin:5px;height:35px;" />
+                                                        <input type="text" placeholder="why3 " style="margin:5px;height:35px;" />
+                                                        <input type="text" placeholder="why4 " style="margin:5px;height:35px;" />
+                                                        <input type="text" placeholder="why5 " style="margin:5px;height:35px;" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%;margin-left:5px;text-align:center;">
+                                            <span>Action Taken</span>
+                                            <br />
+                                            <textarea id="txtActiontaken" style="height: 100px; width:100%;margin-left:5px;margin-right:5px;" maxlength="1000"></textarea>
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="border-left:1px solid silver; padding-left:5px; vertical-align:top; width:40%;" colspan="2">
+                                <table style="width:100%; ">
+                                    <tr>
+                                        <td style="height:30px;">
+                                            <span>Implemented Area</span>
+                                        </td>
+                                        <td style="padding-left:3px;">
+                                            <input type="text" style="margin-top:3px;margin-bottom:3px;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height:30px;">
+
+                                            <span>Idea generated by</span>
+                                        </td>
+                                        <td style="padding-left:3px;">
+                                            <input type="text" style="margin-top:3px;margin-bottom:3px;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height:30px;">
+
+                                            <span>Implemented by</span>
+                                        </td>
+                                        <td style="padding-left:3px;">
+                                            <input type="text" style="margin-top:3px;margin-bottom:3px;" />
+                                        </td>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid silver;">
+                                        <td colspan="2">
+                                            <span style="font-weight:bold;text-underline-position:below;">Results & Benefits</span><br />
+                                            <input type="checkbox" />
+                                            <span style="  margin-right:20px;">P</span>
+                                            <input type="checkbox" />
+                                            <span style="margin-right:20px;">Q</span>
+                                            <input type="checkbox" />
+                                            <span style="margin-right:20px;">C</span>
+                                            <input type="checkbox" />
+                                            <span style="margin-right:20px;">D</span>
+                                            <input type="checkbox" />
+                                            <span style="margin-right:20px;">S</span>
+                                            <input type="checkbox" />
+                                            <span style="margin-right:20px;">M</span>
+                                            <input type="checkbox" />
+                                            <span style="margin-right:20px;">E</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <span style="font-size:18px;">Graph</span>
+                                            <br />
+                                            <img style="height:100px;width:100%; padding-right:10px; padding-left:10px;padding-bottom:10px;" src="~/Content/img/login-bg.jpg" />
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td style="width:54%;"></td>
+                            <td align="right" style="border-left:1px solid silver; padding-left:5px; vertical-align:top; width:40%;padding-right:20px; padding-bottom:3px;" colspan="2">
+
+                                <a href="#" class="SaveButton btn btn-default">Save</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <button class="accordion">Benefits</button>
+                <div id="foo2" class="panel" style="margin-bottom :0px;">
+                    <table style="width:100%; border:1px solid silver;">
+                        <tr>
+                            <td style="width:54%;">
+                                <table style="width:100%; ">
+                                    <tr>
+                                        <td style="width:50%;margin-left:5px;margin-right :5px; padding-right:10px; text-align:center; ">
+                                            <span>Before Improvement</span>
+                                            <br />
+
+                                            <img style="height:100px;width:100%; padding-right:10px; padding-left:10px;padding-bottom:10px;" src="~/Content/img/login-bg.jpg" />
+                                            <br />
+                                            <textarea id="txtProblem" style="height: 100px; width:100%;margin-left:5px;margin-right:5px;" maxlength="1000"></textarea>
+
+                                        </td>
+
+                                        <td style="width:50%;margin-left:5px; padding-right:10px;text-align:center; ">
+                                            <span>After Improvement</span>
+                                            <br />
+                                            <img style="height:100px;width:100%; padding-right:10px; padding-left:10px; padding-bottom:10px;" src="~/Content/img/login-bg.jpg" />
+                                            <br />
+                                            <textarea id="txtAfmp" style="height: 100px; width:100%;margin-left:5px;margin-right:5px;" maxlength="1000"></textarea>
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width:40%;border-left:1px solid silver; ">
+                                <table style="width:100%; ">
+                                    <tr>
+                                        <td style="width:50%;margin-left:5px;margin-right :5px; padding-right:10px;  ">
+                                            <span style="margin-left:10px;">Benefit:</span>
+                                            <br />
+                                            <textarea id="txtProblem" style="height: 30px; width:100%;margin-left:5px;margin-right:5px;" maxlength="1000"></textarea>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%;margin-left:5px;margin-right :5px; padding-left:10px; padding-right:10px; text-align:center; ">
+                                            <table style="width:100%; border:1px solid silver;">
+                                                <tr style="border-bottom:1px solid silver;">
+                                                    <td><span>Standards to be updated</span></td>
+                                                    <td><span>Standard Ref No. & Date</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:left; margin-left:10px; padding-left:10px;">
+                                                        <input type="checkbox" />
+                                                        <span>SOP</span>
+                                                        <br />
+                                                        <input type="checkbox" />
+                                                        <span>Drawing</span>
+                                                        <br />
+                                                        <input type="checkbox" />
+                                                        <span>Check sheets</span>
+                                                        <br />
+                                                        <input type="checkbox" />
+                                                        <span>Others (Specify)</span>
+                                                    </td>
+                                                    <td style="vertical-align:top;">
+                                                        <input type="text" style="margin-top:3px;margin-bottom:3px;" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:50%;margin-left:5px;margin-right :5px; padding-right:10px;  ">
+                                            <span style="margin-left:10px;">Horizontal Deployment:</span>
+                                            <br />
+                                            <textarea id="txtProblem" style="height: 30px; width:100%;margin-left:5px;margin-right:5px;" maxlength="1000"></textarea>
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:54%;"></td>
+
+                            <td align="right" style="width:40%;border-left:1px solid silver;padding-right:20px; padding-bottom:3px; ">
+
+                                <a href="#" class="SaveButton btn btn-default">Save</a>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <button class="accordion">Submit</button>
+                <div id="foo3" class="panel" style="margin-bottom :0px;">
+
+                    <table style="width:100%; border:1px solid silver;">
+                        <tr>
+                            <td style="width:25%;" align="center">
+                                <input type="text" style="width:80%; margin-top:5px; margin-left:5px; margin-right:5px;" />
+                            </td>
+                            <td style="width:25%;" align="center">
+                                <input type="text" style="width:80%;margin-top:5px;margin-left:5px; margin-right:5px;" />
+                            </td>
+                            <td style="width:25%;" align="center">
+                                <input type="text" style="width:80%;margin-top:5px;margin-left:5px; margin-right:5px;" />
+                            </td>
+                            <td style="width:25%;" align="center">
+                                <input type="text" style="width:80%;margin-top:5px;margin-left:5px; margin-right:5px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:25%;text-align:center ;">
+                                <span>Operation / HOD</span>
+                            </td>
+                            <td style="width:25%;text-align:center ;">
+                                <span>Quality</span>
+                            </td>
+                            <td style="width:25%;text-align:center ;">
+                                <span>Management Control</span>
+                            </td>
+                            <td style="width:25%;text-align:center ;">
+                                <span>Plant TQM Coordinator</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:25%;text-align:center ;">
+                                <span>(Ensure Kaizen is Implemented)</span>
+                            </td>
+                            <td style="width:25%;text-align:center ;">
+                                <span>(Verify Side Effects)</span>
+                            </td>
+                            <td style="width:25%;text-align:center ;">
+                                <span>(Authorise Cost Benefit)</span>
+                            </td>
+                            <td style="width:25%;text-align:center ;">
+                                <span>(Ensure Standardisation)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:25%;text-align:center ;"></td>
+                            <td style="width:25%;text-align:center ;"></td>
+                            <td style="width:25%;text-align:center ;"></td>
+                            <td style="width:25%; padding-right:20px; padding-bottom:3px;" align="right">
+
+                                <a href="#" class="SaveButton btn btn-default">Submit</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        document.getElementById("foo").className = "panel.show ";
+    });
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function () {
+
+            document.getElementById("foo").className = "panel";
+            document.getElementById("foo1").className = "panel";
+            document.getElementById("foo2").className = "panel";
+            document.getElementById("foo3").className = "panel";
+            this.classList.toggle("active");
+            this.nextElementSibling.classList.toggle("show");
+        }
+    }
+
+    $('#btnopenall').click(function () {
+        document.getElementById("foo").className = "panel.show ";
+        document.getElementById("foo1").className = "panel.show ";
+        document.getElementById("foo2").className = "panel.show ";
+        document.getElementById("foo3").className = "panel.show ";
+    });
+    $('#btncloseall').click(function () {
+        document.getElementById("foo").className = "panel";
+        document.getElementById("foo1").className = "panel";
+        document.getElementById("foo2").className = "panel";
+        document.getElementById("foo3").className = "panel";
+    });
+</script>

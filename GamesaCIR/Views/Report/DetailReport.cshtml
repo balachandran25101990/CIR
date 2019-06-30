@@ -1,0 +1,846 @@
+﻿@{
+    ViewBag.Title = "DetailReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    var GetSubMasterCollectionSpecificationUrl = "@Url.Action("GetMasterCollectionSpecification", "Master")";
+    var GetMasterCollectionUrl = "@Url.Action("GetMasterCollection", "Master")";
+    var GetdepartmentUrl = "@Url.Action("GetDepartment", "Master")";
+    var GetStatusUrl = "@Url.Action("GetStatus", "Admin")";
+    var GetTurbineUrl = "@Url.Action("GetTurbine", "Master")";
+    var GetDetailReportDetailsUrl = "@Url.Action("GetDetailReportDetails", "Report")";
+    var GetCIRDetailsUrl = "@Url.Action("GetCIRDetails", "CIR")";
+    var GetDesignationUrl = "@Url.Action("GetDesignation", "Master")";
+    var GetDownloadUrl = "@Url.Action("DownloadExcel", "Report")";
+    var GetClearDetailReptSession = "@Url.Action("SessionClearDetailRpt", "Report")";
+    var GetLogFileUrl = "@Url.Action("LogFile", "Admin")";
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+</script>
+<script src="~/Scripts/jquery.table2excel.js"></script>
+<div class="col-lg-12 pad-0" ng-controller="DetailReport_OperController">
+    <div class="content-part" style="min-height:90vh;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5 class="heading-h">
+                    Detail Report
+                </h5>
+            </div>
+            <div class="row mar-0 fomr-div">
+                <div class="row mar-0 fomr-div">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Report Type</span><span style="color:red;padding:5px;">*</span>
+                        <select id="ddlReportType" ng-model="RptType" ng-change="ChangeData()">
+                            <option value="1" selected="selected">CIR</option>
+                            <option value="2">FSR</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>CIR/FSR Number</span>
+                        <input type="hidden" id="hdnNumber" value="0" />
+                        <input type="text" id="txtNumber" ng-model="CIROrCIMNumber" />
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>State</span>
+                        <select id="ddlState" ng-model="StateSelect" ng-change="SiteDetails()">
+                            <option value="0">-- Select All --</option>
+                            <option ng-repeat="option in StateArray" ng-selected="0" value="{{option.MCId}}">{{option.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Site</span>
+                        <select id="ddlSite" ng-model="SiteSelect" ng-change="TurbineDetails()">
+                            <option value="0">-- Select All --</option>
+                            <option ng-repeat="option in SiteArray" value="{{option.MCId}}">{{option.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mar-0 fomr-div">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Turbine Type</span>
+                        <select id="ddlTurbineType" ng-model="TurbineTypeSelect" ng-change="ChangeData()">
+                            <option value="0">-- Select All --</option>
+                            <option ng-repeat="option in TurbineTypeArray" value="{{option.MCId}}">{{option.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Functional System</span>
+                        <select id="ddlDepartment" ng-model="FunctionalSystemSelect" ng-change="ChangeData()">
+                            <option value="0">-- Select All --</option>
+                            <option ng-repeat="option in FunctionalSystemArray" value="{{option.MCId}}">{{option.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Designation</span>
+                        <select id="ddlDesignation" ng-model="DesignationSelect" ng-change="ChangeData()">
+                            <option value="0">-- Select All --</option>
+                            <option ng-repeat="option in DesignationArray" value="{{option.DsgId}}">{{option.Designation}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Status</span>
+                        <select id="ddlStatus" ng-model="StatusSelect" ng-change="ChangeData()">
+                            <option value="0">-- Select All --</option>
+                            <option ng-repeat="option in StatusArray" value="{{option.StsId}}">{{option.Status}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mar-0 fomr-div">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Turbine</span> @*<select id="ddlTurbine" ng-model="TurbineSelect" ng-change="ChangeData()">
+                            <option value="0">-- Select All --</option>
+                            <option ng-repeat="option in TurbineArray" value="{{option.TbnId}}">{{option.TurbineId}}</option>
+                            </select>*@
+                        <input type="text" id="txtTurbine" ng-model="txtTurbine" />
+                        <input type="hidden" id="hfTurbine" value="0" />
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Date From</span>
+                        <input type="text" id="txtDateFrom" class="datepickerFormat" ng-model="DateFrom" ng-change="ChangeData()" onkeypress="return Enabled(event)" />
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Date To</span>
+                        <input type="text" id="txtDateTo" class="datepickerFormat" ng-model="DateTo" ng-change="ChangeData()" onkeypress="return Enabled(event)" />
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>WO Number</span>
+                        <input type="hidden" id="hdnWONumber" />
+                        <input type="text" id="txtWONumber" ng-model="WONumber" ng-change="ChangeData()" />
+                    </div>
+                </div>
+                <div class="row mar-0 fomr-div">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Employee</span>
+                        <input type="hidden" value="0" id="hdnEmployeeId" />
+                        <input type="text" id="txtEmployee" maxlength="200" ng-model="Employee" />
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 15px;">
+                        <span class="checkbox" style="margin-left: 20px;">
+                            <input type="checkbox" ng-model="IsFileHaving" ng-true-value="'1'" ng-false-value="'0'"
+                                   checked="checked" id="chkFile" style="width: auto; margin-top: -2px;" />With
+                            File
+                        </span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin-top: 11px;">
+                        <a href="#" class="btn btn-default SearchButton" ng-click="Search()">Search</a>
+                        <a href="#" class="btn btn-default ClearButton" ng-click="Clear()" style="margin-left:0px;">Clear</a>
+                        <a href="#" class="btn btn-default ClearButton" id="btnExcelDownLoad" ng-click="DownloadDetail()" ng-show="Download && ReportDetailsArray.length > 0" style="margin-left:12px;">Excel DownLoad</a>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-6 fomr-div">
+                </div>
+                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-6 fomr-div" ng-show="ReportDetailsArray.length > 0">
+                    <div class="input-group col-xs-6 col-sm-6 col-lg-6 col-md-6" style="margin-bottom: 15px;">
+                        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                        <input type="text" class="form-control" placeholder="Search Details" ng-model="searchDetail" style="height: 35px;z-index:1;">
+                    </div>
+                    <div>
+                        <div style="overflow-x:scroll;">
+                            <table cellpadding="0" cellspacing="0" class="table table-hover table-responsive">
+                                <thead style="border-top: 1px solid #dddddd;border-bottom: 2px solid #dddddd;">
+                                    <tr>
+                                        <td ng-click="sortType = 'SlNo'; sortReverse = !sortReverse" style="cursor:pointer;min-width:50px; text-align:center;">
+                                            <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                SlNo
+                                                <span ng-show="sortType == 'Slno' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'Slno' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </td>
+                                        <td ng-click="sortType = 'CNumber'; sortReverse = !sortReverse" style="cursor:pointer;min-width:200px;">
+                                            <a href="#" style="text-decoration: none;  color: #6b6b6b; font-weight: bold;">
+                                                CIR/ FSR Number
+                                                <span ng-show="sortType == 'CNumber' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'CNumber' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </td>
+                                        <td ng-click="sortType = 'Turbine'; sortReverse = !sortReverse" style="cursor:pointer;min-width:80px;">
+                                            <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                Turbine
+                                                <span ng-show="sortType == 'Turbine' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'Turbine' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </td>
+                                        <td ng-click="sortType = 'State'; sortReverse = !sortReverse" style="cursor:pointer;min-width:100px;">
+                                            <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                State
+                                                <span ng-show="sortType == 'State' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'State' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </td>
+                                        <td ng-click="sortType = 'TSite'; sortReverse = !sortReverse" style="cursor:pointer;min-width:150px;">
+                                            <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                T Site
+                                                <span ng-show="sortType == 'TSite' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'TSite' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </td>
+                                        <td ng-click="sortType = 'CStatus'; sortReverse = !sortReverse" style="cursor:pointer;min-width:100px;">
+                                            <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                Status
+                                                <span ng-show="sortType == 'CStatus' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'CStatus' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </td>
+                                        <td ng-click="sortType = 'CreatedOn'; sortReverse = !sortReverse" style="cursor:pointer;min-width:100px;">
+                                            <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                Created on
+                                                <span ng-show="sortType == 'CreatedOn' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'CreatedOn' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </td>
+                                        <td ng-click="sortType = 'EMPName'; sortReverse = !sortReverse" style="cursor:pointer;min-width:180px;">
+                                            <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                Assigned To
+                                                <span ng-show="sortType == 'EMPName' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'EMPName' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </td>
+                                        <td ng-click="sortType = 'EMPDesg'; sortReverse = !sortReverse" style="cursor:pointer;min-width:350px;">
+                                            <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                Assigned Employee Designation
+                                                <span ng-show="sortType == 'EMPDesg' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'EMPDesg' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </td>
+                                        <td ng-click="sortType = 'PD'; sortReverse = !sortReverse" style="cursor:pointer;min-width:150px;">
+                                            <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                Pending Days
+                                                <span ng-show="sortType == 'PD' && !sortReverse" class="fa fa-caret-down"></span>
+                                                <span ng-show="sortType == 'PD' && sortReverse" class="fa fa-caret-up"></span>
+                                            </a>
+                                        </td>
+                                        <td style="cursor:pointer;text-align:center;min-width:80px;">
+                                            <span style="width: 4%; min-width: 80px; font-weight: bold; color: #6b6b6b;">Action</span>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody style="border-bottom: 1px solid #dddddd;">
+                                    @*<tr ng-repeat="row in ReportDetailsArray | filter:searchTurbine | limitTo: paginationLimit()">*@
+                                    <tr ng-repeat="row in ReportDetailsArray |orderBy:sortType:sortReverse | filter:searchDetail  | pagination: curPage * pageSize | limitTo: pageSize">
+                                        <td style="text-align:center;min-width:50px;">
+                                            <span>{{row.Slno}}</span>
+                                        </td>
+                                        <td style="min-width:200px;">
+                                            <span>{{row.CNumber}}</span>
+                                        </td>
+                                        <td style="min-width:80px;">
+                                            <span>{{row.Turbine}}</span>
+                                        </td>
+                                        <td style="min-width:100px;">
+                                            <span>{{row.State}}</span>
+                                        </td>
+                                        <td style="min-width:150px;">
+                                            <span>{{row.TSite}}</span>
+                                        </td>
+                                        <td style="min-width:100px;">
+                                            <span>{{row.CStatus}}</span>
+                                        </td>
+                                        <td style="min-width:100px;">
+                                            <span>{{row.CreatedOn}}</span>
+                                        </td>
+                                        <td style="min-width:180px;">
+                                            <span>{{row.EMPName}}</span>
+                                        </td>
+                                        <td style="min-width:350px;">
+                                            <span>{{row.EMPDesg}}</span>
+                                        </td>
+                                        <td style="min-width:150px;">
+                                            <span>{{row.PD}}</span>
+                                        </td>
+                                        <td style="text-align:center;min-width:80px;">
+                                            <a href="#" style="cursor: pointer;" ng-click="ViewDetail(row.CID, row.CIMID, row.Rpttype)" ng-show="View">View</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div ng-show="ReportDetailsArray.length > pageSize">
+                            <div class="col-lg-8 col-sm-12 col-xs-12 col-md-8" style="padding-left:0px;">
+                                <ul class="pagination-controle pagination">
+                                    <li>
+                                        <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                ng-click="curPage=0" style="border-radius  : 0px;">
+                                            &lt;&lt; First
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                ng-click="curPage=curPage-1" style="border-radius  : 0px;">
+                                            &lt; Prev
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                                ng-disabled="curPage >= ReportDetailsArray.length/pageSize - 1"
+                                                ng-click="curPage = curPage+1">
+                                            Next &gt;
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                                ng-disabled="curPage >= ReportDetailsArray.length/pageSize - 1"
+                                                ng-click="LastPage()">
+                                            Last &gt;&gt;
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4" style="padding:20px;padding-right:0px;">
+                                <span style="color: black;padding: 8px;background-color: #bbbbbb;" class="pull-right">Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divdata" style="display: none;">
+            @*<table id="tblExcelReport">
+                    <thead>
+                        <tr>
+                            <th>
+                                <span>CIR/ FSR Number</span>
+                            </th>
+                            <th>
+                                <span>Turbine</span>
+                            </th>
+                            <th>
+                                <span>Customer</span>
+                            </th>
+                            <th>
+                                <span>SiteName</span>
+                            </th>
+                            <th>
+                                <span>FnLoc</span>
+                            </th>
+                            <th>
+                                <span>Capacity</span>
+                            </th>
+                            <th>
+                                <span>Tower Height</span>
+                            </th>
+                            <th>
+                                <span>Blade</span>
+                            </th>
+                            <th>
+                                <span>Generator</span>
+                            </th>
+                            <th>
+                                <span>GR Slno</span>
+                            </th>
+                            <th>
+                                <span>GearBox</span>
+                            </th>
+                            <th>
+                                <span>GBSlno</span>
+                            </th>
+                            <th>
+                                <span>Temprature</span>
+                            </th>
+                            <th>
+                                <span>Dust</span>
+                            </th>
+                            <th>
+                                <span>Corrosion</span>
+                            </th>
+                            <th>
+                                <span>DOC</span>
+                            </th>
+                            <th>
+                                <span>WONumber</span>
+                            </th>
+                            <th>
+                                <span>DateOfFailure</span>
+                            </th>
+                            <th>
+                                <span>Alarmcode</span>
+                            </th>
+                            <th>
+                                <span>Employee</span>
+                            </th>
+                            <th>
+                                <span>SwVersion</span>
+                            </th>
+                            <th>
+                                <span>FwVersion</span>
+                            </th>
+                            <th>
+                                <span>WTGStartTime</span>
+                            </th>
+                            <th>
+                                <span>WTGStopTime</span>
+                            </th>
+                            <th>
+                                <span>Production</span>
+                            </th>
+                            <th>
+                                <span>RunHrs</span>
+                            </th>
+                            <th>
+                                <span>FuncSystem</span>
+                            </th>
+                            <th>
+                                <span>ComponentGroup</span>
+                            </th>
+                            <th>
+                                <span>PartCode</span>
+                            </th>
+                            <th>
+                                <span>ComponentMake</span>
+                            </th>
+                            <th>
+                                <span>FailureDuring</span>
+                            </th>
+                            <th>
+                                <span>SerialNumber</span>
+                            </th>
+                            <th>
+                                <span>ProblemDesc</span>
+                            </th>
+                            <th>
+                                <span>What</span>
+                            </th>
+                            <th>
+                                <span>When</span>
+                            </th>
+                            <th>
+                                <span>Where</span>
+                            </th>
+                            <th>
+                                <span>Why</span>
+                            </th>
+                            <th>
+                                <span>Who</span>
+                            </th>
+                            <th>
+                                <span>How To Do</span>
+                            </th>
+                            <th>
+                                <span>How Much</span>
+                            </th>
+                            <th>
+                                <span>Consequence</span>
+                            </th>
+                            <th>
+                                <span>Status</span>
+                            </th>
+                            <th>
+                                <span>Action Performed</span>
+                            </th>
+                            <th>
+                                <span>Comments</span>
+                            </th>
+                            <th>
+                                <span>Files</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="row in ExcelReportArray | limitTo: itemsPerPage">
+                        <td ng-if="row.CIRNumber == null">
+                            <span>{{row.CIMNumber}}</span>
+                        </td>
+                        <td ng-if="row.CIMNumber == null">
+                            <span>{{row.CIRNumber}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Turbine}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Customer}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.SiteName}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.FnLoc}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Capacity}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.TowerHeight}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Blade}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Generator}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.GRSlno}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.GearBox}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.GBSlno}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Temprature}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Dust}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Corrosion}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.DOC}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.WONumber}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.DateOfFailure}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Alarmcode}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Employee}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.SwVersion}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.HwVersion}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.WTGStartTime}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.WTGStopTime}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Production}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.RunHrs}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.FuncSystem}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.ComponentGroup}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.PartCode}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.ComponentMake}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.FailureDuring}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.SerialNumber}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.ProblemDesc}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.What}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.When1}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Where1}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Why}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Who}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.HowToDo}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.HowMuch}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Consequence}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.CStatus}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.ActionPerformed}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Comments}}</span>
+                        </td>
+                        <td>
+                            <span>{{row.Files}}</span>
+                        </td>
+                    </tr>
+                </table>*@
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    //$("#btnExcelDownLoad").click(function (e) {
+
+    //    $("#tblExcelReport").table2excel(
+    //    {
+    //        exclude: ".NoExl",
+    //        name: "ExcelDoument"
+    //    }, function (error) { console.log("Error in loading the state : ", +error); });
+    //    e.preventDefault();
+    //});
+
+
+    $("#txtNumber").keyup(function (e) {
+        if (e.which != 13) {
+            $("hdnCIRNumber").val("0");
+        }
+
+        if ($("#ddlReportType > option:selected").val() == "1") {
+            if ($("#txtCIRNumber").val() == "")
+                $("hdnCIRNumber").val("0");
+
+            var CIRDetails = {
+                txt: $("#txtNumber").val(),
+                refId: $('#ddlReportType').val(),
+                viewType: "26"
+            };
+
+            $("#txtNumber").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("GetSearchDetails", "CIR")",
+                        data: JSON.stringify(CIRDetails),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            if (data.length != 0) {
+                                response($.map(data, function (item) {
+
+                                    if (data.indexOf(item) === -1) {
+                                        return { label: "No Results." }
+                                    } else {
+                                        return {
+                                            label: item.TextValue,
+                                            val: item.Id
+                                        }
+                                    }
+
+                                }))
+                            }
+                            else {
+                                return { label: "No Results." }
+                            }
+                        },
+                        error: function (response) {
+
+                        },
+                        failure: function (respose) {
+
+                        }
+                    });
+                },
+                minlength: 1,
+                select: function (e, i) {
+                    $("#hdnNumber").val(i.item.val);
+                    $("#txtNumber").val(i.item.label);
+                }
+            });
+        }
+        else {
+            if ($("#txtNumber").val() == "")
+                $("hdnNumber").val("0");
+
+            var CIRDetails = {
+                txt: $("#txtNumber").val(),
+                refId: $('#ddlReportType').val(),
+                viewType: "26"
+            };
+
+            $("#txtNumber").autocomplete({
+                source: function (request, response) {
+
+                    $.ajax({
+                        url: "@Url.Action("GetSearchDetails", "CIR")",
+                        data: JSON.stringify(CIRDetails),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            if (data.length != 0) {
+                                response($.map(data, function (item) {
+
+                                    if (data.indexOf(item) === -1) {
+                                        return { label: "No Results." }
+                                    } else {
+                                        return {
+                                            label: item.TextValue,
+                                            val: item.Id
+                                        }
+                                    }
+
+                                }))
+                            }
+                            else {
+                                return { label: "No Results." }
+                            }
+                        },
+                        error: function (response) {
+
+                        },
+                        failure: function (respose) {
+
+                        }
+                    });
+                },
+                minlength: 1,
+                select: function (e, i) {
+                    $("#hdnNumber").val(i.item.val);
+                    $("#txtNumber").val(i.item.label);
+                }
+            });
+        }
+    });
+
+    $("#txtEmployee").keyup(function (e) {
+
+        var EmplyeeDetails = {
+            txt: $("#txtEmployee").val(),
+            refId: "0",
+            viewType: "6"
+        };
+
+        $("#txtEmployee").autocomplete({
+            source: function (request, response) {
+
+                $.ajax({
+                    url: "@Url.Action("GetSearchDetails", "CIR")",
+                    data: JSON.stringify(EmplyeeDetails),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.TextValue,
+                                val: item.Id
+                            }
+                        }))
+                    },
+                    error: function (response) {
+
+                    },
+                    failure: function (respose) {
+
+                    }
+                });
+            },
+            minlength: 1,
+            select: function (e, i) {
+
+                $("#hdnEmployeeId").val(i.item.val);
+                $("#txtEmployee").val(i.item.label);
+            }
+        });
+    });
+
+
+    $("#txtWONumber").keyup(function (e) {
+        if (e.which != 13) {
+            $("hdnWONumber").val("0");
+        }
+
+        var CIRDetails = {
+            txt: $("#txtWONumber").val(),
+            refId: "",
+            viewType: "2"
+        };
+
+        $("#txtWONumber").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "@Url.Action("GetSearchDetails", "CIR")",
+                    data: JSON.stringify(CIRDetails),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.TextValue,
+                                val: item.Id
+                            }
+                        }))
+                    },
+                    error: function (response) {
+
+                    },
+                    failure: function (respose) {
+
+                    }
+                });
+            },
+            minlength: 1,
+            select: function (e, i) {
+                $("#hdnWONumber").val(i.item.val);
+                $("#txtWONumber").val(i.item.label);
+            }
+        });
+    });
+
+    // Function autocomplete turbine.
+    $("#txtTurbine").keyup(function (e) {
+        var param = { txt: $('#txtTurbine').val(), refId: $('#ddlSite').val(), viewType: "3" };
+        $("#txtTurbine").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "@Url.Action("GetSearchDetails", "CIR")",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        $("#hfTurbine").val("0");
+
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.TextValue,
+                                val: item.Id
+                            }
+                        }))
+                    },
+                    error: function (response) {
+
+                    },
+                    failure: function (respose) {
+
+                    }
+                });
+            },
+            minlength: 1,
+            select: function (e, i) {
+                $("#hfTurbine").val(i.item.val);
+                $("#txtTurbine").val(i.item.label);
+            }
+        });
+    });
+
+    $("#txtTurbine").focusout(function (e) {
+        var _tmpVal = $("#hfTurbine").val();
+        if ((_tmpVal == "0" || _tmpVal == "" || _tmpVal == null) || $("#txtTurbine").val() == "") {
+            $("#txtTurbine").val("");
+            $("#hfTurbine").val("0");
+        }
+    });
+
+    var CIRorCIMId = "0";
+    function fnNewWindow() {
+        var pageContent = document.getElementById("hdnCIRorCIMId").value;
+        sessionStorage.setItem("Id", pageContent);
+        window.open("/ReportPrint.html");
+    }
+</script>
+<script src="~/Scripts/knockout-3.4.0.js"></script>
+<script src="~/CIRScripts/ReportController.js" type="text/javascript"></script>

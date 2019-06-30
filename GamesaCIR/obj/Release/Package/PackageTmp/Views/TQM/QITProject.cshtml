@@ -1,0 +1,213 @@
+﻿
+@{
+    ViewBag.Title = "QITProject";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script type="text/javascript">
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+    var GetMasterCollectionUrl = "@Url.Action("GetMasterCollection", "Master")";
+    var GetCategoryDetailsUrl = "@Url.Action("GetCategory", "Master")";
+    var SetQITProjectUrl = "@Url.Action("SetQITProject", "TQM")";
+    var GetQITProjectUrl = "@Url.Action("GetQITProject", "TQM")";
+    var DeleteQITProjectUrl = "@Url.Action("DeleteQITProject", "TQM")";
+    var GetLogFileUrl = "@Url.Action("LogFile", "Admin")";
+</script>
+<div class="col-lg-12 pad-0" ng-controller="QITProject_OperController">
+    <div class="content-part" style="min-height:90vh;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5 class="heading-h">QIT Project</h5>
+            </div>
+
+            <div class="row mar-0 fomr-div">
+                <div class="row mar-0 fomr-div">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Type</span>
+                        <select id="ddlTurbineType" ng-model="TurbineType" ng-change="GetMasterCategory()">
+                            <option value="0">-- Select one --</option>
+                            <option ng-repeat="option in TurbineTypeArray" value="{{option.MCId}}">{{option.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-show="TurbineType == 0 ? false: true">
+                        <span>Master Category</span>
+                        <select id="ddlMasterCategory" ng-model="MasterCategory" ng-change="GetCategory()">
+                            <option value="0">-- Select one --</option>
+                            <option ng-repeat="option in MasterCategoryArray" value="{{option.MCId}}">{{option.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-show="MasterCategory == 0 ? false: true">
+                        <span>Category</span>
+                        <select id="ddlCategory" ng-model="Category" ng-change="GetSubCategory()">
+                            <option value="0">-- Select one --</option>
+                            <option ng-repeat="option in CategoryArray" value="{{option.Id}}">{{option.Category}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-show="(Category == 0) ? false: true">
+                        <span>Sub Category</span>
+                        <select id="ddlSubCategory" ng-model="SubCategory" ng-change="LoadGridDetails()">
+                            <option value="0">-- Select one --</option>
+                            <option ng-repeat="option in SubCategoryArray" value="{{option.Id}}">{{option.Category}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mar-0 fomr-div">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Title</span>
+                        <input type="hidden" value="0" id="hdnTitle" />
+                        <input type="text" id="txtTitle" />
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <span>Tag Title</span>
+                        <input type="hidden" value="0" id="hdnTagTitle" />
+                        <input type="text" id="txtTagTitle" />
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <span>File</span>
+                        <form id="uploadform">
+                            <input type="file" style="padding:0px;" id="fuImage" name="fuImage" class="clsfuImage" />
+                        </form>
+                    </div>
+                </div>
+                <div class="row mar-0 fomr-div">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px; font-size: 12px;" ng-show="TurbineType == 0? false : true">
+                        <a href="#" class="btn btn-default SaveButton" style="margin-left:0px !important;" ng-click="SetQITProject()" ng-show="Add" id="aSave">Save</a>
+                        <a href="#" class="btn btn-default ClearButton" ng-click="Clear()">Clear</a>
+                    </div>
+                </div>
+                <br />
+                <div class="row mar-0 fomr-div">
+                    <div class="row mar-0 fomr-div">
+                        <div class="col-xs-12 col-sm-12 col-lg-4 col-md-4" ng-repeat="row in QITProjectArray" style="position:relative;margin-top: 25px;">
+                            <span style="margin-left: 97%;cursor: pointer;position: absolute;right: 28px;top: 10px;font-size: 17px" ng-click="DeleteQITProject(row.Id)" ng-show="Delete">&times;</span>
+                            <div align="center" class="imgStyle" style="padding: 10px; border-radius: 4px; background-color: rgba(214, 211, 211, 0.57);">
+                                <a href="{{row.Filname}}" target="_blank" ng-show="Download">
+                                    <img src="{{row.Filname}}" class="img-responsive" ng-show="row.IsImage==0" />
+                                    <img src="~/Content/img/pdflogo.png" class="img-responsive" ng-show="row.IsImage==1" />
+                                    <img src="~/Content/img/doclogo.jpeg" class="img-responsive" ng-show="row.IsImage==2" />
+                                    <img src="~/Content/img/pptlogo.jpg" class="img-responsive" ng-show="row.IsImage==3" />
+                                </a>
+                                <a ng-show="!Download">
+                                    <img src="{{row.Filname}}" class="img-responsive" ng-show="row.IsImage==0" />
+                                    <img src="~/Content/img/pdflogo.png" class="img-responsive" ng-show="row.IsImage==1" />
+                                    <img src="~/Content/img/doclogo.jpeg" class="img-responsive" ng-show="row.IsImage==2" />
+                                    <img src="~/Content/img/pptlogo.jpg" class="img-responsive" ng-show="row.IsImage==3" />
+                                </a>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var TitleViewType = @System.Configuration.ConfigurationManager.AppSettings["TitleViewType"].ToString();
+    var TagTitleViewType = @System.Configuration.ConfigurationManager.AppSettings["TagTitleViewType"].ToString();
+
+    $(".clsfuImage").on('change', function (e) {
+        var iframe = $('<iframe name="postiframe1" id="postiframe1" style="display: none"></iframe>');
+        $("body").append(iframe);
+        var form = $('#uploadform');
+        form.attr("action", "@Url.Action("FileUploadQITProject", "TQM")");
+        form.attr("method", "post");
+        form.attr("encoding", "multipart/form-data");
+        form.attr("enctype", "multipart/form-data");
+        form.attr("target", "postiframe1");
+        form.attr("file", $('#fuImage').val());
+        form.submit();
+    });
+
+    $("#txtTitle").keyup(function (e) {
+        if (e.which != 13) {
+            $("#hdnTitle").val("0");
+        }
+
+        var Data = {
+            txt: $("#txtTitle").val(),
+            refId: "8",
+            viewType: TitleViewType
+        };
+
+        $("#txtTitle").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "@Url.Action("GetSearchDetails", "CIR")",
+                    data: JSON.stringify(Data),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.TextValue,
+                                val: item.Id
+                            }
+                        }))
+                    },
+                    error: function (response) {
+
+                    },
+                    failure: function (respose) {
+
+                    }
+                });
+            },
+            minlength: 1,
+            select: function (e, i) {
+                $("#hdnTitle").val(i.item.val);
+                $("#txtTitle").val(i.item.label);
+            }
+        });
+    });
+
+    $("#txtTagTitle").keyup(function (e) {
+        if (e.which != 13) {
+            $("#hdnTagTitle").val("0");
+        }
+
+        var Data = {
+            txt: $("#txtTagTitle").val(),
+            refId: "8",
+            viewType: TagTitleViewType
+        };
+
+        $("#txtTagTitle").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "@Url.Action("GetSearchDetails", "CIR")",
+                    data: JSON.stringify(Data),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.TextValue,
+                                val: item.Id
+                            }
+                        }))
+                    },
+                    error: function (response) {
+
+                    },
+                    failure: function (respose) {
+
+                    }
+                });
+            },
+            minlength: 1,
+            select: function (e, i) {
+                $("#hdnTagTitle").val(i.item.val);
+                $("#txtTagTitle").val(i.item.label);
+            }
+        });
+    });
+</script>
+<script src="~/CIRScripts/TQMControllerjs.js" type="text/javascript"></script>
+

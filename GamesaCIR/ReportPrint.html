@@ -1,0 +1,699 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>.:: Sonnamera ::.</title>
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+
+    <script src="Scripts/angular.js"></script>
+    <script src="CIRScripts/Common/AngularModule.js"></script>
+    <script src="CIRScripts/Common/AngularService.js"></script>
+  
+
+    
+    <style type="text/css">
+        body {
+            font-family: Arial;
+        }
+
+        .shadow {
+            -webkit-box-shadow: 1px 1px 5px 0px rgba(30, 50, 50, 0.31);
+            -moz-box-shadow: 1px 1px 5px 0px rgba(30, 50, 50, 0.31);
+            box-shadow: 1px 1px 5px 0px rgba(30, 50, 50, 0.31);
+        }
+    </style>
+</head>
+<body style="background: #ccc;" ng-controller="ReportPrint_OperController">
+    <div class="shadow" style="width: 100%; min-height: 250px; padding: 0px 30px 30px 30px; border: 0px #5e1f5f solid; margin: auto; background: #fff; border-top: 5px #0186C9 solid;">
+
+        <table style="width: 100%;" cellpadding="0" cellspacing="0">
+
+            <tr>
+                <td>
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 115px; border-bottom: 2px #ccc solid;">
+                    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="left" valign="middle" style="width: 30%;">
+                                <img src="Content/img/logo.png" />
+                            </td>
+                            <td align="right" valign="bottom" style="width: 70%; height: 115px;">
+
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td align="right">
+                                            <h1 style="margin: 0px;">Report</h1>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">
+                                            <p style="font-size: 13px;">
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <!--Content Will Be Here-->
+
+            <tr>
+                <td style="min-height: 100px;">
+                    <div id="divReport" >
+
+        <div class="col-md-10 col-lg-10">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <td style="background-color: red;">
+                            <span>Turbine Data</span>
+                        </td>
+                        <td style="background-color: blue; border: none;"></td>
+                        <td style="background-color: blue; border: none;"></td>
+                        <td style="background-color: blue; border: none;"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td align="right" style="padding-top: 10px;">
+                            <span>Date of failure</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="hidden" id="hdnCIRorCIMId" value="0" />
+                                <input type="text" ng-model="DateofFailure" ng-bind-html="DateofFailure" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Customer</span>
+                        </td>
+                        <td>
+                            <div style="padding: 2px; border: solid 1px;">
+                                <input type="text" ng-model="Customer" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Alarm Code</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="Alarmcode" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Site</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="Site" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Engineer Sap Id</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="EngineerSapId" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Doc</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="Doc" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>S/ W Version</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="SwVersion" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>WTG TYPE</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="WTGType" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>F/ W Version</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="FwVersion" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Temp</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="Temp" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>WTG Status</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="WtgStatus" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Dust</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="Dust" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>WTG Stop Time</span>
+                        </td>
+                        <td>
+                            <div >
+
+                                <input type="text" ng-model="WtgStopTime" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Corrosion</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="Corrsion" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>WTG Run Time</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="WtgRunTime" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>T-Height</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="THeight" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Production</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="Production" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Blade</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="Blade" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Run Hrs</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="RunHrs" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Generator</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="Generator" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Functional System</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="FunctionalSystem" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Gear Box</span>
+                        </td>
+                        <td>
+                            <div >
+
+                                <input type="text" ng-model="Gearbox" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Component Group</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="ComponentGroup" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>FOM Name</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="FoMName" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Gamesa Part Code</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="GamesaPartCode" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Engineer Name</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="EngineerName" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Component Make</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="ComponentMake" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Approval Status</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="ApprovalStatus" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Failure During</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="FailureDuring" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>MobileNo</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="MobileNo" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Serial Number</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="SerialNumber" disabled="disabled" />
+                            </div>
+                        </td>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>EmailId</span>
+                        </td>
+                        <td>
+                            <div >
+                                <input type="text" ng-model="EmailId" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+            <br />
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <td style="background-color: red;">
+                            <span>Problem</span>
+                        </td>
+                        <td style="background-color: blue; border: none;"></td>
+                        <td style="background-color: blue; border: none;"></td>
+                        <td style="background-color: blue; border: none;"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Problem</span>
+                        </td>
+                        <td>
+                            <div style="padding: 2px; border: solid 1px; width: 700px;">
+                                <input type="text" ng-model="Problem" disabled="disabled" />
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <br />
+            <br />
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <td style="background-color: red;">
+                            <span>Action Performed</span>
+                        </td>
+                        <td style="background-color: blue; border: none;"></td>
+                        <td style="background-color: blue; border: none;"></td>
+                        <td style="background-color: blue; border: none;"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td colspan="3">
+                            <table class="table table-hover table-bordered">
+                        <thead class="tableHead">
+                            <tr>
+                                <th>SlNo
+                                </th>
+                                <th>Action performed
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="tabletd">
+                            <tr ng-repeat="row in ActionPerformedArray">
+                                <td>{{row.Slno}}
+                                </td>
+                                <td>{{row.ActionDesc}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+            <br />
+            <br />
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <td style="background-color: red;">
+                            <span>Consequential Problem</span>
+                        </td>
+                        <td style="background-color: blue; border: none;"></td>
+                        <td style="background-color: blue; border: none;"></td>
+                        <td style="background-color: blue; border: none;"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td align="right" style="padding-top: 10px; ">
+                            <span>Consequential Problem</span>
+                        </td>
+                        <td colspan="3">
+                            <div style="padding: 2px; border: solid 1px; width: 700px;">
+                                <textarea type="text" ng-model="ConsequentialProblem" disabled="disabled"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <br />
+            <br />
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <td style="background-color: red;">
+                            <span>5W2H</span>
+                        </td>
+                        <td style="background-color: blue; border: none;"></td>
+                        <td style="background-color: blue; border: none;"></td>
+                        <td style="background-color: blue; border: none;"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td colspan="3">
+                            <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+                                <div class="row mar-0 fomr-div">
+                                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                                        <span>What</span>
+                                        <textarea ng-model="What"></textarea>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-2 col-lg-4 col-md-4">
+                                        <span>When</span>
+                                        <textarea ng-model="When"></textarea>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                                        <span>How</span>
+                                        <textarea ng-model="Who"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="row mar-0 fomr-div">
+                                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                                        <span>Where</span>
+                                        <textarea ng-model="Where"></textarea>
+                                    </div>
+                                    <div class="col-xs-2 col-sm-2 col-lg-4 col-md-4">
+                                        <span>Why</span>
+                                        <textarea ng-model="Why"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="row mar-0 fomr-div">
+                                    
+                                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                                        <span>How To Do</span>
+                                        <textarea ng-model="HowToDo"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="row mar-0 fomr-div">
+                                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                                        <span>How Much</span>
+                                        <textarea ng-model="HowMuch"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <br />
+            <br />
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <td style="background-color: red;">
+                            <span>Files</span>
+                        </td>
+                        <td style="background-color: blue; border: none;"></td>
+                        <td style="background-color: blue; border: none;"></td>
+                        <td style="background-color: blue; border: none;"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td colspan="3">
+                            <table class="table table-hover table-responsive table-bordered">
+                                <thead class="tableHead">
+                                    <tr>
+                                        <th>File Name
+                                        </th>
+                                        <th>Description
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="row in CIRFilesArray" class="tabletd">
+
+                                    <tr ng-if="row.IsImage != 'True'">
+                                        <td>{{row.CFileName}}
+                                        </td>
+                                        <td>{{row.CDesc}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <br />
+            <br />
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <td style="background-color: red;">
+                            <span>Files</span>
+                        </td>
+                        <td style="background-color: blue; border: none;"></td>
+                        <td style="background-color: blue; border: none;"></td>
+                        <td style="background-color: blue; border: none;"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td colspan="3">
+                            <table class="table table-hover table-condensed table-responsive table-bordered">
+                                <thead class="tableHead">
+                                    <tr>
+                                        <th>SlNo
+                                        </th>
+                                        <th>Comments
+                                        </th>
+                                        <th>From
+                                        </th>
+                                        <th>Assign To
+                                        </th>
+                                        <th>Assigned Date
+                                        </th>
+                                        <th>Comments On
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="row in CIRCommentsArray" class="tabletd">
+                                    <tr ng-if="row.Comments != ''">
+                                        <td>
+                                            <span>{{row.Slno}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{row.Comments}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{row.Frm}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{row.AssignedTo}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{row.AssignedDate}}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{row.CommentsOn}}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td>
+                    <br />
+                </td>
+            </tr>
+            <!--Content Will End Here-->
+
+            <tr>
+                <td style="min-height: 30px; border-bottom: 2px #ccc solid; border-top: 2px #ccc solid;">
+                    <!--<p style="text-align:left; font-size:14px; color:#000;"><span style="color: #ff0000;">Note :</span>Deposit slip! Confidential document!  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deposited By: </p>-->
+                </td>
+
+                <tr>
+                    <td></td>
+                </tr>
+        </table>
+        <br />
+        <div class="text-center" id="div">
+            <a href="#" onclick="fnPrint()" class="btn btn-primary">Print</a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+<script type="text/javascript">
+    
+    var CIRorCIMId = sessionStorage.getItem("Id");
+
+    function fnPrint() {
+        $("#div").css("display", "none");
+        window.print();
+        $("#div").css("display", "");
+    }
+
+</script>
+
+<script src="CIRScripts/ReportController.js" type="text/javascript"></script>

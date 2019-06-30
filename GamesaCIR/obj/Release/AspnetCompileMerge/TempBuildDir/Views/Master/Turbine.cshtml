@@ -1,0 +1,737 @@
+﻿
+@{
+    ViewBag.Title = "Turbine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script type="text/javascript">
+    var SetTurbineUrl = "@Url.Action("SetTurbine", "Master")";
+    var SetTurbineExcelUploadUrl = "@Url.Action("TurbineExcelUpload", "Master")";
+    var TurbineExcelSubmitUrl = "@Url.Action("TurbineExcelSubmit", "Master")";
+    var SetTurbineExcelUrl = "@Url.Action("SetTurbineExcel", "Master")";
+    var GetMasterCollectionUrl = "@Url.Action("GetMasterCollection", "Master")";
+    var GetMasterCollectionSpecificationUrl = "@Url.Action("GetSubMasterCollection", "Master")";
+    var GetTurbineUrl = "@Url.Action("GetTurbine", "Master")";
+    var GetTurbineExcelUrl = "@Url.Action("GetTurbineExcel", "Master")";
+    var UploadExcelUrl = "@Url.Action("UploadTurbineExcel", "Master")";
+    var GetDownloadUrl = "@Url.Action("DownloadExcel", "Master")";
+    var GetExcelDownloadUrl = "@Url.Action("GetTurbineExcelDown", "Master")";
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+    var GetLogFileUrl = "@Url.Action("LogFile", "Admin")";
+</script>
+
+
+<div class="col-lg-12 pad-0" ng-controller="Turbine_OperController">
+    <div class="content-part" style="min-height:90vh;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5 class="heading-h" style="margin-bottom: -10px;">Turbine Master</h5>
+            </div>
+            <div class="col-lg-12 col-md-12 fomr-div">
+                <div class="responsive-tabs">
+                    <!--Tab sec start-->
+                    <h2>Turbine Entry</h2>
+                    <div class="">
+                        <div class="row mar-0 fomr-div">
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Turbine Name</span><span style="color:red;padding:5px;">*</span>
+                                    <input type="text" ng-model="TurbineId" id="txtTurbineName" maxlength="50" pattern=".{5,}" required title="Minimum 5 characters required" />
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Customer Group</span>
+                                    <select id="ddlCustomerGroup" ng-model="CmrGroupId">
+                                        <option value="0">-- Select One --</option>
+                                        <option ng-repeat="option in CustomerSelect" value="{{option.MCId}}">{{option.Name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Customer</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlCustomer" ng-model="CmrId">
+                                        <option value="0">-- Select One --</option>
+                                        <option ng-repeat="option in CustomerSelect" value="{{option.MCId}}">{{option.Name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>DOC</span><span style="color:red;padding:5px;">*</span>
+                                    <input type="text" ng-model="DOC" id="txtDOC" maxlength="10" class="datepickerFormat" onkeypress="return isEvent(event)" />
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Site</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlSite" ng-model="Site">
+                                        <optgroup ng-repeat="row in SiteSelect" label="{{row.Name}}">
+                                            <option ng-repeat="child in row.SubMasterDetails" value="{{child.MCId}}">{{child.Name}}</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Function Location</span><span style="color:red;padding:5px;">*</span>
+                                    <input type="text" ng-model="FnLoc" id="txtFunctionLocation" maxlength="100" pattern=".{5,}" required title="Minimum 5 characters required" />
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Capacity</span><span style="color:red;padding:5px;">*</span>
+                                    <input type="text" ng-model="Capacity" id="txtCapacity" maxlength="50" pattern=".{3,}" required title="Minimum 3 characters required" />
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>T-Height</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlTowerHeight" ng-model="THeight">
+                                        <option value="0">-- Select One --</option>
+                                        <option ng-repeat="option in TowerHeightSelect" value="{{option.MCId}}">{{option.Name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Blade</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlBlade" ng-model="Blade">
+                                        <option value="0">-- Select One --</option>
+                                        <option ng-repeat="option in BladeSelect" value="{{option.MCId}}">{{option.Name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Generator</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlGenerator" ng-model="GRId">
+                                        <option value="0">-- Select One --</option>
+                                        <option ng-repeat="option in GeneratorSelect" value="{{option.MCId}}">{{option.Name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Generator SlNo</span><span style="color:red;padding:5px;">*</span>
+                                    <input type="text" ng-model="GRSlno" id="txtGeneratorSlNo" maxlength="50" pattern=".{3,}" required title="Minimum 3 characters required" />
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Gear Box</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlGearBox" ng-model="GBId">
+                                        <option value="0">-- Select One --</option>
+                                        <option ng-repeat="option in GearBoxSelect" value="{{option.MCId}}">{{option.Name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Gear Box SlNo</span><span style="color:red;padding:5px;">*</span>
+                                    <input type="text" ng-model="GBSlno" id="txtGearBoxSlNo" maxlength="50" pattern=".{3,}" required title="Minimum 3 characters required" />
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Temperature</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlTemprature" ng-model="Temp">
+                                        <option value="0">-- Select One --</option>
+                                        <option ng-repeat="option in TempratureSelect" value="{{option.MCId}}">{{option.Name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Dust</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlDust" ng-model="Dust">
+                                        <option value="0">-- Select One --</option>
+                                        <option ng-repeat="option in DustSelect" value="{{option.MCId}}">{{option.Name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Corrosion</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlCorrosion" ng-model="Corrosion">
+                                        <option value="0">-- Select One --</option>
+                                        <option ng-repeat="option in CorrosionArray" value="{{option.MCId}}">{{option.Name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>S/ W version</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlSWVersion" ng-model="SWVersion">
+                                        <option value="0">-- Select One --</option>
+                                        <option ng-repeat="option in SWVersionSelect" value="{{option.MCId}}">{{option.Name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>H/ W version</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlHWVersion" ng-model="HWVersion">
+                                        <option value="0">-- Select One --</option>
+                                        <option ng-repeat="option in HWVersionSelect" value="{{option.MCId}}">{{option.Name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>WTG Type</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlWTGType" ng-model="WTGType">
+                                        <option value="0">-- Select One --</option>
+                                        <option ng-repeat="option in WTGTypeSelect" value="{{option.MCId}}">{{option.Name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <input id="hfTbnId" ng-model="TbnId" type="hidden">
+                                    <br />
+                                    <span>
+                                        <input type="checkbox" ng-model="Active" ng-true-value="'1'" ng-false-value="'0'" checked="checked" id="chkActive" style="width: auto; margin-top: -2px;" />
+                                        Active
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Scada Name</span>
+                                    <input type="text" ng-model="ScadaName" id="txtScadaName" maxlength="50" />
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <span>Location</span>
+                                    <input type="text" ng-model="Location" id="txtLocation" maxlength="50" />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-top: 13px;">
+                                    <button style="background: #2c2c2c; color: #fff;margin-left:0px;" type="button" ng-click="SetTurbine()" ng-show="Add || UpdateOnly" class="btn btn-default SaveButton">{{btnName}}</button>
+                                    <button type="button" ng-click="ClearTurbine()" class="btn btn-default ClearButton" style="margin-right:10px;">Clear</button>
+                                    <button type="button" id="btnExcelDownLoad" style="margin-right: 10px;" ng-click="DownloadExcel()" ng-show="Download" class="btn btn-default ClearButton">Download</button>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="col-lg-12">
+                                <div class="input-group col-xs-6 col-sm-6 col-lg-6 col-md-6" style="margin-bottom: 15px;">
+                                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                                    <input type="text" class="form-control" placeholder="Search the Turbine" ng-model="searchTurbine" style="height: 35px;">
+                                </div>
+                                <div style="max-width: 100%;max-height: 100%;overflow-x:scroll;">
+                                    <table cellpadding="0" cellspacing="0" class="table table-hover table-responsive">
+                                        <thead style="border-top: 1px solid #dddddd;border-bottom: 2px solid #dddddd;">
+                                            <tr>
+                                                <td ng-click="sortType = 'Slno'; sortReverse = !sortReverse" style="width: 10%; min-width: 65px;text-align:center;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        SlNo
+                                                        <span ng-show="sortType == 'Slno' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'Slno' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td style="text-align:center;" ng-show="Update || Delete">
+                                                    <span style="width: 4%; min-width: 80px; font-weight: bold; color: #6b6b6b;">Action</span>
+                                                </td>
+                                                <td ng-click="sortType = 'TurbineId'; sortReverse = !sortReverse" style="width: 6%; min-width: 100px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Turbine
+                                                        <span ng-show="sortType == 'TurbineId' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'TurbineId' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'CmrGroupName'; sortReverse = !sortReverse" style="width: 8%; min-width: 150px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Customer GroupName
+                                                        <span ng-show="sortType == 'CmrGroupName' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'CmrGroupName' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'CustomerName'; sortReverse = !sortReverse" style="width: 8%; min-width: 150px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Customer
+                                                        <span ng-show="sortType == 'CustomerName' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'CustomerName' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'PDOC'; sortReverse = !sortReverse" style="width: 5%; min-width: 80px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        DOC
+                                                        <span ng-show="sortType == 'PDOC' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'PDOC' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'SiteName'; sortReverse = !sortReverse" style="width: 7%; min-width: 150px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Site
+                                                        <span ng-show="sortType == 'SiteName' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'SiteName' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'FnLoc'; sortReverse = !sortReverse" style="width: 9%; min-width: 170px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Functional Location
+                                                        <span ng-show="sortType == 'FnLoc' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'FnLoc' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'Capacity'; sortReverse = !sortReverse" style="width: 5%; min-width: 80px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Capacity
+                                                        <span ng-show="sortType == 'Capacity' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'Capacity' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'TowerHeightName'; sortReverse = !sortReverse" style="width: 5%; min-width: 120px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Tower Height
+                                                        <span ng-show="sortType == 'TowerHeightName' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'TowerHeightName' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'BladeName'; sortReverse = !sortReverse" style="width: 7%; min-width: 150px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Blade
+                                                        <span ng-show="sortType == 'BladeName' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'BladeName' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'Generator'; sortReverse = !sortReverse" style="width: 7%; min-width: 150px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Generator
+                                                        <span ng-show="sortType == 'Generator' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'Generator' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'GRSlno'; sortReverse = !sortReverse" style="width: 7%; min-width: 150px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Generator SlNo
+                                                        <span ng-show="sortType == 'GRSlno' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'GRSlno' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'GearBox'; sortReverse = !sortReverse" style="width: 7%; min-width: 150px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Gear Box
+                                                        <span ng-show="sortType == 'GearBox' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'GearBox' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'GBSlno'; sortReverse = !sortReverse" style="width: 7%; min-width: 150px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Gear Box SlNo
+                                                        <span ng-show="sortType == 'GBSlno' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'GBSlno' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'Tempname'; sortReverse = !sortReverse" style="width: 5%; min-width: 100px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Temperature
+                                                        <span ng-show="sortType == 'Tempname' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'Tempname' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'DustName'; sortReverse = !sortReverse" style="width: 5%; min-width: 100px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Dust
+                                                        <span ng-show="sortType == 'DustName' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'DustName' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'Corrosion'; sortReverse = !sortReverse" style="width: 5%; min-width: 100px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Corrosion
+                                                        <span ng-show="sortType == 'Corrosion' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'Corrosion' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'ScadaName'; sortReverse = !sortReverse" style="width: 5%; min-width: 100px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Scada Name
+                                                        <span ng-show="sortType == 'ScadaName' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'ScadaName' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td ng-click="sortType = 'Location'; sortReverse = !sortReverse" style="width: 5%; min-width: 100px;cursor:pointer;">
+                                                    <a href="#" style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                                        Location
+                                                        <span ng-show="sortType == 'Location' && !sortReverse" class="fa fa-caret-down"></span>
+                                                        <span ng-show="sortType == 'Location' && sortReverse" class="fa fa-caret-up"></span>
+                                                    </a>
+                                                </td>
+                                                <td style="cursor:pointer;text-align:center;">
+                                                    <span style="width: 4%; text-align: center; min-width: 80px; font-weight: bold;color:#6b6b6b;">Active</span>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="border-bottom: 1px solid #dddddd;">
+                                            <tr ng-repeat="row in TurbineGridArray | orderBy:sortType:sortReverse| filter:searchTurbine | pagination: curPage * pageSize | limitTo: pageSize">
+                                                <td scope="row" style="text-align:center;">{{row.Slno}}</td>
+                                                <td style="text-align:center;" ng-show="Update || Delete">
+                                                    <a style="cursor: pointer;" ng-click="DeleteTurbine(row.TbnId)" data-toggle="tooltip" ng-show="Delete" data-placement="top" title="Delete" onmouseover="$(this).tooltip('show')">
+                                                        <img style="height: 20px;" src="~/Content/img/delete.png">
+                                                    </a>
+                                                    <a style="cursor: pointer;" ng-click="EditTurbine(row)" data-toggle="tooltip" data-placement="top" ng-show="Update" title="Edit" onmouseover="$(this).tooltip('show')">
+                                                        <img style="height: 20px;" src="~/Content/img/edit.png">
+                                                    </a>
+                                                </td>
+                                                <td>{{row.TurbineId}}</td>
+                                                <td>{{row.CmrGroupName}}</td>
+                                                <td>{{row.CustomerName}}</td>
+                                                <td>{{row.PDOC}}</td>
+                                                <td>{{row.SiteName}}</td>
+                                                <td>{{row.FnLoc}}</td>
+                                                <td>{{row.Capacity}}</td>
+                                                <td>{{row.TowerHeightName}}</td>
+                                                <td>{{row.BladeName}}</td>
+                                                <td>{{row.Generator}}</td>
+                                                <td>{{row.GRSlno}}</td>
+                                                <td>{{row.GearBox}}</td>
+                                                <td>{{row.GBSlno}}</td>
+                                                <td>{{row.Tempname}}</td>
+                                                <td>{{row.DustName}}</td>
+                                                <td>{{row.Corrosion}}</td>
+                                                <td>{{row.ScadaName}}</td>
+                                                <td>{{row.Location}}</td>
+                                                <td style="text-align:center;">
+                                                    <input type="checkbox" disabled="disabled" ng-model="row.Active" ng-true-value="'True'" ng-false-value="'False'" style="height: 15px;">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div ng-show="TurbineGridArray.length > pageSize">
+                                    <div class="col-lg-8 col-sm-12 col-xs-12 col-md-8" style="padding-left:0px;">
+                                        <ul class="pagination-controle pagination">
+                                            <li>
+                                                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                        ng-click="curPage=0" style="border-radius  : 0px;">
+                                                    &lt;&lt; First
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                                        ng-click="curPage=curPage-1" style="border-radius  : 0px;">
+                                                    &lt; Prev
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                                        ng-disabled="curPage >= TurbineGridArray.length/pageSize - 1"
+                                                        ng-click="curPage = curPage+1">
+                                                    Next &gt;
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                                        ng-disabled="curPage >= TurbineGridArray.length/pageSize - 1"
+                                                        ng-click="LastPage()">
+                                                    Last &gt;&gt;
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4" style="padding:20px;padding-right:0px;">
+                                        <span style="color: black;padding: 8px;background-color: #bbbbbb;" class="pull-right">Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--Tab sec end-->
+                    <!--Tab sec start-->
+                    <h2>Excel Upload</h2>
+                    <div class="tab-cnt">
+
+                        <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+
+                            <div style="margin-bottom: 10px;" class="row mar-0 fomr-div">
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <span>File No</span><br>
+                                    <input type="text" id="txtFileNo" ng-model="TUNo" ng-keypress="FileNoChange($event)" maxlength="10" />
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <span>Date</span><br>
+                                    <input type="text" disabled="disabled" ng-model="PostedOn" style="background-color: white; border: 1px solid #A9A9A9; padding: 4px;" id="txtDate" />
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <span>File Name</span><br>
+                                    <form id="uploadform">
+                                        <input type="file" id="fuTurbine" name="fuTurbine" class="clsfuTurbine" />
+                                    </form>
+                                    <input type="text" id="txtFileName" ng-model="TFilename" disabled="disabled" style="display: none; background-color: white; border: 1px solid #A9A9A9; padding: 4px;" />
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <span>Uploaded By</span><br>
+                                    <input type="text" disabled="disabled" ng-model="UploadedBy" style="background-color: white; border: 1px solid #A9A9A9; padding: 4px;" id="txtUploadedBy" />
+                                </div>
+
+                                @*<div class="col-lg-6 col-md-6 col-sm-12">
+                                        <span>Uploaded Details</span>
+                                        <br />
+                                        <table style="width:100%;">
+                                            <tr>
+                                                <td style="width:25%; padding:5px 5px; border:1px solid #ccc; white-space:nowrap;">
+                                                    <span style="font-weight:bold;">Total Count:</span>  {{Total}}
+                                                </td>
+                                                <td style="width:25%; padding:5px 5px; border:1px solid #ccc; white-space:nowrap;">
+                                                    <span style="font-weight:bold;">New:</span>  {{New}}
+                                                </td>
+                                                <td style="width:25%; padding:5px 5px; border:1px solid #ccc; white-space:nowrap;">
+                                                    <span style="font-weight:bold;">Modify:</span>  {{Modified}}
+                                                </td>
+                                                <td style="width:25%; padding:5px 5px; border:1px solid #ccc; white-space:nowrap;">
+                                                    <span style="font-weight:bold;">Invalid:</span>  {{Invalid}}
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                    </div>*@
+
+
+                            </div>
+
+                            <div style="margin-bottom: 15px;" class="row mar-0 fomr-div">
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 pad-0">
+
+                                    <div class="col-lg-3 col-md-3 col-sm-6">
+                                        <span>Total Count</span><br>
+                                        <input type="text" disabled="disabled" ng-model="Total" style="background-color: white; border: 1px solid #A9A9A9; padding: 4px;" id="txtTotal" />
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-3 col-sm-6">
+                                        <span>New</span><br>
+                                        <input type="text" disabled="disabled" ng-model="New" style="background-color: white; border: 1px solid #A9A9A9; padding: 4px;" id="txtNew" />
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-3 col-sm-6">
+                                        <span>Modify</span><br>
+                                        <input type="text" disabled="disabled" ng-model="Modified" style="background-color: white; border: 1px solid #A9A9A9; padding: 4px;" id="txtModified" />
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-3 col-sm-6">
+                                        <span>Invalid</span><br>
+                                        <input type="text" disabled="disabled" ng-model="Invalid" style="background-color: white; border: 1px solid #A9A9A9; padding: 4px;" id="txtInvalid" />
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-6" style="text-align: right;">
+                                    <br />
+                                    <a href="" id="aTemplateDownload" class="btn btn-default ClearButton" style="margin-left: -80px;" ng-show="Download">Download Template</a>
+                                    <button ng-click="UploadTurbineExcel()" id="btnUpload" ng-show="Add" style="background: #2c2c2c; color: #fff; margin-left: 15px;" type="button" class="btn btn-default SaveButton">Upload</button>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12" style="margin: 10px 0px;">
+                                <div class="line"></div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="grid-div">
+                                    <table cellpadding="0" cellspacing="0" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 2%; min-width: 40px;color: #6b6b6b;">SlNo</th>
+                                                <th style="width: 6%; min-width: 100px;color: #6b6b6b;">Turbine</th>
+                                                <th style="width: 8%; min-width: 150px;color: #6b6b6b;">Customer Group</th>
+                                                <th style="width: 8%; min-width: 150px;color: #6b6b6b;">Customer</th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">DOC</th>
+                                                <th style="width: 6%; min-width: 100px;color: #6b6b6b;">Site</th>
+                                                <th style="width: 8%; min-width: 150px;color: #6b6b6b;">Function Location</th>
+                                                <th style="width: 5%; min-width: 100px;color: #6b6b6b;">Capacity</th>
+                                                <th style="width: 4%; min-width: 150px;color: #6b6b6b;">Tower Height</th>
+                                                <th style="width: 8%; min-width: 150px;color: #6b6b6b;color: #6b6b6b;">Blade</th>
+                                                <th style="width: 8%; min-width: 150px;">Generator</th>
+                                                <th style="width: 6%; min-width: 130px;color: #6b6b6b;">Generator SlNo</th>
+                                                <th style="width: 8%; min-width: 150px;color: #6b6b6b;">Gear Box</th>
+                                                <th style="width: 6%; min-width: 130px;color: #6b6b6b;">Gear Box SlNo</th>
+                                                <th style="width: 5%; min-width: 100px;color: #6b6b6b;">Temperature</th>
+                                                <th style="width: 5%; min-width: 100px;color: #6b6b6b;">Dust</th>
+                                                <th style="width: 5%; min-width: 100px;color: #6b6b6b;">Corrosion</th>
+                                                <th style="width: 5%; min-width: 100px;color: #6b6b6b;">WTG Type</th>
+                                                <th style="width: 5%; min-width: 100px;color: #6b6b6b;">SW Version</th>
+                                                <th style="width: 5%; min-width: 100px;color: #6b6b6b;">HW Version</th>
+                                                <th style="width: 8%; min-width: 150px;color: #6b6b6b;">Scada Name</th>
+                                                <th style="width: 8%; min-width: 150px;color: #6b6b6b;">Location</th>
+                                                <th class="ErrorMsg" style="width: 10%;color: #6b6b6b; min-width: 150px;">Error Msg</th>
+                                                <th class="DelAction" style="width: 4%;color: #6b6b6b; min-width: 80px; display: none;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="row in TurbineExcelGridArray" on-finish-render="ngRepeatFinished" ng-class="{'Error': row.Color == 'Red', 'Modify': row.Color == 'Blue', 'New': row.Color == 'Green'}">
+                                                <td scope="row">
+                                                    {{$index + 1}}
+                                                </td>
+                                                <td>{{row.TurbineId}}</td>
+                                                <td>{{row.CmrGroupName}}</td>
+                                                <td>{{row.Customer}}</td>
+                                                <td>{{row.DOC}}</td>
+                                                <td>{{row.TSite}}</td>
+                                                <td>{{row.FnLoc}}</td>
+                                                <td>{{row.Capacity}}</td>
+                                                <td>{{row.THeight}}</td>
+                                                <td>{{row.Blade}}</td>
+                                                <td>{{row.Generator}}</td>
+                                                <td>{{row.GRSlno}}</td>
+                                                <td>{{row.GearBox}}</td>
+                                                <td>{{row.GBSlno}}</td>
+                                                <td>{{row.Temp}}</td>
+                                                <td>{{row.Dust}}</td>
+                                                <td>{{row.Corrosion}}</td>
+                                                <td>{{row.WTGType}}</td>
+                                                <td>{{row.SWVersion}}</td>
+                                                <td>{{row.HWVersion}}</td>
+                                                <td>{{row.ScadaName}}</td>
+                                                <td>{{row.Location}}</td>
+                                                <td class="ErrorMsg">{{row.EMsg}}</td>
+                                                <td class="DelAction" style="display: none;">
+                                                    <a style="cursor: pointer;" ng-click="DeleteTurbineExcel(row.RowId)">
+                                                        <img style="height: 20px;" src="~/Content/img/delete.png">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12" style="margin: 25px 0px 0px 0px;">
+                                <div class="line"></div>
+                            </div>
+
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <span>Remarks</span><br>
+                                    <textarea id="txtRemarks" ng-model="Remarks" rows="3"></textarea>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12" style="text-align: right;">
+                                    <br />
+                                    <button ng-click="SubmitTurbineExcel()" id="btnSave" ng-show="Add" disabled="disabled" style="background: #2c2c2c; color: #fff;" type="button" class="btn btn-default SaveButton">Save</button>
+                                    <button ng-click="PostTurbineExcel()" id="btnPost" ng-show="Add" disabled="disabled" style="background: #2c2c2c; color: #fff;margin-left:0px;" type="button" class="btn btn-default SaveButton">Post</button>
+                                    <button ng-click="ClearTurbineExcel()" type="button" class="btn btn-default ClearButton">Clear</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <!--Tab sec end-->
+
+                </div>
+            </div>
+            <div class="col-lg-12">
+            </div>
+            <div class="row mar-0">
+                <div class="col-lg-12">
+                    <div class="line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table style="display: none;" id="tblExcelFormat">
+        <thead>
+            <tr>
+                <td>
+                    SlNo
+                </td>
+                <td>
+                    Turbine
+                </td>
+                <td>
+                    Customer
+                </td>
+                <td>
+                    DOC
+                </td>
+                <td>
+                    Site
+                </td>
+                <td>
+                    Functional Location
+
+                </td>
+                <td>
+                    Capacity
+
+                </td>
+                <td>
+                    Tower Height
+
+                </td>
+                <td>
+                    Blade
+
+                </td>
+                <td>
+                    Generator
+
+                </td>
+                <td>
+                    Generator SlNo
+
+                </td>
+                <td>
+                    Gear Box
+
+                </td>
+                <td>
+                    Gear Box SlNo
+
+                </td>
+                <td>
+                    Temperature
+
+                </td>
+                <td>
+                    Dust
+
+                </td>
+                <td>
+                    Corrosion
+
+                </td>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in TurbineGridArray">
+                <th>{{row.Slno}}</th>
+                <td>{{row.TurbineId}}</td>
+                <td>{{row.CustomerName}}</td>
+                <td>{{row.DOC}}</td>
+                <td>{{row.SiteName}}</td>
+                <td>{{row.FnLoc}}</td>
+                <td>{{row.Capacity}}</td>
+                <td>{{row.TowerHeightName}}</td>
+                <td>{{row.BladeName}}</td>
+                <td>{{row.Generator}}</td>
+                <td>{{row.GRSlno}}</td>
+                <td>{{row.GearBox}}</td>
+                <td>{{row.GBSlno}}</td>
+                <td>{{row.Tempname}}</td>
+                <td>{{row.DustName}}</td>
+                <td>{{row.Corrosion}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+
+    //$("#btnExcelDownLoad").click(function (e) {
+    //    $("#tblExcelFormat").table2excel(
+    //    {
+    //        exclude: ".NoExl",
+    //        name: "ExcelDoument"
+    //    });
+    //    e.preventDefault();
+    //});
+
+    $(".clsfuTurbine").on('change', function (e) {
+        var iframe = $('<iframe name="postiframe" id="postiframe" style="display: none"></iframe>');
+        $("body").append(iframe);
+        var form = $('#uploadform');
+        form.attr("action", UploadExcelUrl);
+        form.attr("method", "post");
+        form.attr("encoding", "multipart/form-data");
+        form.attr("enctype", "multipart/form-data");
+        form.attr("target", "postiframe");
+        form.attr("file", $('#fuTurbine').val());
+        form.submit();
+    });
+
+    $(function () {
+
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    fnTemplateDownload();
+
+    function fnTemplateDownload() {
+        var data = window.location.href;
+        var Url = data.toLowerCase().replace('/master/turbine', '');
+        $("#aTemplateDownload").attr('href', (Url + "/Template/TurbineTemplate.xlsx"));
+    }
+
+</script>
+<script src="~/CIRScripts/MasterController.js" type="text/javascript"></script>
+

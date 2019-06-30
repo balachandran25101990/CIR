@@ -1,0 +1,43 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    @Styles.Render("~/Content/login/css")
+    @Scripts.Render("~/bundles/jquery")
+    <style type="text/css">
+        body {
+            background-image: url('../Content/img/login-bg.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        html {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="log-div" style="max-width: 550px; height:180px; margin-top:15%;">
+        <table class="log-tbl" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="width:100%; height:80px;">
+                    <img style="margin-left:15px;" src="~/Content/img/logo.jpg" />
+                    <img style="float: right; margin-right: 5px;" src="~/Content/img/gkmp.png" />
+                </td>
+            </tr>
+            <tr>
+                <td style="height:100px; border-top:1px #ccc dotted;">
+                    <p style="float:left; margin-left:15px;">Your session has been expired! Kindly relogin and Continue!</p>
+                    <a style="float:right; margin-right:15px; font-weight:bold;" href="../Login">Login</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+

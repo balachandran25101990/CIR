@@ -1,0 +1,700 @@
+﻿
+@{
+    ViewBag.Title = "SMPData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .table > thead > tr > th {
+        vertical-align: bottom;
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ddd !important;
+        border-right: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+</style>
+<script type="text/javascript">
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+    var GetSMPDataExcelUploadUrl = "@Url.Action("GetSMPDataExcel", "Master")";
+    var SetSMPDataExcelUploadUrl = "@Url.Action("SMPDataExcelUpload", "Master")";
+    var UploadExcelUrl = "@Url.Action("UploadSMPDataExcel", "Master")";
+    var GetLogFileUrl = "@Url.Action("LogFile", "Admin")";
+</script>
+<div class="col-lg-12 pad-0" ng-controller="SMPData_OperController">
+    <div class="content-part" style="min-height:90px;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12" style="border-bottom: 1px #ccc dotted;padding-bottom:5px;">
+                <div class="col-lg-6 col-md-6">
+                    <h5 class="heading-h" style="margin-bottom: -10px; border-bottom:0px;">SMP Data Plan Vs Actual Status</h5>
+                </div>
+                <div class="col-lg-6 col-md-6" style="text-align:right;">
+                    <input type="text" ng-model="Pending" style="color:red; text-align:right; border:0px; width:400px;" value="test" />
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 fomr-div">
+                <div class="responsive-tabs">
+                    <!--Tab sec start-->
+                    <h2>SMP Data</h2>
+                    <div class="tab-cnt" ng-show="View">
+                        <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+                            <div style="margin-bottom: 10px;" class="row mar-0 fomr-div">
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <span>File No</span><br>
+                                    <input type="text" id="txtFileNo" ng-model="SUNo" ng-keypress="FileNoChange($event)" maxlength="10" />
+                                    <input type="hidden" ng-model="SUId" value="0" />
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <span>Date</span><br>
+                                    <input type="text" disabled="disabled" ng-model="PostedOn" style="background-color: white; border: 1px solid #A9A9A9; padding: 4px;" id="txtDate" />
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <span>File Name</span><br>
+                                    <form id="uploadform">
+                                        <input type="file" id="ExcelFileSMP" name="ExcelFileSMP" class="clsExcelFileSMP" />
+                                    </form>
+                                    <input type="text" id="txtFileName" ng-model="txtFileName" disabled="disabled" style="display: none; background-color: white; border: 1px solid #A9A9A9; padding: 4px;" />
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <span>Uploaded By</span><br>
+                                    <input type="text" disabled="disabled" ng-model="UploadedBy" style="background-color: white; border: 1px solid #A9A9A9; padding: 4px;" id="txtUploadedBy" />
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 15px;" class="row mar-0 fomr-div">
+                                <div class="col-lg-6 col-md-6 col-sm-12 pad-0">
+                                    <div class="col-lg-3 col-md-3 col-sm-6">
+                                        <span>Total Count</span><br>
+                                        <input type="text" disabled="disabled" ng-model="Total" style="background-color: white; border: 1px solid #A9A9A9; padding: 4px;" id="txtTotal" />
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6">
+                                        <span>Modify</span><br>
+                                        <input type="text" disabled="disabled" ng-model="Modified" style="background-color: white; border: 1px solid #A9A9A9; padding: 4px;" id="txtModified" />
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-3 col-sm-6">
+                                        <span>Invalid</span><br>
+                                        <input type="text" disabled="disabled" ng-model="Invalid" style="background-color: white; border: 1px solid #A9A9A9; padding: 4px;" id="txtInvalid" />
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6" style="text-align:right;">
+                                    <br />
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6" style="text-align: right;">
+                                    <br />
+                                    <a href="~/Template/SMP Data Plan.xls" id="aTemplateDownload11" class="btn btn-default ClearButton" style="margin-left: -80px;">Download Template</a>
+                                    <button ng-click="UploadSMPDataUpdateExcel()" id="btnUpload" ng-show="Add" style="background: #2c2c2c; color: #fff; margin-left: 15px;" type="button" class="btn btn-default SaveButton">Upload</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-12" style="margin: 10px 0px;">
+                                <div class="line"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="grid-div">
+                                    <table cellpadding="0" cellspacing="0" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="2" style="width: 2%; min-width: 40px;color: #6b6b6b;">S.No</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 100px;color: #6b6b6b;">State</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 100px;color: #6b6b6b;">Site</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 100px;color: #6b6b6b;">Model</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 140px;color: #6b6b6b;">Location / SF No</th>
+                                                <th rowspan="2" style="width: 8%; min-width: 150px;color: #6b6b6b;">Turbine Id</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 160px;color: #6b6b6b;">Functional Location</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 200px;color: #6b6b6b;">Functional Description</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 120px;color: #6b6b6b;">Planned Date</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 130px;color: #6b6b6b;">Completed On </th>
+                                                <th colspan="2" style="width: 2%;text-align: center; min-width: 80px;color: #6b6b6b;">Validation</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 200px;color: #6b6b6b;">Deviations Plan vs Actual </th>
+                                                <th rowspan="2" style="width: 5%; min-width: 180px;color: #6b6b6b;">Reports Generated on </th>
+                                                <th colspan="5" style="width: 2%; text-align: center; min-width: 160px;color: #6b6b6b;">Recommended Actions</th>
+                                                <th colspan="2" style="width: 2%; text-align: center; min-width: 160px;color: #6b6b6b;">Error Message</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Date</th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Status</th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">State </th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Actions </th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Observations </th>
+                                                <th style="width: 10%;color: #6b6b6b; min-width: 150px;">WO Number</th>
+                                                <th style="width: 4%;color: #6b6b6b; min-width: 140px; ">Completed Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="row in SMPDataExcelGridArray" on-finish-render="ngRepeatFinished" ng-class="{'Error': row.Color == 'Red', 'Modify': row.Color == 'Blue', 'New': row.Color == 'Green'}">
+                                                <td scope="row">
+                                                    {{$index + 1}}
+                                                    <input type="text" style="display:none ; border:0px;" value="{{row.RowId}}" />
+                                                </td>                                                
+                                                <td>{{row.State}}</td>
+                                                <td>{{row.Site}}</td>
+                                                <td>{{row.Model}}</td>
+                                                <td>{{row.Location}}</td>
+                                                <td>{{row.TurbineId}}</td>
+                                                <td>{{row.FnLoc}}</td>
+                                                <td>{{row.FunctionalDescription}}</td>
+                                                <td>{{row.PlannedDate}}</td>
+                                                <td>{{row.CompletedOn}}</td>
+                                                <td>{{row.ValidationDate}}</td>
+                                                <td>{{row.ValidationStatus}}</td>
+                                                <td>{{row.DeviationPlanVsActual}}</td>
+                                                <td>{{row.ReportsGeneratedOn}}</td>                                              
+                                                <td>{{row.RecommendedActionState}}</td>
+                                                <td>{{row.RecommendedActions}}</td>
+                                                <td>{{row.RecommendedActionsObservations}}</td>
+                                                <td>{{row.RecommendedActionsWONumber}}</td>
+                                                <td>{{row.RecommendedActionsCompletedDate}}</td>   
+                                                <td class="ErrorMsg">{{row.ErrMsg}}</td>
+                                                @*<td class="DelAction" ng-show="Delete">
+                                                    <a style="cursor: pointer;" ng-click="DeleteSMPDataExcel(row.RowId)">
+                                                        <img style="height: 20px;" src="~/Content/img/delete.png">
+                                                    </a>
+                                                </td>*@
+                                            </tr>                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-lg-12" style="margin: 25px 0px 0px 0px;">
+                                <div class="line"></div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <span>Remarks</span><span style="color:red;padding:5px;">*</span><br>
+                                    <textarea id="txtRemarks" ng-model="Remarks" rows="3"></textarea>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <span id="spnStatus">Status</span><span id="spnMStatus" style="color:red;padding:5px;">*</span>
+                                    <select id="ddlStatusSMPData" ng-model="StatusSMPData" ng-change="LoadIsAutoAssignOrNot()">
+                                        <option value="0">-- Select One --</option>
+                                        <option value="1">Assigned</option>
+                                    </select>
+                                    <input type="text" id="txtStatus" ng-model="Tstatus" disabled="disabled" style="display: none; background-color: white; border: 1px solid #A9A9A9; padding: 4px;" />
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <span id="spnAssign1">Assign To</span><span id="spnMAssign1" style="color:red;padding:5px;">*</span>
+                                    <select id="ddlAssignedToSMPData" ng-model="AssignedToSMPData">
+                                        <option value="0" selected="selected">-- Select One --</option>
+                                        <option ng-repeat="option in AssignToArray" value="{{option.StsId}}">{{option.Status}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6" style="text-align: right;">
+                                    <br />
+                                    <button ng-click="SubmitTurbineVUExcel()" id="btnSave" ng-show="Add" disabled="disabled" style="background: #2c2c2c; color: #fff;" type="button" class="btn btn-default SaveButton">Save</button>
+                                    <button ng-click="CancelTurbineVUExcel()" id="btnCancel" ng-show="Delete" disabled="disabled" style="background: #2c2c2c; color: #fff;" type="button" class="btn btn-default SaveButton">Cancel</button>
+                                    <button ng-click="ClearTurbineExcel()" type="button" class="btn btn-default ClearButton">Clear</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Tab sec end-->
+                    <!--Tab sec start-->
+                    <h2>Verify</h2>
+                    <div class="tab-cnt" ng-show="Update">
+                        <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+                            <div style="margin-bottom: 10px;" class="row mar-0 fomr-div">
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <span>File Name</span><br>
+                                    <select ng-model="VerifyFilename" ng-change="PostFileNameChange()">
+                                        <option value="0">-- Select One --</option>
+                                        <option ng-repeat="option in PostFilenameSelect" value="{{option.TUId}}">{{option.FileName}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                </div>
+                            </div>
+                            <div class="col-lg-12" style="margin: 10px 0px;">
+                                <div class="line"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="grid-div">
+                                    <table cellpadding="0" cellspacing="0" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="2" style="width: 2%; min-width: 40px;color: #6b6b6b;">S.No</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 100px;color: #6b6b6b;">State</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 100px;color: #6b6b6b;">Site</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 100px;color: #6b6b6b;">Model</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 140px;color: #6b6b6b;">Location / SF No</th>
+                                                <th rowspan="2" style="width: 8%; min-width: 150px;color: #6b6b6b;">Turbine Id</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 160px;color: #6b6b6b;">Functional Location</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 200px;color: #6b6b6b;">Functional Description</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 120px;color: #6b6b6b;">Planned Date</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 130px;color: #6b6b6b;">Completed On </th>
+                                                <th colspan="2" style="width: 2%;text-align: center; min-width: 80px;color: #6b6b6b;">Validation</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 200px;color: #6b6b6b;">Deviations Plan vs Actual </th>
+                                                <th rowspan="2" style="width: 5%; min-width: 180px;color: #6b6b6b;">Reports Generated on </th>
+                                                <th colspan="5" style="width: 2%; text-align: center; min-width: 160px;color: #6b6b6b;">Recommended Actions</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Date</th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Status</th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">State </th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Actions </th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Observations </th>
+                                                <th style="width: 10%;color: #6b6b6b; min-width: 150px;">WO Number</th>
+                                                <th style="width: 4%;color: #6b6b6b; min-width: 140px; ">Completed Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @*<tr ng-repeat="row in TurbineExcelGridArray" on-finish-render="ngRepeatFinished" ng-class="{'Error': row.Color == 'Red', 'Modify': row.Color == 'Blue', 'New': row.Color == 'Green'}">
+                                                    <td scope="row">
+                                                        {{$index + 1}}
+                                                        <input type="text" style="display:none ; border:0px;" value="{{row.RowId}}" />
+                                                        <input type="text" style="display:none ; border:0px;" value="{{row.TbnId}}" />
+                                                    </td>
+                                                    <td>{{row.TurbineId}}</td>
+                                                    <td>{{row.SCADAName}}</td>
+                                                    <td>{{row.Location}}</td>
+                                                    <td>{{row.FunctionLocation}}</td>
+                                                    <td>
+                                                        <select ng-model="row.SwVersion" ng-disabled="new_account">
+                                                            <option value="0">-- Select One --</option>
+                                                            <option ng-repeat="option in SWVersionSelect" ng-selected="row.SwVersion == option.Name" value="{{option.Name}}">{{option.Name}}</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select ng-model="row.hwVersion" ng-disabled="new_account">
+                                                            <option value="0">-- Select One --</option>
+                                                            <option ng-repeat="option in HWVersionSelect" ng-selected="row.hwVersion == option.Name" value="{{option.Name}}">{{option.Name}}</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="datepickerFormat" ng-disabled="new_account" ng-model="row.InstallationDate" value="{{row.InstallationDate}}" onkeypress="return isEvent(this)" />
+                                                    </td>
+                                                    <td>{{row.Generator}}</td>
+                                                    <td>{{row.Blade}}</td>
+                                                    <td>{{row.TemperatureType}}</td>
+                                                    <td>{{row.TowerHeight}}</td>
+                                                    <td>{{row.Rotordiameter}}</td>
+                                                    <td>{{row.SiteName}}</td>
+                                                    <td>{{row.State}}</td>
+                                                    <td>{{row.CustomerGroup}}</td>
+                                                    <td>{{row.Customer}}</td>
+                                                    <td>{{row.DOC}}</td>
+                                                    <td class="ErrorMsg">{{row.EMsg}}</td>
+                                                    <td class="DelAction" ng-show="Delete">
+                                                        <a style="cursor: pointer;" ng-click="DeleteTurbineExcel(row.RowId)">
+                                                            <img style="height: 20px;" src="~/Content/img/delete.png">
+                                                        </a>
+                                                    </td>
+                                                </tr>*@
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-lg-12" style="margin: 25px 0px 0px 0px;">
+                                <div class="line"></div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <span>Remarks</span>
+                                    <br>
+                                    <textarea id="txtRemarks" ng-model="Remarks" rows="3"></textarea>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <span>Status</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlStatusVerify" ng-model="StatusVerify" ng-change="LoadIsAutoAssignOrNot2()">
+                                        <option value="0">-- Select One --</option>
+                                        <option value="3">Rejected</option>
+                                        <option value="4">Assigned</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <span>Assign To</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlAssignToVerify" ng-model="AssignToVerify">
+                                        <option value="0" selected="selected">-- Select One --</option>
+                                        <option ng-repeat="option in AssignToArray2" value="{{option.StsId}}">{{option.Status}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6" style="text-align: right;">
+                                    <br />
+                                    <button ng-click="Submit2TurbineVUExcel()" id="btnSave2" ng-show="Update" disabled="disabled" style="background: #2c2c2c; color: #fff;margin-left:0px;" type="button" class="btn btn-default SaveButton">Save</button>
+                                    <button ng-click="Clear2TurbineExcel()" type="button" class="btn btn-default ClearButton">Clear</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Tab sec end-->
+                    <!--Tab sec start-->
+                    <h2>Approve</h2>
+                    <div class="tab-cnt" ng-show="Download">
+                        <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+                            <div style="margin-bottom: 10px;" class="row mar-0 fomr-div">
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <span>File Name</span><br>
+                                    <select ng-model="ApproveFilename" ng-change="PostFileNameChange2()">
+                                        <option value="0" selected="selected">-- Select One --</option>
+                                        <option ng-repeat="option in PostFilenameSelect2" value="{{option.TUId}}">{{option.FileName}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                </div>
+                            </div>
+                            <div class="col-lg-12" style="margin: 10px 0px;">
+                                <div class="line"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="grid-div">
+                                    <table cellpadding="0" cellspacing="0" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="2" style="width: 2%; min-width: 40px;color: #6b6b6b;">S.No</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 100px;color: #6b6b6b;">State</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 100px;color: #6b6b6b;">Site</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 100px;color: #6b6b6b;">Model</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 140px;color: #6b6b6b;">Location / SF No</th>
+                                                <th rowspan="2" style="width: 8%; min-width: 150px;color: #6b6b6b;">Turbine Id</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 160px;color: #6b6b6b;">Functional Location</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 200px;color: #6b6b6b;">Functional Description</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 120px;color: #6b6b6b;">Planned Date</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 130px;color: #6b6b6b;">Completed On </th>
+                                                <th colspan="2" style="width: 2%;text-align: center; min-width: 80px;color: #6b6b6b;">Validation</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 200px;color: #6b6b6b;">Deviations Plan vs Actual </th>
+                                                <th rowspan="2" style="width: 5%; min-width: 180px;color: #6b6b6b;">Reports Generated on </th>
+                                                <th colspan="5" style="width: 2%; text-align: center; min-width: 160px;color: #6b6b6b;">Recommended Actions</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Date</th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Status</th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">State </th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Actions </th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Observations </th>
+                                                <th style="width: 10%;color: #6b6b6b; min-width: 150px;">WO Number</th>
+                                                <th style="width: 4%;color: #6b6b6b; min-width: 140px; ">Completed Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @*<tr ng-repeat="row in TurbineExcelGridArray" on-finish-render="ngRepeatFinished" ng-class="{'Error': row.Color == 'Red', 'Modify': row.Color == 'Blue', 'New': row.Color == 'Green'}">
+                                                    <td scope="row">
+                                                        {{$index + 1}}
+                                                        <input type="text" style="display:none ; border:0px;" value="{{row.RowId}}" />
+                                                        <input type="text" style="display:none ; border:0px;" value="{{row.TbnId}}" />
+                                                    </td>
+                                                    <td>{{row.TurbineId}}</td>
+                                                    <td>{{row.SCADAName}}</td>
+                                                    <td>{{row.Location}}</td>
+                                                    <td>{{row.FunctionLocation}}</td>
+                                                    <td>
+                                                        <select ng-model="row.SwVersion" ng-disabled="new_account">
+                                                            <option value="0">-- Select One --</option>
+                                                            <option ng-repeat="option in SWVersionSelect" ng-selected="row.SwVersion == option.Name" value="{{option.Name}}">{{option.Name}}</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select ng-model="row.hwVersion" ng-disabled="new_account">
+                                                            <option value="0">-- Select One --</option>
+                                                            <option ng-repeat="option in HWVersionSelect" ng-selected="row.hwVersion == option.Name" value="{{option.Name}}">{{option.Name}}</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="datepickerFormat" ng-disabled="new_account" ng-model="row.InstallationDate" value="{{row.InstallationDate}}" onkeypress="return isEvent(this)" />
+                                                    </td>
+                                                    <td>{{row.Generator}}</td>
+                                                    <td>{{row.Blade}}</td>
+                                                    <td>{{row.TemperatureType}}</td>
+                                                    <td>{{row.TowerHeight}}</td>
+                                                    <td>{{row.Rotordiameter}}</td>
+                                                    <td>{{row.SiteName}}</td>
+                                                    <td>{{row.State}}</td>
+                                                    <td>{{row.CustomerGroup}}</td>
+                                                    <td>{{row.Customer}}</td>
+                                                    <td>{{row.DOC}}</td>
+                                                    <td class="ErrorMsg">{{row.EMsg}}</td>
+                                                    <td class="DelAction" ng-show="Delete">
+                                                        <a style="cursor: pointer;" ng-click="DeleteTurbineExcel(row.RowId)">
+                                                            <img style="height: 20px;" src="~/Content/img/delete.png">
+                                                        </a>
+                                                    </td>
+                                                </tr>*@
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12" style="margin: 25px 0px 0px 0px;">
+                                <div class="line"></div>
+                            </div>
+
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <span>Remarks</span><br>
+                                    <textarea id="txtRemarks" ng-model="Remarks" rows="3"></textarea>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <span>Status</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlStatsusApprove" ng-model="StatsusApprove" ng-change="LoadIsAutoAssignOrNot3()">
+                                        <option value="0">-- Select One --</option>
+                                        <option value="3">Rejected</option>
+                                        <option value="9">Completed</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <span id="spnAssign">Assign To</span>
+                                    <select id="ddlAssignToApprove" ng-model="AssignToApprove">
+                                        <option value="0" selected="selected">-- Select One --</option>
+                                        <option ng-repeat="option in AssignToArray3" value="{{option.StsId}}">{{option.Status}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6" style="text-align: right;">
+                                    <br />
+                                    <button ng-click="PostTurbineExcel()" id="btnPost" ng-show="Download" disabled="disabled" style="background: #2c2c2c; color: #fff;margin-left:0px;" type="button" class="btn btn-default SaveButton">Post</button>
+                                    <button ng-click="ClearpostTurbineExcel()" type="button" class="btn btn-default ClearButton">Clear</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--Tab sec end-->
+                    <!--Tab sec start-->
+                    <h2>Post</h2>
+                    <div class="tab-cnt" ng-show="Download">
+                        <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+                            <div style="margin-bottom: 10px;" class="row mar-0 fomr-div">
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                    <span>File Name</span><br>
+                                    <select ng-model="PostFilename" ng-change="PostFileNameChange2()">
+                                        <option value="0" selected="selected">-- Select One --</option>
+                                        <option ng-repeat="option in PostFilenameSelect2" value="{{option.TUId}}">{{option.FileName}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6">
+                                </div>
+                            </div>
+                            <div class="col-lg-12" style="margin: 10px 0px;">
+                                <div class="line"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="grid-div">
+                                    <table cellpadding="0" cellspacing="0" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="2" style="width: 2%; min-width: 40px;color: #6b6b6b;">S.No</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 100px;color: #6b6b6b;">State</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 100px;color: #6b6b6b;">Site</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 100px;color: #6b6b6b;">Model</th>
+                                                <th rowspan="2" style="width: 6%; min-width: 140px;color: #6b6b6b;">Location / SF No</th>
+                                                <th rowspan="2" style="width: 8%; min-width: 150px;color: #6b6b6b;">Turbine Id</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 160px;color: #6b6b6b;">Functional Location</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 200px;color: #6b6b6b;">Functional Description</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 120px;color: #6b6b6b;">Planned Date</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 130px;color: #6b6b6b;">Completed On </th>
+                                                <th colspan="2" style="width: 2%;text-align: center; min-width: 80px;color: #6b6b6b;">Validation</th>
+                                                <th rowspan="2" style="width: 5%; min-width: 200px;color: #6b6b6b;">Deviations Plan vs Actual </th>
+                                                <th rowspan="2" style="width: 5%; min-width: 180px;color: #6b6b6b;">Reports Generated on </th>
+                                                <th colspan="5" style="width: 2%; text-align: center; min-width: 160px;color: #6b6b6b;">Recommended Actions</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Date</th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Status</th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">State </th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Actions </th>
+                                                <th style="width: 5%; min-width: 80px;color: #6b6b6b;">Observations </th>
+                                                <th style="width: 10%;color: #6b6b6b; min-width: 150px;">WO Number</th>
+                                                <th style="width: 4%;color: #6b6b6b; min-width: 140px; ">Completed Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @*<tr ng-repeat="row in TurbineExcelGridArray" on-finish-render="ngRepeatFinished" ng-class="{'Error': row.Color == 'Red', 'Modify': row.Color == 'Blue', 'New': row.Color == 'Green'}">
+                                                    <td scope="row">
+                                                        {{$index + 1}}
+                                                        <input type="text" style="display:none ; border:0px;" value="{{row.RowId}}" />
+                                                        <input type="text" style="display:none ; border:0px;" value="{{row.TbnId}}" />
+                                                    </td>
+                                                    <td>{{row.TurbineId}}</td>
+                                                    <td>{{row.SCADAName}}</td>
+                                                    <td>{{row.Location}}</td>
+                                                    <td>{{row.FunctionLocation}}</td>
+                                                    <td>
+                                                        <select ng-model="row.SwVersion" ng-disabled="new_account">
+                                                            <option value="0">-- Select One --</option>
+                                                            <option ng-repeat="option in SWVersionSelect" ng-selected="row.SwVersion == option.Name" value="{{option.Name}}">{{option.Name}}</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select ng-model="row.hwVersion" ng-disabled="new_account">
+                                                            <option value="0">-- Select One --</option>
+                                                            <option ng-repeat="option in HWVersionSelect" ng-selected="row.hwVersion == option.Name" value="{{option.Name}}">{{option.Name}}</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="datepickerFormat" ng-disabled="new_account" ng-model="row.InstallationDate" value="{{row.InstallationDate}}" onkeypress="return isEvent(this)" />
+                                                    </td>
+                                                    <td>{{row.Generator}}</td>
+                                                    <td>{{row.Blade}}</td>
+                                                    <td>{{row.TemperatureType}}</td>
+                                                    <td>{{row.TowerHeight}}</td>
+                                                    <td>{{row.Rotordiameter}}</td>
+                                                    <td>{{row.SiteName}}</td>
+                                                    <td>{{row.State}}</td>
+                                                    <td>{{row.CustomerGroup}}</td>
+                                                    <td>{{row.Customer}}</td>
+                                                    <td>{{row.DOC}}</td>
+                                                    <td class="ErrorMsg">{{row.EMsg}}</td>
+                                                    <td class="DelAction" ng-show="Delete">
+                                                        <a style="cursor: pointer;" ng-click="DeleteTurbineExcel(row.RowId)">
+                                                            <img style="height: 20px;" src="~/Content/img/delete.png">
+                                                        </a>
+                                                    </td>
+                                                </tr>*@
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-lg-12" style="margin: 25px 0px 0px 0px;">
+                                <div class="line"></div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <span>Remarks</span><br>
+                                    <textarea id="txtRemarks" ng-model="Remarks" rows="3"></textarea>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <span>Status</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlStatusPost" ng-model="StatusPost" ng-change="LoadIsAutoAssignOrNot3()">
+                                        <option value="0">-- Select One --</option>
+                                        <option value="3">Rejected</option>
+                                        <option value="9">Completed</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <span id="spnAssign">Assign To</span>
+                                    <select id="ddlAssignToPost" ng-model="AssignToPost">
+                                        <option value="0" selected="selected">-- Select One --</option>
+                                        <option ng-repeat="option in AssignToArray3" value="{{option.StsId}}">{{option.Status}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6" style="text-align: right;">
+                                    <br />
+                                    <button ng-click="PostTurbineExcel()" id="btnPost" ng-show="Download" disabled="disabled" style="background: #2c2c2c; color: #fff;margin-left:0px;" type="button" class="btn btn-default SaveButton">Post</button>
+                                    <button ng-click="ClearpostTurbineExcel()" type="button" class="btn btn-default ClearButton">Clear</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Tab sec end-->
+                </div>
+            </div>
+            <div class="col-lg-12">
+            </div>
+            <div class="row mar-0">
+                <div class="col-lg-12">
+                    <div class="line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table style="display: none;" id="tblExcelFormat">
+        <thead>
+            <tr>
+                <td>
+                    SlNo
+                </td>
+                <td>
+                    Turbine
+                </td>
+                <td>
+                    Customer
+                </td>
+                <td>
+                    DOC
+                </td>
+                <td>
+                    Site
+                </td>
+                <td>
+                    Functional Location
+
+                </td>
+                <td>
+                    Capacity
+
+                </td>
+                <td>
+                    Tower Height
+
+                </td>
+                <td>
+                    Blade
+
+                </td>
+                <td>
+                    Generator
+
+                </td>
+                <td>
+                    Generator SlNo
+
+                </td>
+                <td>
+                    Gear Box
+
+                </td>
+                <td>
+                    Gear Box SlNo
+
+                </td>
+                <td>
+                    Temperature
+
+                </td>
+                <td>
+                    Dust
+
+                </td>
+                <td>
+                    Corrosion
+
+                </td>
+
+            </tr>
+        </thead>
+        <tbody>
+            @*<tr ng-repeat="row in TurbineGridArray">
+                    <th>{{row.Slno}}</th>
+                    <td>{{row.TurbineId}}</td>
+                    <td>{{row.CustomerName}}</td>
+                    <td>{{row.DOC}}</td>
+                    <td>{{row.SiteName}}</td>
+                    <td>{{row.FnLoc}}</td>
+                    <td>{{row.Capacity}}</td>
+                    <td>{{row.TowerHeightName}}</td>
+                    <td>{{row.BladeName}}</td>
+                    <td>{{row.Generator}}</td>
+                    <td>{{row.GRSlno}}</td>
+                    <td>{{row.GearBox}}</td>
+                    <td>{{row.GBSlno}}</td>
+                    <td>{{row.Tempname}}</td>
+                    <td>{{row.DustName}}</td>
+                    <td>{{row.Corrosion}}</td>
+                </tr>*@
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $(".clsExcelFileSMP").on('change', function (e) {
+        var iframe = $('<iframe name="postiframe" id="postiframe" style="display: none"></iframe>');
+        $("body").append(iframe);
+        var form = $('#uploadform');
+        form.attr("action", UploadExcelUrl);
+        form.attr("method", "post");
+        form.attr("encoding", "multipart/form-data");
+        form.attr("enctype", "multipart/form-data");
+        form.attr("target", "postiframe");
+        form.attr("file", $('#ExcelFileSMP').val());
+        form.submit();
+    });
+</script>
+<script src="~/CIRScripts/MasterController.js" type="text/javascript"></script>

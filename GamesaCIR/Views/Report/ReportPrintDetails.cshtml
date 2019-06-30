@@ -1,0 +1,680 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>.:: Gamesa ::.</title>
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/CIRScripts/Common/AngularModule.js"></script>
+    <script src="~/CIRScripts/Common/AngularService.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script type="text/javascript">
+        var GetDetailUrl = "@Url.Action("GetCIR", "CIRMail")";
+        var GetTurbineDetailsUrl = "@Url.Action("GetTurbine", "Master")";
+        var GetCIRDetailsUrl = "@Url.Action("GetCIRDetails", "CIR")";
+        var GetTurbineUrl = "@Url.Action("GetTurbine", "Master")";
+        var DownloadFilesUrl = "@Url.Action("DownloadZipFiles", "Report")";
+        var GetCIMDetailsUrl = "@Url.Action("GetCIMDetails", "CIM")";
+        var GetCIMDUrl = "@Url.Action("GetCIMD", "CIRMail")";
+        var GetCIRDUrl = "@Url.Action("GetCIRD", "CIRMail")";
+        var GetEmployeeDetailsUrl = "@Url.Action("GetEmployee", "Master")";
+    </script>
+
+
+    <style type="text/css">
+        body {
+            font-family: Arial;
+        }
+
+        .shadow {
+            -webkit-box-shadow: 1px 1px 5px 0px rgba(30, 50, 50, 0.31);
+            -moz-box-shadow: 1px 1px 5px 0px rgba(30, 50, 50, 0.31);
+            box-shadow: 1px 1px 5px 0px rgba(30, 50, 50, 0.31);
+        }
+    </style>
+
+</head>
+<body ng-app="CIRModule" style="background: #ccc;">
+    <div id="divLoading" style="position: absolute; height: 100%; width: 100%; z-index: 1000; background-color: rgba(255, 255, 255, 0.74); display: none;">
+        <div style="margin: auto;">
+            <img src="~/Content/img/circle-simple_light.gif" style="margin-left: 40%; margin-top: 20%;" />
+        </div>
+    </div>
+    <div class="shadow" ng-controller="ReportPrintDetails_OperController" style="width: 910px; min-height: 250px; padding: 0px 30px 30px 30px; border: 0px #5e1f5f solid; margin: auto; background: #fff; border-top: 5px #0186C9 solid;">
+        <table align="center" style="width: 100%;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="width: 100%; height: 70px; border-bottom: 1px #ccc dotted;">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="left" valign="middle" style="width: 50%; height: 80px;">
+                                <img src="~/Content/img/logo.png" />
+                            </td>
+                            <td align="right" style="width: 50%; height: 7px;">
+                                <span style="margin: 0px; font-size: 13px; background: #ffd800; padding: 5px 10px 5px 10px;" ng-show="IsCIR">CIR Number:</span><span ng-model="CIRNumber" ng-bind="CIRNumber" style="margin: 0px; font-size: 13px; background: #ffd800; padding: 5px 10px 5px 10px;" ng-show="IsCIR"></span>
+                                <span style="margin: 0px; font-size: 13px; background: #ffd800; padding: 5px 10px 5px 10px;" ng-show="!IsCIR">FSR Number:</span><span ng-model="CIRNumber" ng-bind="CIRNumber" style="margin: 0px; font-size: 13px; background: #ffd800; padding: 5px 10px 5px 10px;" ng-show="!IsCIR"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="border-bottom: 1px #ccc dotted; height: 35px;">
+                    <p style="font-size: 16px; margin: 0px; font-weight: bold; color: #383838;" ng-show="IsCIR">CIR Report</p>
+                    <p style="font-size: 16px; margin: 0px; font-weight: bold; color: #383838;" ng-show="!IsCIR">FSR Report</p>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="">
+                    <p style="font-size: 15px; margin: 0px; color: #383838; background: #eaeced; padding: 10px; text-align: left;">Turbine Data - <span ng-bind="TurbineName"></span></p>
+                    <table cellpadding="0" cellspacing="0" width="100%" style="border: 1px #e9e9e9 solid;">
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Date of failure</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="DateofFailure" ng-bind="DateofFailure" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Customer </span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="Customer" ng-bind="Customer" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Alarm Code</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="Alarmcode" ng-bind="Alarmcode" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Alarm Description </span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="AlarmDescription" ng-bind="AlarmDescription" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">S/W Version</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="SwVersion" ng-bind="SwVersion" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Site </span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="Site" ng-bind="Site" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">F/W Version</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="FwVersion" ng-bind="FwVersion" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">DOC </span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="Doc" ng-bind="Doc" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">WTG Status</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="WtgStatus" ng-bind="WtgStatus" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">WTG Type </span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="WTGType" ng-bind="WTGType" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">WTG Stoptime</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="WtgStopTime" ng-bind="WtgStopTime" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Temperature </span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="Temp" ng-bind="Temp" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">WTG Runtime</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="WtgRunTime" ng-bind="WtgRunTime" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Dust </span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="Dust" ng-bind="Dust" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Production</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="Production" ng-bind="Production" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Corrosion </span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="Corrosion" ng-bind="Corrosion" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Run Hours</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="RunHrs" ng-bind="RunHrs" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">T-Height </span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="THeight" ng-bind="THeight" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+
+
+
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Functional System</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="FunctionalSystem" ng-bind="FunctionalSystem" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Blade </span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="Blade" ng-bind="Blade" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Component Group</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="ComponentGroup" ng-bind="ComponentGroup" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Generator </span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="Generator" ng-bind="Generator" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Gamesa Part Code</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="GamesaPartCode" ng-bind="GamesaPartCode" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Gear Box </span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="Gearbox" ng-bind="Gearbox" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Component Make</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="ComponentMake" ng-bind="ComponentMake" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">FOM Name</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="FomName" ng-bind="FomName" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Failure During</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+
+                                <span ng-model="FailureDuring" ng-bind="FailureDuring" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Email Id</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="EmailId" ng-bind="EmailId" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Serial Number</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="SerialNumber" ng-bind="SerialNumber" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Engineer Name</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="EngineerName" ng-bind="EngineerName" ng-bind-html="EngineerName" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">WO Number</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="WONumber" ng-bind="WONumber" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Mobile No</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="MobileNo" ng-bind="MobileNo" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Approval Status</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="ApprovalStatus" ng-bind="ApprovalStatus" style="font-size: 13px; margin-left: 10px; color: #808080;"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style=""></td>
+            </tr>
+            <tr>
+                <td align="center" style="">
+                    <br />
+                    <p style="font-size: 15px; margin: 0px; color: #383838; background: #eaeced; padding: 10px; text-align: left;">Problem</p>
+                    <table cellpadding="0" cellspacing="0" width="100%" style="border: 1px #e9e9e9 solid;">
+                        <tr>
+                            <td style="height: 35px; width: 100%;">
+                                <p ng-model="Problem" ng-bind="Problem" style="font-size: 13px; margin: 10px; color: #808080; text-align: left;">
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <br />
+                    <p style="font-size: 15px; margin: 0px; color: #383838; background: #eaeced; padding: 10px; text-align: left;">Action Performed</p>
+                    <table cellpadding="0" cellspacing="0" width="100%" style="border: 1px #e9e9e9 solid;">
+                        <tr>
+                            <th align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 15%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">SNo</span>
+                            </th>
+                            <th align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 85%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Action Performed</span>
+                            </th>
+
+                        </tr>
+                        <tr ng-repeat="row in ActionPerformedArray">
+                            <td align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 15%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #464646;">{{row.Slno}}</span>
+                            </td>
+                            <td align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 85%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #464646;">{{row.ActionDesc}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="">
+                    <br />
+                    <p style="font-size: 15px; margin: 0px; color: #383838; background: #eaeced; padding: 10px; text-align: left;">Consequential Problem</p>
+                    <table cellpadding="0" cellspacing="0" width="100%" style="border: 1px #e9e9e9 solid;">
+                        <tr>
+                            <td style="height: 35px; width: 100%;">
+                                <p ng-model="ConsequentialProblem" ng-bind="ConsequentialProblem" style="font-size: 13px; margin: 10px; color: #808080; text-align: left;">
+                                </p>
+                            </td>
+
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <br />
+                    <p style="font-size: 15px; margin: 0px; color: #383838; background: #eaeced; padding: 10px; text-align: left;">5W2H</p>
+                    <table cellpadding="0" cellspacing="0" width="100%" style="border: 1px #e9e9e9 solid;">
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">What</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="What" ng-bind="What" style="font-size: 13px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">When </span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="When" ng-bind="When" style="font-size: 13px; color: #808080;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Who</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="Who" ng-bind="Who" style="font-size: 13px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Where </span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="Where" ng-bind="Where" style="font-size: 13px; color: #808080;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Why</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="Why" ng-bind="Why" style="font-size: 13px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">How to do </span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;">
+                                <span ng-model="HowToDo" ng-bind="HowToDo" style="font-size: 13px; color: #808080;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">How Much</span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span ng-model="HowMuch" ng-bind="HowMuch" style="font-size: 13px; color: #808080;"></span>
+                            </td>
+                            <td style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;"></td>
+                            <td style="border-bottom: 1px solid #e9e9e9; height: 35px; width: 30%;"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr ng-show="IsFileHaving" id="divPhotos">
+                <td>
+                    <br />
+                    <p  style="font-size: 15px; margin: 0px; color: #383838; background: #eaeced; padding: 10px; text-align: left;" >Photos</p>
+                    @using (Html.BeginForm("DownloadZipFiles", "Report", FormMethod.Post, new { Id = "Form1" }))
+                    {
+                        @Html.Hidden("hdnCIRNumber", "0", new { id = "hdnCIRNumber" })
+                        
+                        <input type="hidden" value="0" id="hdnCIR" />
+                        <button  href="#" class="btn btn-Download" ng-show="CIRFilesArray.length > 0">Download</button>
+                    }
+
+                    <div align="center" class="col-md-4 col-lg-4 col-sm-4 col-xs-4" ng-repeat="row in CIRFilesArray" ng-if="row.IsImage == 'True'" class="imgStyle" style="padding: 10px; border-radius: 4px; background-color: rgba(214, 211, 211, 0.57); margin-top:10px;">
+
+                        <a href="#" onclick="fnShowImageBigger(this)">
+                            <img src="{{row.CFileName}}" class="img-responsive" /></a>
+                        <br />
+                        <label>{{row.CDesc}}</label>
+                        <br />
+                        <a   href="{{row.FileNameFullPath}}"  download="{{row.FileName}}">{{row.FileName}}</a>
+                    </div>
+
+                </td>
+            </tr>
+            <tr ng-show="IsFileHaving" id="divPhotosP" style="display:none;">
+                <td>                
+                    <br/>
+                    <p style="font-size: 15px; margin: 0px; color: #383838; background: #eaeced; padding: 10px; text-align: left;">Photos</p>
+
+                    <br/>
+                    <div align="center" class="col-md-4 col-lg-4 col-sm-4 col-xs-4" ng-repeat="row in CIRFilesArray" ng-if="row.IsImage == 'True'" class="imgStyle" style="padding: 10px; border-radius: 4px; background-color: rgba(214, 211, 211, 0.57);">
+
+                        <a href="#" onclick="fnShowImageBigger(this)">
+                            <img src="{{row.CFileName}}" class="img-responsive" />
+                        </a>
+                        <br />
+                        <label>{{row.CDesc}}</label>
+                        <br />
+                        <div id="divPhotosurl" style="display:none;"><label> {{row.FileName}}</label></div>
+                    </div>
+
+                </td>
+            </tr>
+
+            <tr ng-show="IsFileHaving" id="divFiles">
+                <td>
+                    <br />
+
+                    <p style="font-size: 15px; margin: 0px; color: #383838; background: #eaeced; padding: 10px; text-align: left;" >Files</p>
+                    @using (Html.BeginForm("DownloadZipFiles", "Report", FormMethod.Post, new { Id = "Form2" }))
+                    {
+                        @Html.Hidden("hdnCIRNumberImages", "0", new { id = "hdnCIRNumberImages" })
+                        
+                        <input type="hidden" value="0" id="hdnCIRImages" />
+                        <button  href="#" class="btn btn-Download">Download</button>
+                    }
+                    <table>
+                        <tr>
+                            <th align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">File Name</span>
+                            </th>
+                            <th align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Description</span>
+                            </th>
+                        </tr>
+                        <tbody ng-repeat="row in CIRFilesArray">
+                            <tr ng-if="row.IsImage != 'True'">
+                                <td align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                    <a ng-href="{{row.FileNameFullPath}}" download>{{row.CFileName}}</a>
+                                </td>
+                                <td align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">{{row.CDesc}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+            <tr ng-show="IsFileHaving" id="divFilesP" style="display:none;">
+                <td>
+                    <br />
+
+                    <p style="font-size: 15px; margin: 0px; color: #383838; background: #eaeced; padding: 10px; text-align: left;">Files</p>
+                  
+                    <table>
+                        <tr>
+                            <th align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">File Name</span>
+                            </th>
+                            <th align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Description</span>
+                            </th>
+                        </tr>
+                        <tbody ng-repeat="row in CIRFilesArray">
+                            <tr ng-if="row.IsImage != 'True'">
+                                <td align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                   {{row.CFileName}}
+                                </td>
+                                <td align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 30%;">
+                                    {{row.CDesc}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <br />
+                    <p style="font-size: 15px; margin: 0px; color: #383838; background: #eaeced; padding: 10px; text-align: left;">Comments</p>
+                    <table cellpadding="0" cellspacing="0" width="100%" style="border: 1px #e9e9e9 solid;">
+                        <tr>
+                            <th align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 5%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">#</span>
+                            </th>
+                            <th align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 25%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Comments</span>
+                            </th>
+
+                            <th align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 15%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">From</span>
+                            </th>
+
+                            <th align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Assign To</span>
+                            </th>
+
+                            <th align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 15%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Assigned Date</span>
+                            </th>
+                            <th align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                <span style="font-size: 13px; margin-left: 10px; color: #ff6a00;">Comments On</span>
+                            </th>
+                        </tr>
+                        <tbody ng-repeat="row in CIRCommentsArray">
+                            <tr ng-if="row.Comments != ''">
+                                <td align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 5%;">
+                                    <span style="font-size: 13px; margin-left: 10px; color: #464646;">{{row.Slno}}</span>
+                                </td>
+                                <td align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 25%;">
+                                    <span style="font-size: 13px; margin-left: 10px; color: #464646;">{{row.Comments}}</span>
+                                </td>
+
+                                <td align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 15%;">
+                                    <span style="font-size: 13px; margin-left: 10px; color: #464646;">{{row.Frm}}</span>
+                                </td>
+
+                                <td align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                    <span style="font-size: 13px; margin-left: 10px; color: #464646;">{{row.AssignedTo}}</span>
+                                </td>
+
+                                <td align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 15%;">
+                                    <span style="font-size: 13px; margin-left: 10px; color: #464646;">{{row.AssignedDate}}</span>
+                                </td>
+                                <td align="left" style="border-bottom: 1px solid #e9e9e9; border-right: 1px #eaeced solid; height: 35px; width: 20%;">
+                                    <span style="font-size: 13px; margin-left: 10px; color: #464646;">{{row.CommentsOn}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br />
+    <div class="text-center" id="div">
+        <a href="#" onclick="fnPrint()" class="btn btn-primary">Print</a>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: 100%;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Image</h4>
+                </div>
+                <div class="modal-body" align="center" id="modalBody">
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    function fnPrint() {
+
+        $("#div").css("display", "none");
+
+        $("#divPhotos").css("display", "none");
+        $("#divPhotosP").css("display", "");
+        $("#divFiles").css("display", "none");
+        $("#divFilesP").css("display", "");
+        window.print();
+        $("#div").css("display", "");
+        $("#divPhotos").css("display", "");
+        $("#divPhotosP").css("display", "none");
+        $("#divFiles").css("display", "");
+        $("#divFilesP").css("display", "none");
+
+     //   $('a').contents().wrap();
+        
+    }
+
+    function fnShowImageBigger(obj) {
+        var valueInHtml = obj.innerHTML;
+        $("#modalBody").html(valueInHtml);
+
+        $("#myModal").modal('show');
+        $(".modal-dialog").css("width", "100%");
+    };
+
+    function fnLoadGif() {
+        $("#divLoading").css("display", "");
+    }
+
+    function fnRemoveGif() {
+        $("#divLoading").css("display", "none");
+    }
+
+    
+    //$(document).ready(function () {
+    //    $('a').contents().wrap();
+    //});
+</script>
+<script src="~/CIRScripts/ReportController.js" type="text/javascript"></script>

@@ -1,0 +1,197 @@
+C:\Users\Gopi\Desktop\Version 1.0001\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll.config
+C:\Users\Gopi\Desktop\Version 1.0001\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll
+C:\Users\Gopi\Desktop\Version 1.0001\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.pdb
+C:\Users\Gopi\Desktop\Version 1.0001\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.dll
+C:\Users\Gopi\Desktop\Version 1.0001\GamesaCIR\CIR.DataAccess\bin\Debug\Dapper.dll
+C:\Users\Gopi\Desktop\Version 1.0001\GamesaCIR\CIR.DataAccess\bin\Debug\log4net.dll
+C:\Users\Gopi\Desktop\Version 1.0001\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.pdb
+C:\Users\Gopi\Desktop\Version 1.0001\GamesaCIR\CIR.DataAccess\bin\Debug\Dapper.pdb
+C:\Users\Gopi\Desktop\Version 1.0001\GamesaCIR\CIR.DataAccess\bin\Debug\Dapper.xml
+C:\Users\Gopi\Desktop\Version 1.0001\GamesaCIR\CIR.DataAccess\bin\Debug\log4net.xml
+C:\Users\Gopi\Desktop\Version 1.0001\GamesaCIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\Gopi\Desktop\Version 1.0001\GamesaCIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.dll
+C:\Users\Gopi\Desktop\Version 1.0001\GamesaCIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.pdb
+E:\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll.config
+E:\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll
+E:\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.pdb
+E:\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.dll
+E:\GamesaCIR\CIR.DataAccess\bin\Debug\Dapper.dll
+E:\GamesaCIR\CIR.DataAccess\bin\Debug\log4net.dll
+E:\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.pdb
+E:\GamesaCIR\CIR.DataAccess\bin\Debug\Dapper.pdb
+E:\GamesaCIR\CIR.DataAccess\bin\Debug\Dapper.xml
+E:\GamesaCIR\CIR.DataAccess\bin\Debug\log4net.xml
+E:\GamesaCIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.csprojResolveAssemblyReference.cache
+E:\GamesaCIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.dll
+E:\GamesaCIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.pdb
+C:\Users\Gopi\Desktop\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll.config
+C:\Users\Gopi\Desktop\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll
+C:\Users\Gopi\Desktop\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.pdb
+C:\Users\Gopi\Desktop\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.dll
+C:\Users\Gopi\Desktop\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\Dapper.dll
+C:\Users\Gopi\Desktop\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\log4net.dll
+C:\Users\Gopi\Desktop\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.pdb
+C:\Users\Gopi\Desktop\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\Dapper.pdb
+C:\Users\Gopi\Desktop\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\Dapper.xml
+C:\Users\Gopi\Desktop\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\log4net.xml
+C:\Users\Gopi\Desktop\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\Gopi\Desktop\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.dll
+C:\Users\Gopi\Desktop\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.pdb
+E:\Senthil\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll.config
+E:\Senthil\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll
+E:\Senthil\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.pdb
+E:\Senthil\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.dll
+E:\Senthil\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\Dapper.dll
+E:\Senthil\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\log4net.dll
+E:\Senthil\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.pdb
+E:\Senthil\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\Dapper.pdb
+E:\Senthil\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\Dapper.xml
+E:\Senthil\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\bin\Debug\log4net.xml
+E:\Senthil\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.csprojResolveAssemblyReference.cache
+E:\Senthil\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.dll
+E:\Senthil\Gamesa-CIR Final\GamesaCIR-Senthil\GamesaCIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.pdb
+E:\Gopi Workspace\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll.config
+E:\Gopi Workspace\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll
+E:\Gopi Workspace\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.pdb
+E:\Gopi Workspace\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.dll
+E:\Gopi Workspace\Gamesa-CIR\CIR.DataAccess\bin\Debug\Dapper.dll
+E:\Gopi Workspace\Gamesa-CIR\CIR.DataAccess\bin\Debug\log4net.dll
+E:\Gopi Workspace\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.pdb
+E:\Gopi Workspace\Gamesa-CIR\CIR.DataAccess\bin\Debug\Dapper.pdb
+E:\Gopi Workspace\Gamesa-CIR\CIR.DataAccess\bin\Debug\Dapper.xml
+E:\Gopi Workspace\Gamesa-CIR\CIR.DataAccess\bin\Debug\log4net.xml
+E:\Gopi Workspace\Gamesa-CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.csprojResolveAssemblyReference.cache
+E:\Gopi Workspace\Gamesa-CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.dll
+E:\Gopi Workspace\Gamesa-CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.pdb
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll.config
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.pdb
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.dll
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\CIR.DataAccess\bin\Debug\Dapper.dll
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\CIR.DataAccess\bin\Debug\log4net.dll
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.pdb
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\CIR.DataAccess\bin\Debug\Dapper.pdb
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\CIR.DataAccess\bin\Debug\Dapper.xml
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\CIR.DataAccess\bin\Debug\log4net.xml
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.csprojResolveAssemblyReference.cache
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.dll
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.pdb
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll.config
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.pdb
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.dll
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DataAccess\bin\Debug\Dapper.dll
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DataAccess\bin\Debug\log4net.dll
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.pdb
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DataAccess\bin\Debug\Dapper.pdb
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DataAccess\bin\Debug\Dapper.xml
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DataAccess\bin\Debug\log4net.xml
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.dll
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.pdb
+E:\Vijayalakshmi\Gamesa-CIR\source\web application\Gamesa-CIR\Gamesa-CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.csprojResolveAssemblyReference.cache
+D:\GamesaCIR_Vijayalaksmi_09062016\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll.config
+D:\GamesaCIR_Vijayalaksmi_09062016\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll
+D:\GamesaCIR_Vijayalaksmi_09062016\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.pdb
+D:\GamesaCIR_Vijayalaksmi_09062016\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.dll
+D:\GamesaCIR_Vijayalaksmi_09062016\Gamesa-CIR\CIR.DataAccess\bin\Debug\Dapper.dll
+D:\GamesaCIR_Vijayalaksmi_09062016\Gamesa-CIR\CIR.DataAccess\bin\Debug\log4net.dll
+D:\GamesaCIR_Vijayalaksmi_09062016\Gamesa-CIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.pdb
+D:\GamesaCIR_Vijayalaksmi_09062016\Gamesa-CIR\CIR.DataAccess\bin\Debug\Dapper.pdb
+D:\GamesaCIR_Vijayalaksmi_09062016\Gamesa-CIR\CIR.DataAccess\bin\Debug\Dapper.xml
+D:\GamesaCIR_Vijayalaksmi_09062016\Gamesa-CIR\CIR.DataAccess\bin\Debug\log4net.xml
+D:\GamesaCIR_Vijayalaksmi_09062016\Gamesa-CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.csprojResolveAssemblyReference.cache
+D:\GamesaCIR_Vijayalaksmi_09062016\Gamesa-CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.dll
+D:\GamesaCIR_Vijayalaksmi_09062016\Gamesa-CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.pdb
+E:\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll.config
+E:\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll
+E:\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DataAccess.pdb
+E:\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DomainModel.dll
+E:\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\Dapper.dll
+E:\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\log4net.dll
+E:\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DomainModel.pdb
+E:\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\Dapper.pdb
+E:\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\Dapper.xml
+E:\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\log4net.xml
+E:\Gamesa CIR Development Code\CIR.DataAccess\obj\Debug\CIR.DataAccess.csprojResolveAssemblyReference.cache
+E:\Gamesa CIR Development Code\CIR.DataAccess\obj\Debug\CIR.DataAccess.dll
+E:\Gamesa CIR Development Code\CIR.DataAccess\obj\Debug\CIR.DataAccess.pdb
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll.config
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DataAccess.pdb
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DomainModel.dll
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\Dapper.dll
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\log4net.dll
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DomainModel.pdb
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\Dapper.pdb
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\Dapper.xml
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\log4net.xml
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DataAccess\obj\Debug\CIR.DataAccess.csprojResolveAssemblyReference.cache
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DataAccess\obj\Debug\CIR.DataAccess.dll
+E:\Vijayalakshmi Development\Gamesa-CIR\source\web application\Gamesa CIR Development Code\CIR.DataAccess\obj\Debug\CIR.DataAccess.pdb
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll.config
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DataAccess.pdb
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DomainModel.dll
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\Dapper.dll
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\log4net.dll
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DomainModel.pdb
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\Dapper.pdb
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\Dapper.xml
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\log4net.xml
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\Gamesa CIR Development Code\CIR.DataAccess\obj\Debug\CIR.DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\Gamesa CIR Development Code\CIR.DataAccess\obj\Debug\CIR.DataAccess.dll
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\Gamesa CIR Development Code\CIR.DataAccess\obj\Debug\CIR.DataAccess.pdb
+E:\Senthil\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll.config
+E:\Senthil\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll
+E:\Senthil\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DataAccess.pdb
+E:\Senthil\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DomainModel.dll
+E:\Senthil\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\Dapper.dll
+E:\Senthil\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\log4net.dll
+E:\Senthil\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\CIR.DomainModel.pdb
+E:\Senthil\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\Dapper.pdb
+E:\Senthil\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\Dapper.xml
+E:\Senthil\Gamesa CIR Development Code\CIR.DataAccess\bin\Debug\log4net.xml
+E:\Senthil\Gamesa CIR Development Code\CIR.DataAccess\obj\Debug\CIR.DataAccess.csprojResolveAssemblyReference.cache
+E:\Senthil\Gamesa CIR Development Code\CIR.DataAccess\obj\Debug\CIR.DataAccess.dll
+E:\Senthil\Gamesa CIR Development Code\CIR.DataAccess\obj\Debug\CIR.DataAccess.pdb
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll.config
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DataAccess\bin\Debug\CIR.DataAccess.pdb
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DataAccess\bin\Debug\CIR.DomainModel.dll
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DataAccess\bin\Debug\Dapper.dll
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DataAccess\bin\Debug\log4net.dll
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DataAccess\bin\Debug\CIR.DomainModel.pdb
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DataAccess\bin\Debug\Dapper.pdb
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DataAccess\bin\Debug\Dapper.xml
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DataAccess\bin\Debug\log4net.xml
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DataAccess\obj\Debug\CIR.DataAccess.csprojResolveAssemblyReference.cache
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DataAccess\obj\Debug\CIR.DataAccess.dll
+E:\Senthil\Gamesa CIR Development Code FS\CIR.DataAccess\obj\Debug\CIR.DataAccess.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll.config
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\CIR.DataAccess\bin\Debug\CIR.DataAccess.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\CIR.DataAccess\bin\Debug\Dapper.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\CIR.DataAccess\bin\Debug\log4net.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\CIR.DataAccess\bin\Debug\CIR.DomainModel.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\CIR.DataAccess\bin\Debug\Dapper.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\CIR.DataAccess\bin\Debug\Dapper.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\CIR.DataAccess\bin\Debug\log4net.xml
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.csprojResolveAssemblyReference.cache
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.csproj.CoreCompileInputs.cache
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.dll
+E:\ravemaxpro.visualstudio.com\CIR\Main Source\CIR\CIR.DataAccess\obj\Debug\CIR.DataAccess.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll.config
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\CIR.DataAccess\bin\Debug\CIR.DataAccess.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\CIR.DataAccess\bin\Debug\CIR.DataAccess.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\CIR.DataAccess\bin\Debug\CIR.DomainModel.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\CIR.DataAccess\bin\Debug\Dapper.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\CIR.DataAccess\bin\Debug\log4net.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\CIR.DataAccess\bin\Debug\CIR.DomainModel.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\CIR.DataAccess\bin\Debug\Dapper.pdb
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\CIR.DataAccess\bin\Debug\Dapper.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\CIR.DataAccess\bin\Debug\log4net.xml
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\CIR.DataAccess\obj\Debug\CIR.DataAccess.csprojResolveAssemblyReference.cache
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\CIR.DataAccess\obj\Debug\CIR.DataAccess.csproj.CoreCompileInputs.cache
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\CIR.DataAccess\obj\Debug\CIR.DataAccess.dll
+E:\ravemaxpro.visualstudio.com\CIR\Development\Bala_3rd_Oct_2017\CIR.DataAccess\obj\Debug\CIR.DataAccess.pdb

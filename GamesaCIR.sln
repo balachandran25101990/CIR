@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesaCIR", "GamesaCIR\GamesaCIR.csproj", "{66D643BD-E1D0-49F0-9D4B-C9788CF6D70E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIR.DomainModel", "CIR.DomainModel\CIR.DomainModel.csproj", "{E901E45F-70A7-4F0A-892F-D082283DECA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIR.DataAccess", "CIR.DataAccess\CIR.DataAccess.csproj", "{FADEF18B-42A0-4E96-B8CC-AD9BE043970A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66D643BD-E1D0-49F0-9D4B-C9788CF6D70E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66D643BD-E1D0-49F0-9D4B-C9788CF6D70E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66D643BD-E1D0-49F0-9D4B-C9788CF6D70E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66D643BD-E1D0-49F0-9D4B-C9788CF6D70E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E901E45F-70A7-4F0A-892F-D082283DECA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E901E45F-70A7-4F0A-892F-D082283DECA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E901E45F-70A7-4F0A-892F-D082283DECA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E901E45F-70A7-4F0A-892F-D082283DECA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FADEF18B-42A0-4E96-B8CC-AD9BE043970A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FADEF18B-42A0-4E96-B8CC-AD9BE043970A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FADEF18B-42A0-4E96-B8CC-AD9BE043970A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FADEF18B-42A0-4E96-B8CC-AD9BE043970A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B9AED315-0862-4CB6-8EB9-F835CA902DCE}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://ravemaxpro.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = CIR.DataAccess\\CIR.DataAccess.csproj
+		SccProjectName1 = CIR.DataAccess
+		SccLocalPath1 = CIR.DataAccess
+		SccProjectUniqueName2 = CIR.DomainModel\\CIR.DomainModel.csproj
+		SccProjectName2 = CIR.DomainModel
+		SccLocalPath2 = CIR.DomainModel
+		SccProjectUniqueName3 = GamesaCIR\\GamesaCIR.csproj
+		SccProjectName3 = GamesaCIR
+		SccLocalPath3 = GamesaCIR
+	EndGlobalSection
+EndGlobal

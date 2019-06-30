@@ -1,0 +1,169 @@
+﻿
+@{
+    ViewBag.Title = "MasterCollection";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var SetMasterCollectionUrl = "@Url.Action("SetMasterCollection", "Master")";
+    var GetMasterCollectionUrl = "@Url.Action("GetMasterCollection", "Master")";
+    var GetSubMasterCollectionUrl = "@Url.Action("GetSubMasterCollection", "Master")";
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+    var GetLogFileUrl = "@Url.Action("LogFile", "Admin")";
+</script>
+
+<div class="col-lg-12 pad-0" ng-controller="Collection_OperController">
+    <div class="content-part" style="min-height:90vh;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5 class="heading-h">Master Collection</h5>
+            </div>
+
+            <div style="margin-bottom: 15px;" class="row mar-0 fomr-div">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <span>Masters</span><br>
+                    <select id="ddlMaster" ng-model="RefId" ng-change="GetMasterCollection()">
+                        <option value="0">-- Add New --</option>
+                        <option ng-repeat="option in CollectionSelect" value="{{option.MCId}}">{{option.Name}}</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <span id="spnSubMaster" style="display: none;">Sub Master</span><br>
+                    <select id="ddlSubMaster" ng-model="SubRefId"  style="display: none;" ng-change="GetSubMasterCollection()">
+                        <option value="0">-- Select--</option>
+                        <optgroup ng-repeat="row in SubCollectionSelect" label="{{row.Name}}" on-finish-render="ngRepeatFinished">
+                            <option ng-repeat="child in row.SubMasterDetails" value="{{child.MCId}}">{{child.Name}}</option>
+                        </optgroup>
+
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="input-group col-lg-6 col-sm-6 col-xs-6 col-md-6" style="margin-bottom: 15px;">
+                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                    <input type="text" class="form-control" placeholder="Search the Master Collection" ng-model="searchMasterCollection" style="height: 35px;">
+                </div>
+                <div>
+                    <table cellpadding="0" cellspacing="0" class="table table-hover table-responsive">
+                        <thead style="border-top: 1px solid #dddddd;border-bottom: 2px solid #dddddd;">
+                            <tr>
+                                <th ng-click="sortType = 'SlNo'; sortReverse = !sortReverse" style="text-align:center; cursor:pointer;">
+                                    <a style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                        SlNo
+                                        <span ng-show="sortType == 'SlNo' && !sortReverse" class="fa fa-caret-down"></span>
+                                        <span ng-show="sortType == 'SlNo' && sortReverse" class="fa fa-caret-up"></span>
+                                    </a>
+                                </th>
+                                <th ng-click="sortType = 'Name'; sortReverse = !sortReverse" style="cursor:pointer;">
+                                    <a style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                        Name
+                                        <span ng-show="sortType == 'Name' && !sortReverse" class="fa fa-caret-down"></span>
+                                        <span ng-show="sortType == 'Name' && sortReverse" class="fa fa-caret-up"></span>
+                                    </a>
+                                </th>
+                                <th ng-click="sortType = 'Description'; sortReverse = !sortReverse" style="cursor:pointer;">
+                                    <a style="text-decoration: none; color: #6b6b6b; font-weight: bold;">
+                                        Description
+                                        <span ng-show="sortType == 'Description' && !sortReverse" class="fa fa-caret-down"></span>
+                                        <span ng-show="sortType == 'Description' && sortReverse" class="fa fa-caret-up"></span>
+                                    </a>
+                                </th>
+                                <th style="text-align:center;"><a style="text-decoration: none; color: #6b6b6b; font-weight: bold;">Active</a></th>
+                                <th style="text-align:center;" ng-show="Add || Update || Delete"><a style="text-decoration: none; color: #6b6b6b; font-weight: bold;" >Action</a></th>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center;">
+                                    {{SlNo}}
+                                    <input id="hfMCId" ng-model="MCId" type="hidden">
+                                </td>
+                                <td>
+                                    <input id="txtMasterName" ng-model="Name" style="width: 100%;" type="text" maxlength="100">
+                                </td>
+                                <td>
+                                    <input id="txtMasterDesc" ng-model="Desc" style="width: 100%;" type="text" maxlength="200">
+                                </td>
+                                <td style="text-align:center;">
+                                    <input ng-model="Active" ng-true-value="'1'" ng-false-value="'0'" type="checkbox" checked="checked" id="chkActive" style="font-size: 12px; color: #808080; padding: 3px; width: 100%; margin-bottom: 5px; height: 15px;">
+                                </td>
+                                <td style="text-align:center;" ng-show="Add || Update || Delete">
+                                    <a style="margin-right: 20px; margin-left: 5px; cursor: pointer;" ng-click="SetMasterCollection()" data-toggle="tooltip" ng-show="Add || UpdateOnly" data-placement="top" title="Save">
+                                        <img src="~/Content/img/add-btn.png">
+                                    </a>
+                                    <a style="cursor: pointer;" ng-click="Clear()" data-toggle="tooltip" data-placement="top" title="Refresh">
+                                        <img style="height: 15px;" src="~/Content/img/refresh.png" title="Refresh">
+                                    </a>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody style="border-bottom: 1px solid #dddddd;">
+                            <tr ng-repeat="row in CollectionGridArray | orderBy:sortType:sortReverse | filter:searchMasterCollection   | pagination: curPage * pageSize | limitTo: pageSize">
+                                <td scope="row" style="text-align:center;">{{row.SlNo}}</td>
+                                <td style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word">{{row.Name}}</td>
+                                <td style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word">{{row.Desc}}</td>
+                                <td align="center">
+                                    <input type="checkbox" disabled="disabled" ng-model="row.Active" ng-true-value="'True'" ng-false-value="'False'" style="font-size: 12px; color: #808080; padding: 3px; width: 100%; margin-bottom: 5px; height: 15px;">
+                                </td>
+                                <td style="text-align:center;" ng-show="Add || Update || Delete">
+                                    <a style="cursor: pointer;" ng-click="DeleteMasterCollection(row)" data-toggle="tooltip" ng-show="Delete" data-placement="top" title="Delete" onmouseover="$(this).tooltip('show')">
+                                        <img style="height: 20px;" src="~/Content/img/delete.png">
+                                    </a>
+                                    <a style="cursor: pointer;" ng-click="EditMasterCollection(row)" data-toggle="tooltip" ng-show="Update" data-placement="top" title="Edit" onmouseover="$(this).tooltip('show')">
+                                        <img style="height: 20px;" src="~/Content/img/edit.png">
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-show="CollectionGridArray.length > pageSize">
+                        <div class="col-lg-8 col-sm-12 col-xs-12 col-md-8" style="padding-left:0px;">
+                            <ul class="pagination-controle pagination">
+                                <li>
+                                    <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                            ng-click="curPage=0" style="border-radius  : 0px;">
+                                        &lt;&lt; First
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                                            ng-click="curPage=curPage-1" style="border-radius  : 0px;">
+                                        &lt; Prev
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                            ng-disabled="curPage >= CollectionGridArray.length/pageSize - 1"
+                                            ng-click="curPage = curPage+1">
+                                        Next &gt;
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-primary" style="border-radius  : 0px;"
+                                            ng-disabled="curPage >= CollectionGridArray.length/pageSize - 1"
+                                            ng-click="LastPage()">
+                                        Last &gt;&gt;
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4" style="padding:20px;padding-right:0px;">
+                            <span style="color: black;padding: 8px;background-color: #bbbbbb;" class="pull-right">Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+<script src="~/CIRScripts/MasterController.js" type="text/javascript"></script>

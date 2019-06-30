@@ -1,0 +1,1382 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var GetMasterCollectionUrl = "@Url.Action("GetMasterCollection", "Master")";
+    var GetMasterCollectionFomNameUrl = "@Url.Action("GetMasterCollectionFomName", "Master")";
+    var GetTurbineUrl = "@Url.Action("GetTurbine", "CIM")";
+    var GetEmployeeUrl = "@Url.Action("GetEmployee", "Master")";
+    var SaveCIMUrl = "@Url.Action("SaveCIM", "CIM")"; //GetStatusUrl
+    var GetCIMDetailsUrl = "@Url.Action("GetCIMDetails", "CIM")";
+    var SaveCIMProblemUrl = "@Url.Action("SaveCIMProblem", "CIM")";
+    var SaveCIMActionUrl = "@Url.Action("SaveCIMAction", "CIM")";
+    var SaveCIMConsequentialUrl = "@Url.Action("SaveCIMConsequence", "CIM")";
+    var SaveCIM5W2HUrl = "@Url.Action("Save5W2H", "CIM")";
+    var SaveCIMFilesUrl = "@Url.Action("SaveFiles", "CIM")";
+    var DeleteCIMFilesUrl = "@Url.Action("DeleteFiles", "CIM")";
+    var SaveCIMCommentsUrl = "@Url.Action("SaveCIMComments", "CIM")";
+    var GetDetailsIsAutoAssignOrNotUrl = "@Url.Action("GetDetailsIsAutoAssignOrNot", "Master")";
+    var GetStatusUrl = "@Url.Action("GetStatus", "Admin")";
+    var SetStatusBasedOnDesignationUrl = "@Url.Action("SetStatusBasedOnDesignation", "Admin")";
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+    var GetCIRUrl = "@Url.Action("GetSearchDetails", "CIR")";
+    var SaveSuggestionUrl = "@Url.Action("SaveSuggestion", "CIM")";
+    var PageAccessUrl = "@Url.Action("PageAccess", "Admin")";
+    var GetUniqieNumberGenerationUrl = "@Url.Action("GetUniqueNumberGeneration", "CIM")";
+    var SearchUrl = "@Url.Action("GetSearchDetails", "CIR")";
+    var GetEmployeeDetailsUrl = "@Url.Action("GetEmployee", "Master")";
+    var SaveCIRFilesOnlyUrl = "@Url.Action("SaveFilesOnly", "CIM")";
+    var DashBoardUrl = "@Url.Action("Index", "DashBoard")";
+    var GetLogFileUrl = "@Url.Action("LogFile", "Admin")";
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+
+</script>
+
+<div class="col-lg-12 pad-0" ng-controller="CIM_OperController">
+    <div class="content-part">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5 class="heading-h">FSR Form</h5>
+            </div>
+
+            <div class="bs-example col-lg-12 col-md-12">
+                <ul class="nav nav-tabs">
+                    <li class="active" id="liTurbineData"><a data-toggle="tab" href="#turbineData">Turbine Data</a></li>
+                    <li id="liProblem"><a data-toggle="tab" href="#problem">Problem</a></li>
+                    <li id="liAction"><a data-toggle="tab" href="#action">Action</a></li>
+                    <li id="liconsProblem"><a data-toggle="tab" href="#consProblem">Consequence</a></li>
+                    <li id="li5W2H"><a data-toggle="tab" href="#5W2H">5W2H</a></li>
+                    <li id="liPhotos"><a data-toggle="tab" href="#Photos">Photos</a></li>
+                    <li id="liFiles"><a data-toggle="tab" href="#files">Suggestion</a></li>
+                    @*<li id="liSuggestion"><a data-toggle="tab" href="#Suggestion">Suggestion</a></li>*@
+                    <li id="liComments"><a data-toggle="tab" href="#Comments">Comments</a></li>
+
+                </ul>
+                <div class="tab-content">
+                    <div id="turbineData" class="tab-pane fade in active">
+                        <div class="">
+                            <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+                                <div style="margin-bottom: 15px;" class="row mar-0 fomr-div">
+                                    <div class="col-xs-12 col-sm-6 col-lg-3 col-md-3">
+                                        <span>FSR Number</span><span style="color:red;padding:5px;">*</span>
+                                        <input type="hidden" value="0" id="hdnCIRNumber" />
+                                        <input type="hidden" value="0" id="hdnIsMyPending" />
+                                        <input type="text" id="txtCIRNumber" maxlength="100" ng-model="CIMNumber" ng-blur="LoadCIRDetails()" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-lg-3 col-md-3" id="divState" ng-show="Add">
+                                        <span>State</span><span style="color:red;padding:5px;">*</span>
+                                        <input type="text" id="hdnState" ng-model="StateId" ng-bind="StateId" style="display: none;" />
+                                        <input type="text" id="txtState" maxlength="100" ng-model="State" ng-blur="ClearState()" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-lg-3 col-md-3" id="divSite" ng-show="Add">
+                                        <span>Site</span><span style="color:red;padding:5px;">*</span>
+                                        <input type="text" id="hdnSite" ng-model="SiteId" ng-bind="SiteId" style="display: none;" />
+                                        <input type="text" id="txtSite" maxlength="100" ng-model="Site" ng-blur="LoadStateBasedOnSite()" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-lg-3 col-md-3" id="divTurbine" ng-show="Add">
+                                        <span>Turbine</span>
+                                        <input type="text" id="hdnTurbine" ng-model="TurbineId" ng-bind="TurbineId" style="display: none;" />
+                                        <input type="text" id="txtTurbine" maxlength="100" ng-model="TurbineName" ng-bind="TurbineName" ng-blur="LoadTurbineDetails()" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="row mar-0 fomr-div">
+                                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                        <span>Alarm Code</span><span style="color:red;padding:5px;">*</span>
+                                        <input type="text" id="txtAlarmCode" ng-model="ACode" />
+                                        <input type="text" id="hdnAlarmCode" ng-model="AlarmCodeId" ng-bind="AlarmCodeId" style="display: none;" />
+                                        <input type="hidden" id="hdnWtgTypeId" ng-model="WTGTypeId" value="0" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>State</span>
+                                        <input type="text" ng-model="StateValue" disabled="disabled" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Turbine</span>
+                                        <input type="text" ng-model="TurbineNameValue" disabled="disabled" />
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="row mar-0 fomr-div">
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Alarm Description</span>
+                                        <input type="text" ng-model="AlarmDescription" maxlength="200" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Date Of Failure</span>
+                                        <input type="text" class="datepickerFormat" ng-model="DateOfFailure" onkeypress="return isEvent(this)" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Customer</span>
+                                        <input type="text" id="hdnCustomer" ng-model="CustomerId" ng-bind="CustomerId" style="display: none;" />
+                                        <input type="text" ng-model="Customer" disabled="disabled" id="txtCustomer" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Site</span>
+                                        <input type="text" ng-model="SiteValue" disabled="disabled" id="txtSiteName" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="row mar-0 fomr-div">
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>S/W Version</span>
+                                        @*<input type="text" ng-model="SoftwareVersion" />*@
+                                        <select id="ddlSoftwareVersion" ng-model="SoftwareVersionId">
+                                            <option value="0">-- Select one --</option>
+                                            <option ng-repeat="option in SoftwareVersionArray" value="{{option.MCId}}">{{option.Name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>F/W Version</span>
+                                        @*<input type="text" ng-model="FwVersion" />*@
+                                        <select id="ddlHardwareVersion" ng-model="FwVersionId">
+                                            <option value="0">-- Select one --</option>
+                                            <option ng-repeat="option in FwVersionArray" value="{{option.MCId}}">{{option.Name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>DOC</span>
+                                        <input type="text" ng-model="TDOC" disabled="disabled" class="datepickerFormat" onkeypress="return isEvent(this)" id="txtDOC" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>WTG Type</span>
+                                        <input type="text" id="hdnWtgType" ng-model="WtgTypeIdsId" ng-bind="WtgTypeIdsId" style="display: none;" />
+                                        <input type="text" ng-model="WtgType" disabled="disabled" id="txtWTGType" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="row mar-0 fomr-div">
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>WTG Status</span>
+                                        <select id="ddlWTGStatus" ng-model="WtgStatus">
+                                            <option value="0">-- Select One --</option>
+                                            <option ng-repeat="option in WtgStatusArray" value="{{option.MCId}}">{{option.Name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Production</span>
+                                        <input type="text" ng-model="Production" maxlength="8" onkeypress="isFloatNumber(event)" pattern=".{2,}" required title="Minimum 2 characters required" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Temperature</span>
+                                        <input type="text" id="hdnTemp" style="display: none;" ng-model="TempIdsId" ng-bind="TempIdsId" />
+                                        <input type="text" ng-model="Temp" disabled="disabled" id="txtTemp" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Dust</span>
+                                        <input type="text" id="hdnDust" style="display: none;" ng-model="DustIdsId" ng-bind="DustIdsId" />
+                                        <input type="text" ng-model="Dust" disabled="disabled" id="txtDust" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="row mar-0 fomr-div">
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <div class="row">
+                                            <span style="margin-left: 15px;">WTG Stop Time</span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-lg-6 col-xs-8 col-sm-8">
+                                                <input type="text" class="datepickerFormat" ng-model="WtgStopTime" onkeypress="return isEvent(event)" />
+                                            </div>
+                                            <div class="col-md-6 col-lg-6 col-xs-4 col-sm-4">
+                                                <input type="text" class="timepicker-1 input-small" data-format="hh:mm" ng-model="WtgStopTimeTimer" onkeypress="isValidTime(event)" maxlength="6" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <div class="row">
+                                            <span style="margin-left: 15px;">WTG Run Time</span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-lg-6 col-xs-8 col-sm-8">
+                                                <input type="text" class="datepickerFormat" ng-model="WtgRunTime" onkeypress="return isEvent(event)" />
+                                            </div>
+                                            <div class="col-md-6 col-lg-6 col-xs-4 col-sm-4">
+                                                <input type="text" class="timepicker-1 input-small" data-format="hh:mm" ng-model="WtgRunTimeTimer" onkeypress="isValidTime(event)" maxlength="6" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Corrosion</span>
+                                        <input type="text" id="hdnCorrosion" style="display: none;" ng-model="CorrosionIdsId" ng-bind="CorrosionIdsId" />
+                                        <input type="text" ng-model="Corrosion" disabled="disabled" id="txtCorrosion" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>T-Height</span>
+                                        <input type="text" id="hdnTHeight" style="display: none;" ng-model="THeightIdsId" ng-bind="THeightIdsId" />
+                                        <input type="text" ng-model="THeight" disabled="disabled" id="txtTHeight" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="row mar-0 fomr-div">
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Run Hours</span>
+                                        <input type="text" ng-model="RunHours" maxlength="8" onkeypress="isFloatNumber(event)" pattern=".{2,}" required title="Minimum 2 characters required" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Functional System</span><span style="color:red;padding:5px;">*</span>
+                                        <select id="ddlFunctionalSystem" ng-model="FunctionalSystem">
+                                            <option value="0">-- Select One --</option>
+                                            <option ng-repeat="option in FunctionalSystemArray" value="{{option.MCId}}">{{option.Name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Blade</span>
+                                        <input type="text" id="hdnBlade" ng-model="BladeIdsId" ng-bind="BladeIdsId" style="display: none;" />
+                                        <input type="text" ng-model="Blade" disabled="disabled" id="txtBlade" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Generator</span>
+                                        <input type="text" id="hdnGenerator" ng-model="GeneratorIdsId" ng-bind="GeneratorIdsId" style="display: none;" />
+                                        <input type="text" ng-model="Generator" disabled="disabled" id="txtGenerator" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="row mar-0 fomr-div">
+
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Component Group</span><span style="color:red;padding:5px;">*</span>
+                                        <select id="ddlComponent" ng-model="ComponentGroup">
+                                            <option value="0">-- Select One --</option>
+                                            <option ng-repeat="option in ComponentGroupArray" value="{{option.MCId}}">{{option.Name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Gamesa Part Code</span>
+                                        <input type="text" ng-model="GamesaPartCode" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Gear Box</span>
+                                        <input type="text" id="hdnGearBox" ng-model="GearBoxIdsId" ng-bind="GearBoxIdsId" style="display: none;" />
+                                        <input type="text" ng-model="GearBox" disabled="disabled" id="txtGearBox" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Reporting Name</span>
+                                        @*<input type="text" ng-model="FomName" disabled="disabled" />*@
+                                        <select ng-model="ddlFomName" ng-change="LoadFOMNameDetails(ddlFomName)">
+                                            <option value="0">-- Select One --</option>
+                                            <option ng-repeat="option in ddlFomNameLoadArray" value="{{option.EmpId}}" ng-selected="option.EmpId == ddlFomName">{{option.Emp_Name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mar-0 fomr-div">
+                                <div class="row mar-0 fomr-div">
+
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Component Make</span>
+                                        <input type="text" ng-model="ComponentMake" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Failure During</span><span style="color:red;padding:5px;">*</span>
+                                        <select id="ddlFailureDuring" ng-model="FailureDuring">
+                                            <option value="0">-- Select One --</option>
+                                            <option ng-repeat="option in FailureDuringArray" value="{{option.MCId}}">{{option.Name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>MobileNo</span>
+                                        <input type="text" ng-model="MobileNo" disabled="disabled" id="txtMobileNo" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Email Id</span>
+                                        <input type="text" ng-model="EmailId" disabled="disabled" id="txtEmailId" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="row mar-0 fomr-div">
+
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Serial Number</span>
+                                        <input type="text" ng-model="SerialNumber" maxlength="100" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Work Order Number</span>
+                                        <input type="text" ng-model="WONumber" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Engineer Name</span>
+                                        <input type="text" id="txtEngineerName" ng-model="EngineerName" disabled="disabled" />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                        <span>Approval Status</span>
+                                        <input type="text" ng-model="ApprovalStatus" disabled="disabled" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <br />
+                                    <div>
+                                        <a href="#" class="SaveButton btn btn-default" style="margin-left:0px;" ng-click="SaveCIR()" ng-show="IsMyPending && (Add || Update)">Save</a>
+                                        <a href="#" class="ClearButton btn btn-default" ng-click="ClearCIR()" ng-show="IsMyPending">Clear</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="problem" class="tab-pane fade">
+                        <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+                            <div style="margin-bottom: 15px;" class="row mar-0 fomr-div">
+                                <div class="col-lg-7 col-md-7 col-xs-12 col-sm-12">
+                                    <span>Problem</span><span style="color:red;padding:5px;">*</span>
+                                    <textarea id="txtProblem" ng-model="Problem" style="height: 100px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mar-0 fomr-div">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div>
+                                    <a href="#" class="SaveButton btn btn-default" style="margin-left:0px;" ng-click="SaveProblem()" ng-show="IsMyPending && (Add || Update)">Save</a>
+                                    <a href="#" class="btn btn-default ClearButton" ng-click="ClearProblem()" ng-show="IsMyPending">Clear</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="action" class="tab-pane fade">
+                        <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+                            <div style="margin-bottom: 15px;" class="row mar-0 fomr-div">
+                                <div class="col-xs-12 col-sm-12 col-lg-5 col-md-5">
+                                    <span>Action Performed</span><span style="color:red;padding:5px;">*</span>
+                                    <textarea type="text" ng-model="ActionDesc" style="height: 100px;" maxlength="500"></textarea>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-lg-4 col-md-4" style="margin-top: 13px;">
+                                    <a href="#" class="btn btn-default" ng-click="SaveAction()" ng-show="IsMyPending  && (Add || Update)"><span><i class="glyphicon glyphicon-plus"></i></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row mar-0 fomr-div" style="margin: 0px 0px 0px 0px;">
+                            <div class="row mar-0 fomr-div" style="margin-bottom: 15px;">
+                                <div class="col-md-10 col-lg-10 col-xs-12 col-sm-12">
+                                    <div>
+                                        <table cellpadding="0" cellspacing="0" class="table table-hover table-responsive">
+                                            <thead style="border-top: 1px solid #dddddd;border-bottom: 2px solid #dddddd;">
+                                                <tr>
+                                                    <th style="text-align:center;">SlNo
+                                                    </th>
+                                                    <th>Action performed
+                                                    </th>
+                                                    <th style="text-align:center;" ng-show="Delete">Action
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="border-bottom: 1px solid #dddddd;">
+                                                <tr ng-repeat="row in ActionPerformedArray">
+                                                    <td style="text-align:center;">{{row.Slno}}
+                                                    </td>
+                                                    <td style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word">{{row.ActionDesc}}
+                                                    </td>
+                                                    <td style="text-align:center;" ng-show="Delete">
+                                                        <a style="cursor: pointer;" ng-click="DeleteAction(row.CAId)" ng-show="IsMyPending && Delete">
+                                                            <img style="height: 20px;" src="~/Content/img/delete.png"></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mar-0 fomr-div">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <a href="#" class="btn btn-default SaveButton" style="margin-left:0px;" ng-click="SaveFullAction()" ng-show="IsMyPending && (Add || Update)">Save</a>
+                                <a href="#" class="btn btn-default ClearButton" ng-click="ClearAction()" ng-show="IsMyPending">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="consProblem" class="tab-pane fade">
+                        <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+                            <div style="margin-bottom: 15px;" class="row mar-0 fomr-div">
+                                <div class="col-lg-7 col-md-7 col-xs-12 col-sm-12">
+                                    <span>Consequential Problem</span>
+                                    <textarea ng-model="ConsequentialProblem" style="height: 100px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mar-0 fomr-div">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <a href="#" class="SaveButton btn btn-default" style="margin-left:0px;" ng-click="SaveConsequence()" ng-show="IsMyPending && (Add || Update)">Save</a>
+                                <a href="#" class="btn btn-default ClearButton" ng-click="ClearConsequence()" ng-show="IsMyPending">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="5W2H" class="tab-pane fade">
+                        <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-xs-12 col-sm-12 col-lg-3 col-md-3" style="margin-top: 20px;">
+                                    <img src="~/Content/img/5W.jpg" />
+                                </div>
+                                <div class="col-xs-12 col-md-9 col-lg-9 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                            <span>What</span>
+                                            <textarea ng-model="What" style="margin: 0px 0px 5px; margin-top: 0px; margin-right: 0px; margin-bottom: 5px; margin-left: 0px; height: 86px; width: 182px;"></textarea>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-lg-3 col-md-3">
+                                            <span>When</span>
+                                            <textarea ng-model="When" style="margin: 0px 0px 5px; margin-top: 0px; margin-right: 0px; margin-bottom: 5px; margin-left: 0px; height: 86px; width: 182px;"></textarea>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                            <span>Who</span>
+                                            <textarea ng-model="Who" style="margin: 0px 0px 5px; margin-top: 0px; margin-right: 0px; margin-bottom: 5px; margin-left: 0px; height: 86px; width: 182px;"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                            <span>Where</span>
+                                            <textarea ng-model="Where" style="margin: 0px 0px 5px; margin-top: 0px; margin-right: 0px; margin-bottom: 5px; margin-left: 0px; height: 86px; width: 182px;"></textarea>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-lg-3 col-md-3">
+                                            <span>Why</span>
+                                            <textarea ng-model="Why" style="margin: 0px 0px 5px; margin-top: 0px; margin-right: 0px; margin-bottom: 5px; margin-left: 0px; height: 86px; width: 182px;"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row mar-0 fomr-div">
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-xs-12 col-sm-12 col-lg-3 col-md-3" style="margin-top: 20px;">
+                                    <img src="~/Content/img/2H.jpg" />
+                                </div>
+
+                                <div class="col-xs-12 col-md-9 col-sm-12 col-lg-9">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                                            <span>How To Do</span>
+                                            <textarea ng-model="HowToDo" style="margin: 0px 0px 5px; margin-top: 0px; margin-right: 0px; margin-bottom: 5px; margin-left: 0px; height: 86px; width: 182px;"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                                            <span>How Much</span>
+                                            <textarea ng-model="HowMuch" style="margin: 0px 0px 5px; margin-top: 0px; margin-right: 0px; margin-bottom: 5px; margin-left: 0px; height: 86px; width: 182px;"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row mar-0 fomr-div" style="margin-top: 20px;">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <a href="#" class="SaveButton btn btn-default" style="margin-left:0px;" ng-click="Save5W2H()" ng-show="IsMyPending && (Add || Update)">Save</a>
+                                <a href="#" class="ClearButton btn btn-default" ng-click="Clear5W2H()" ng-show="IsMyPending">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="Photos" class="tab-pane fade">
+                        <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+                            <div style="margin-bottom: 15px;" class="row mar-0 fomr-div">
+                                <div class="col-xs-12 col-sm-12 col-lg-4 col-md-4">
+                                    <span>File</span><span style="color:red;padding:5px;">*</span>
+                                    <form id="uploadform">
+                                        <input type="file" id="fuImage" name="fuImage" class="clsfuImage" />
+                                    </form>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                    <span>Description</span>
+                                    <textarea ng-model="Description" style="height: 50px;"></textarea>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-lg-2 col-md-2" style="margin-top: 18px;">
+                                    <a href="#" class="btn btn-default" ng-click="SaveImages()" ng-show="IsMyPending && (Add || Update)"><span><i class="glyphicon glyphicon-plus"></i></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row mar-0 fomr-div">
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-xs-12 col-sm-12 col-lg-4 col-md-4" ng-repeat="row in CIRFilesArray" ng-if="row.IsImage == 'True'" style="position:relative;">
+                                    <span style="margin-left: 97%;cursor: pointer;position: absolute;right: 28px;top: 10px;font-size: 17px" ng-click="DeleteCIRDoc(row.CFId, row.FileName)" ng-if="row.IsImage == 'True'" ng-show="Delete">&times;</span>
+                                    <div align="center" ng-if="row.IsImage == 'True'" class="imgStyle" style="padding: 10px; border-radius: 4px; background-color: rgba(214, 211, 211, 0.57);">
+
+                                        <a href="#" onclick="fnShowImageBigger(this)">
+                                            <img src="{{row.CFileName}}" class="img-responsive" /></a>
+                                        <br />
+                                        <label>{{row.CDesc}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="row mar-0 fomr-div">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div>
+                                    <a href="#" class="btn btn-default SaveButton" style="margin-left:0px;" ng-click="SaveImagesFull()" ng-show="IsMyPending && (Add || Update)">Save</a>
+                                    <a href="#" class="btn btn-default ClearButton" ng-click="ClearImagesFull()" ng-show="IsMyPending">Clear</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="files" class="tab-pane fade">
+
+                        <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+                            <div style="margin-bottom: 15px;" class="row mar-0 fomr-div">
+                                <div class="col-xs-12 col-sm-6 col-lg-4 col-md-4">
+                                    <span>File</span><span style="color:red;padding:5px;">*</span>
+                                    <form id="uploadformFile">
+                                        <input type="file" id="fuFile" name="fuFile" class="clsfuFile" />
+                                    </form>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                                    <span>Description</span>
+                                    <textarea ng-model="DescriptionForFile" style="height: 50px;"></textarea>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-lg-2 col-md-2" style="margin-top: 18px;">
+                                    <a href="#" class="btn btn-default" ng-click="SaveFiles()" ng-show="IsMyPending && (Add || Update)"><span><i class="glyphicon glyphicon-plus"></i></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        @*                        <div class="row mar-0 fomr-div">
+                            <div class="row mar-0 fomr-div">
+                                <div class="col-xs-4 col-sm-4 col-lg-4 col-md-4" ng-repeat="row in CIRFilesArray">
+                                    <span style="margin-left:97%;">&times;</span>
+                                    <div align="center" ng-if="row.IsImage == 'True'" class="imgStyle" style="padding: 10px; border-radius: 4px; background-color: rgba(214, 211, 211, 0.57);">
+                                        
+                                        <a href="#" onclick="fnShowImageBigger(this)">
+                                            <img src="{{row.CFileName}}" /></a>
+                                        <br />
+                                        <label>{{row.CDesc}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                        <br />
+
+                        <div class="row mar-0 fomr-div" style="margin: 0px 0px 0px 0px;">
+                            <div class="row mar-0 fomr-div" style="margin-bottom: 15px;">
+                                <div class="col-lg-10 col-md-10 col-xs-12 col-sm-12">
+                                    <div>
+                                        <table cellpadding="0" cellspacing="0" class="table table-hover table-responsive">
+                                            <thead style="border-top: 1px solid #dddddd;border-bottom: 2px solid #dddddd;">
+                                                <tr>
+                                                    <th>File Name
+                                                    </th>
+                                                    <th>Description
+                                                    </th>
+                                                    <th style="text-align:center;" ng-show="Delete">Action
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="border-bottom: 1px solid #dddddd;">
+
+                                                <tr ng-repeat="row in CIRFilesArray" ng-if="row.IsImage != 'True'">
+                                                    <td>
+                                                        <a ng-href="{{row.FileNameFullPath}}" download="{{row.CFileName}}">{{row.CFileName}}</a>
+                                                    </td>
+                                                    <td style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word">{{row.CDesc}}
+                                                    </td>
+                                                    <td style="text-align:center;" ng-show="Delete">
+                                                        <a href="#" ng-click="DeleteCIRDoc(row.CFId, row.CFileName)" ng-show="IsMyPending && Delete">Remove</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mar-0 fomr-div">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div>
+                                    <a href="#" class="btn btn-default SaveButton" style="margin-left:0px;" ng-click="SaveFilesFull()" ng-show="IsMyPending && (Add || Update)">Save</a>
+                                    <a href="#" class="btn btn-default ClearButton" ng-click="ClearFiles()" ng-show="IsMyPending">Clear</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*   <div id="Suggestion" class="tab-pane fade">
+                        <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+                            <div style="margin-bottom: 15px;" class="row mar-0 fomr-div">
+                                <div class="col-xs-4 col-sm-4 col-lg-4 col-md-4">
+                                    <span>File</span><span><i class="glyphicon glyphicon-star" style="color: red; font-size: 6px; position: relative; top: -5px; left: 2px;"></i></span>
+                                    <form id="uploadformForSuggestion">
+                                        <input type="file" id="fuImageForSuggestion" name="fuImageSuggestion" class="clsfuImages" />
+                                    </form>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <span>Description</span>
+                                    <textarea ng-model="DescriptionForSuggestion" style="height: 50px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <br />
+                        <br />
+                        <div class="row mar-0 fomr-div">
+                            <div class="row mar-0 fomr-div">
+                                <div>
+                                    <a href="#" class="btn btn-default SaveButton" ng-click="SaveSuggestion()">Save</a>
+                                    <a href="#" class="btn btn-default" ng-click="ClearSugegstion()">Clear</a>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+                            <div style="margin-bottom: 15px;" class="row mar-0 fomr-div">
+                                <div class="col-xs-4 col-sm-4 col-lg-4 col-md-4">
+                                    <span>File : </span>
+                                    <span ng-model="SFileName" ng-bind="SFileName"></span>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <span>Description : </span>
+                                    <span ng-model="SDesc" ng-bind="SDesc" style="white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+
+                    <div id="Comments" class="tab-pane fade">
+                        <div style="margin: 20px 0px 0px 0px;" class="row mar-0 fomr-div">
+                            <div style="margin-bottom: 15px;" class="row mar-0 fomr-div">
+                                <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
+                                    <span>Comments</span><span style="color:red;padding:5px;">*</span>
+                                    <input type="text" ng-model="Comments" maxlength="500" />
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                    <span>Status</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlStatus" ng-model="Status" ng-change="LoadIsAutoAssignOrNot()">
+                                        <option value="0">-- Select One --</option>
+                                        <option ng-repeat="option in StatusArray" value="{{option.StsId}}">{{option.Status}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-lg-3 col-md-3" id="divAssignTo">
+                                    <span>Assign To</span><span style="color:red;padding:5px;">*</span>
+                                    <select id="ddlStatus" ng-model="AssignTo">
+                                        <option value="0">-- Select One --</option>
+                                        <option ng-repeat="option in AssignToArray" value="{{option.StsId}}">{{option.Status}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mar-0 fomr-div" style="margin: 0px 0px 0px 0px;">
+                            <div class="row mar-0 fomr-div" style="margin-bottom: 15px;">
+                                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                                    <div style="max-width: 100%;max-height: 100%;overflow-x:scroll;">
+                                        <table cellpadding="0" cellspacing="0" class="table table-hover table-responsive">
+                                            <thead style="border-top: 1px solid #dddddd;border-bottom: 2px solid #dddddd;">
+                                                <tr>
+                                                    <th style="text-align:center;">SlNo
+                                                    </th>
+                                                    <th>Comments
+                                                    </th>
+                                                    <th>From
+                                                    </th>
+                                                    <th>Assign To
+                                                    </th>
+                                                    <th>Assigned Date
+                                                    </th>
+                                                    <th>Comments On
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="border-bottom: 1px solid #dddddd;">
+                                                <tr ng-repeat="row in CIRCommentsArray" ng-if="row.Comments != ''">
+                                                    <td style="text-align:center;">
+                                                        <span>{{row.Slno}}</span>
+                                                    </td>
+                                                    <td style="white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word">
+                                                        <span>{{row.Comments}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{row.Frm}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{row.AssignedTo}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{row.AssignedDate}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{row.CommentsOn}}</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mar-0 fomr-div">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div>
+                                    <span ng-show="Add || Update"><a href="#" class="btn btn-default SaveButton" style="margin-left:0px;" ng-click="SaveComments()" ng-show="IsMyPending">Submit</a></span> 
+                                    <span ng-show="Add || Update"><a href="#" class="btn btn-default ClearButton" ng-click="ClearComments()" ng-show="IsMyPending">Clear</a></span> 
+                                    <span ng-show="Delete"><a href="#" class="btn btn-default SaveButton" onclick="fnShowDeleteCIRModal()" id="btnDelete" ng-show="IsMyPending">Delete</a></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <br />
+
+                        <div class="row mar-0 fomr-div">
+                            <div class="row mar-0 fomr-div">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myDeleteCIRModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: 100%;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete Comments</h4>
+                    </div>
+                    <div class="modal-body" align="center" id="modalCIRDeleteBody">
+                        <textarea id="txtDeleteComments" maxlength="200" style="height: 150px;"></textarea>
+                    </div>
+                    <div class="modal-footer" align="right">
+                        <a href="#" ng-click="DeleteComments()" class="btn btn-default">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="height: 100%; width: 100%;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body" id="modalBody">
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <script type="text/javascript">
+        $("#hdnCIRNumber").val(@ViewBag.CIMId);
+        $("#hdnIsMyPending").val(@ViewBag.IsMyPending);
+        $("#txtEngineerName").text("@ViewBag.EngineerName");
+        $("#txtCIRNumber").keyup(function (e) {
+            if (e.which != 13) {
+                $("#hdnCIRNumber").val("0");
+            }
+
+            if ($("#txtCIRNumber").val() == "")
+                $("hdnCIRNumber").val("0");
+
+            var CIRDetails = {
+                txt: $("#txtCIRNumber").val(),
+                refId: "",
+                viewType: "7"
+            };
+
+            $("#txtCIRNumber").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("GetSearchDetails", "CIR")",
+                        data: JSON.stringify(CIRDetails),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            if (data.length != 0) {
+                                response($.map(data, function (item) {
+                                    if (data.indexOf(item) === -1) {
+                                        return {
+                                            label: "No Results.",
+                                            val: 0
+                                        }
+                                    } else {
+                                        return {
+                                            label: item.TextValue,
+                                            val: item.Id
+                                        }
+                                    }
+                                }))
+                            }
+                            else {
+                                return {
+                                    label: "No Results.",
+                                    val: 0
+                                }
+                            }
+
+                        },
+                        error: function (response) {
+
+                        },
+                        failure: function (respose) {
+
+                        }
+                    });
+                },
+                minlength: 1,
+                select: function (e, i) {
+                    $("#hdnCIRNumber").val(i.item.val);
+                    $("#txtCIRNumber").val(i.item.label);
+                }
+            });
+        });
+
+        $("#txtSite").keyup(function (e) {
+            if (e.which != 13) {
+                $("#hdnSite").val("0");
+            }
+            var CIRDetails = {
+                txt: $("#txtSite").val(),
+                refId: $("#hdnState").val() == "0" ? "" : $("#hdnState").val(),
+                viewType: "2"
+            };
+
+            $("#txtSite").autocomplete({
+                source: function (request, response) {
+
+                    $.ajax({
+                        url: "@Url.Action("GetSearchDetails", "CIR")",
+                        data: JSON.stringify(CIRDetails),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+
+                            response($.map(data, function (item) {
+                                return {
+                                    label: item.TextValue,
+                                    val: item.Id
+                                }
+                            }))
+                        },
+                        error: function (response) {
+
+                        },
+                        failure: function (respose) {
+
+                        }
+                    });
+                },
+                minlength: 1,
+                select: function (e, i) {
+                    $("#hdnSite").val(i.item.val);
+                    $("#txtSite").val(i.item.label);
+                }
+            });
+        });
+
+        $("#txtState").keyup(function (e) {
+            if (e.which != 13) {
+                $("#hdnState").text("0");
+            }
+
+            var CIRDetails = {
+                txt: $("#txtState").val(),
+                refId: "0",
+                viewType: "1"
+            };
+
+            $("#txtState").autocomplete({
+                source: function (request, response) {
+
+                    $.ajax({
+                        url: "@Url.Action("GetSearchDetails", "CIR")",
+                        data: JSON.stringify(CIRDetails),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+
+                            response($.map(data, function (item) {
+                                return {
+                                    label: item.TextValue,
+                                    val: item.Id
+                                }
+                            }))
+                        },
+                        error: function (response) {
+
+                        },
+                        failure: function (respose) {
+
+                        }
+                    });
+                },
+                minlength: 1,
+                select: function (e, i) {
+                    $("#hdnState").val(i.item.val);
+                    $("#txtState").val(i.item.label);
+                }
+            });
+        });
+
+        $("#txtTurbine").keyup(function (e) {
+
+            if (e.which != 13) {
+                $("#hdnTurbine").text("0");
+            }
+
+            var CIRDetails = {
+                txt: $("#txtTurbine").val(),
+                refId: $("#hdnSite").val() == "0" ? "" : $("#hdnSite").val(),
+                viewType: "3"
+            };
+
+            $("#txtTurbine").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("GetSearchDetails", "CIR")",
+                        data: JSON.stringify(CIRDetails),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    label: item.TextValue,
+                                    val: item.Id
+                                }
+                            }))
+                        },
+                        error: function (response) {
+
+                        },
+                        failure: function (respose) {
+
+                        }
+                    });
+                },
+                minlength: 1,
+                select: function (e, i) {
+                    $("#hdnTurbine").text(i.item.val);
+                    $("#txtTurbine").val(i.item.label);
+                }
+            });
+        });
+
+
+
+
+
+        function fnAutoComplete(text, value, view, ref) {
+            var CIRDetails = {
+                txt: $("#" + text).val(),
+                refId: ref,
+                viewType: view
+            };
+
+            $("#" + text).autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("GetSearchDetails", "CIR")",
+                        data: JSON.stringify(CIRDetails),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+
+                            response($.map(data, function (item) {
+                                return {
+                                    label: item.TextValue,
+                                    val: item.Id
+                                }
+                            }))
+                        },
+                        error: function (response) {
+
+                        },
+                        failure: function (respose) {
+
+                        }
+                    });
+                },
+                minlength: 1,
+                select: function (e, i) {
+                    $("#" + value).text(i.item.val);
+                    $("#" + text).val(i.item.label);
+                }
+            });
+        }
+
+        function fnGetCIRDetails() {
+
+            if ($("#txtCIRNumber").val() == "") {
+                $("#hdnCIRNumber").val("0");
+
+            }
+
+            if ($("#hdnCIRNumber").val() != "0") {
+                var Data = {
+                    cimId: $("#hdnCIRNumber").val()
+                };
+
+                $.ajax({
+                    url: "@Url.Action("GetCIMDetails", "CIM")",
+                    data: JSON.stringify(Data),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        $("#txtState").val(data.StateName);
+                        $("#txtState").prop("disabled", true);
+                        $("#txtSite").val(data.TSite);
+                        $("#txtSite").prop("disabled", true);
+                        $("hdnState").val(data.stateId);
+                        $("hdnSite").val(data.TSiteId);
+                    }
+                });
+            }
+            else {
+                $("#txtState").prop("disabled", false);
+                $("#txtSite").prop("disabled", false);
+                $("#hdnState").val("0");
+                $("#hdnSite").val("0");
+                $("#txtState").val("");
+                $("#txtSite").val("");
+            }
+        }
+
+        $("#txtEngineerSapId").keyup(function (e) {
+            if (e.which != 13) {
+                $("#hdnEngineerSapId").val("0");
+            }
+
+            var CIRDetails = {
+                txt: $("#txtEngineerSapId").val(),
+                refId: "",
+                viewType: "4"
+            };
+
+            $("#txtEngineerSapId").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("GetSearchDetails", "CIR")",
+                        data: JSON.stringify(CIRDetails),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+
+                            response($.map(data, function (item) {
+                                return {
+                                    label: item.TextValue,
+                                    val: item.Id
+                                }
+                            }))
+                        },
+                        error: function (response) {
+
+                        },
+                        failure: function (respose) {
+
+                        }
+                    });
+                },
+                minlength: 1,
+                select: function (e, i) {
+                    $("#hdnEngineerSapId").val(i.item.val);
+                    $("#txtEngineerSapId").val(i.item.label);
+                }
+            });
+        });
+
+            $("#txtAlarmCode").keyup(function (e) {
+                if (e.which != 13) {
+                    $("#hdnAlarmCode").text("0");
+                }
+                var CIRDetails = {
+                    txt: $("#txtAlarmCode").val(),
+                    refId: $("#hdnWtgTypeId").val(),
+                    viewType: "5"
+                };
+
+                $("#txtAlarmCode").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "@Url.Action("GetSearchDetails", "CIR")",
+                            data: JSON.stringify(CIRDetails),
+                            dataType: "json",
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            success: function (data) {
+
+                                response($.map(data, function (item) {
+                                    return {
+                                        label: item.TextValue,
+                                        val: item.Id
+                                    }
+                                }))
+                            },
+                            error: function (response) {
+
+                            },
+                            failure: function (respose) {
+
+                            }
+                        });
+                    },
+                    minlength: 1,
+                    select: function (e, i) {
+                        $("#hdnAlarmCode").text(i.item.val);
+                        $("#txtAlarmCode").val(i.item.label);
+                    }
+                });
+            });
+
+
+            $("#txtAssignTo").keyup(function (e) {
+                if (e.which != 13) {
+                    $("#hdnAssignTo").val("0");
+                }
+
+                var CIRDetails = {
+                    txt: $("#txtAssignTo").val(),
+                    refId: "",
+                    viewType: "6"
+                };
+
+                $("#txtAssignTo").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "@Url.Action("GetSearchDetails", "CIR")",
+                            data: JSON.stringify(CIRDetails),
+                            dataType: "json",
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            success: function (data) {
+
+                                response($.map(data, function (item) {
+                                    return {
+                                        label: item.TextValue,
+                                        val: item.Id
+                                    }
+                                }))
+                            },
+                            error: function (response) {
+
+                            },
+                            failure: function (respose) {
+
+                            }
+                        });
+                    },
+                    minlength: 1,
+                    select: function (e, i) {
+                        $("#hdnAssignTo").val(i.item.val);
+                        $("#txtAssignTo").val(i.item.label);
+                    }
+                });
+            });
+
+            $(".clsfuImage").on('change', function (e) {
+                var iframe = $('<iframe name="postiframe" id="postiframe" style="display: none"></iframe>');
+                $("body").append(iframe);
+                var form = $('#uploadform');
+                form.attr("action", "@Url.Action("ImageUpload", "CIM")");
+                form.attr("method", "post");
+                form.attr("encoding", "multipart/form-data");
+                form.attr("enctype", "multipart/form-data");
+                form.attr("target", "postiframe");
+                form.attr("file", $('#fuImage').val());
+                form.submit();
+            });
+
+            $(".clsfuImages").on('change', function (e) {
+                var iframe = $('<iframe name="postiframes" id="postiframes" style="display: none"></iframe>');
+                $("body").append(iframe);
+                var form = $('#uploadformForSuggestion');
+                form.attr("action", "@Url.Action("ImageUploadForSuggestion", "CIM")");
+                form.attr("method", "post");
+                form.attr("encoding", "multipart/form-data");
+                form.attr("enctype", "multipart/form-data");
+                form.attr("target", "postiframes");
+                form.attr("file", $('#fuImageForSuggestion').val());
+                form.submit();
+            });
+
+
+
+            function fnShowImageBigger(obj) {
+
+                var valueInHtml = obj.innerHTML;
+                $("#modalBody").html(valueInHtml);
+                $("#myModal").modal('show');
+            };
+
+            $("#txtCustomer").keyup(function (e) {
+                if (e.which != 13) {
+                    $("#hdnCustomer").text("0");
+                }
+
+                fnAutoComplete("txtCustomer", "hdnCustomer", "10", "0");
+
+            });
+
+            $("#txtWTGType").keyup(function (e) {
+                if (e.which != 13) {
+                    $("#hdnWtgType").text("0");
+                }
+
+                fnAutoComplete("txtWTGType", "hdnWtgType", "11", "0");
+
+            });
+
+            $("#txtTemp").keyup(function (e) {
+                if (e.which != 13) {
+                    $("#hdnTemp").text("0");
+                }
+
+                fnAutoComplete("txtTemp", "hdnTemp", "12", "0");
+
+            });
+
+
+            $("#txtDust").keyup(function (e) {
+                if (e.which != 13) {
+                    $("#hdnDust").text("0");
+                }
+
+                fnAutoComplete("txtDust", "hdnDust", "13", "0");
+
+            });
+
+            $("#txtCorrosion").keyup(function (e) {
+                if (e.which != 13) {
+                    $("#hdnCorrosion").text("0");
+                }
+
+                fnAutoComplete("txtCorrosion", "hdnCorrosion", "14", "0");
+
+            });
+
+            $("#txtTHeight").keyup(function (e) {
+                if (e.which != 13) {
+                    $("#hdnTHeight").text("0");
+                }
+
+                fnAutoComplete("txtTHeight", "hdnTHeight", "15", "0");
+
+            });
+
+            $("#txtBlade").keyup(function (e) {
+                if (e.which != 13) {
+                    $("#hdnBlade").text("0");
+                }
+
+                fnAutoComplete("txtBlade", "hdnBlade", "16", "0");
+
+            });
+
+            $("#txtGenerator").keyup(function (e) {
+                if (e.which != 13) {
+                    $("#hdnGenerator").text("0");
+                }
+
+                fnAutoComplete("txtGenerator", "hdnGenerator", "18", "0");
+
+            });
+
+
+            $("#txtGearBox").keyup(function (e) {
+                if (e.which != 13) {
+                    $("#hdnGearBox").text("0");
+                }
+
+                fnAutoComplete("txtGearBox", "hdnGearBox", "17", "0");
+
+            });
+
+
+            $("#txtFOMName").keyup(function (e) {
+                if (e.which != 13) {
+                    $("#hdnFOMName").text("0");
+                }
+
+                if ($("#hdnSite").val() != "") {
+
+                    var CIRDetails = {
+                        txt: $("#txtFOMName").val(),
+                        refId: $("#hdnSite").val() == "" ? "" : $("#hdnSite").val(),
+                        viewType: "19"
+                    };
+
+                    $("#txtFOMName").autocomplete({
+                        source: function (request, response) {
+
+                            $.ajax({
+                                url: "@Url.Action("GetSearchDetails", "CIR")",
+                                data: JSON.stringify(CIRDetails),
+                                dataType: "json",
+                                type: "POST",
+                                contentType: "application/json; charset=utf-8",
+                                success: function (data) {
+
+                                    response($.map(data, function (item) {
+                                        return {
+                                            label: item.TextValue,
+                                            val: item.Id
+                                        }
+                                    }))
+                                },
+                                error: function (response) {
+
+                                },
+                                failure: function (respose) {
+
+                                }
+                            });
+                        },
+                        minlength: 1,
+                        select: function (e, i) {
+                            $("#hdnFOMName").text(i.item.val);
+                            $("#txtFOMName").val(i.item.label);
+                        }
+                    });
+                }
+                else {
+                    SetErrorMessage("Ensure Site name.");
+                    return false;
+                }
+            });
+
+
+            $(".clsfuFile").on('change', function (e) {
+                var iframe = $('<iframe name="postiframe" id="postiframe" style="display: none"></iframe>');
+                $("body").append(iframe);
+                var form = $('#uploadformFile');
+                form.attr("action", "@Url.Action("FileUpload", "CIM")");
+                form.attr("method", "post");
+                form.attr("encoding", "multipart/form-data");
+                form.attr("enctype", "multipart/form-data");
+                form.attr("target", "postiframe");
+                form.attr("file", $('#fuFile').val());
+                form.submit();
+            });
+
+
+
+            function fnShowDeleteCIRModal() {
+
+                $("#myDeleteCIRModal").modal('show');
+            }
+
+    </script>
+
+    <script src="~/CIRScripts/jsCIMController.js" type="text/javascript"></script>

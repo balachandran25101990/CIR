@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "FieldEngineeringChat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var GetFilesUrl = "@Url.Action("GetFiles", "Admin")";
+    var GetAccessUrl = "@Url.Action("GetPageAccess", "Admin")";
+    var DeleteFilesurl = "@Url.Action("DeleteFiles", "Admin")";
+</script>
+
+<div class="col-lg-12 pad-0" ng-controller="FieldEngChat_OperController">
+    <div class="content-part">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5 class="heading-h">Field Eng Chat</h5>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table class="table table-hover table-fixedheader" cellpadding="0" cellspacing="0">
+                    <thead style="border-top-color: #ddd; border-top-width: 1px; border-top-style: solid;">
+                        <tr>
+                            <th width="20%">Group</th>
+                            <th width="60%">File Name</th>
+                            <th ng-show="Delete" width="20%">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in PageDetailsArray" class="tabletd">
+                            <td width="20%">
+                                <span>{{row.KMPgroup}}</span>
+                            </td>
+                            <td width="60%">
+                                <a href="{{row.KFileFullPath}}" ng-model="DownLoadFile" ng-show="Download" download>{{row.KFilename}}</a>
+                                <a href="#" ng-model="DownLoadFile" ng-show="!Download">{{row.KFilename}}</a>
+                            </td>
+                            <td ng-show="Delete" width="20%">
+                                <a href="#" ng-click="DeleteFiles(row)">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/CIRScripts/KMPController.js" type="text/javascript"></script>
+
